@@ -2,6 +2,7 @@
 We develop a code to emulate the 3D matter power spectrum and couple it to the DES weak lensing-galaxy clustering data. This data has been processed by:
 - Carlos
 - David
+
 and other colleagues at the university. In brief, once the scale cuts are applied, it consists of the following:
 ```
 Galaxy-Galaxy: 0 - 5 data points
@@ -53,8 +54,8 @@ where the first item consists of the procedures behind the data processing steps
 ### Libraries install so far
 ```
 pip install sacc
-
-pip install --upgrade "jax[cuda12_pip]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+pip install jaxlib
+pip install "jax[cpu]"
 ```
 
 ### To Do
