@@ -56,10 +56,17 @@ where the first item consists of the procedures behind the data processing steps
 pip install sacc
 pip install jaxlib
 pip install "jax[cpu]"
+pip install ml-collections
 ```
 
 ### To Do
 - GP emulator in JAX,
 - Functions to shift the $n(z)$ distributions,
 - Functions for computing power spectra,
-- Compression of the power spectra via the window function,
+- Compression of the power spectra via the window function
+
+### How to run code
+
+```
+python main.py --config=config.py:experiment --config.value=25
+```

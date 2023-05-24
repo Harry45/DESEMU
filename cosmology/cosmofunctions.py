@@ -8,4 +8,4 @@ Collaborators: D. Alonso and colleagues at Oxford
 import jax.numpy as jnp
 
 
-def calculate_a_factor(omega_matter, small_h):
+def calculate_a_factor(config, omega_matter, small_h):
