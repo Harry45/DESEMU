@@ -66,6 +66,7 @@ pip install ml-collections
 - Compression of the power spectra via the window function
 
 ### How to run code
+Example of how the final code will be run.
 
 ```
 python main.py --config=config.py:experiment --config.value=25
