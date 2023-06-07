@@ -57,6 +57,9 @@ pip install sacc
 pip install jaxlib
 pip install "jax[cpu]"
 pip install ml-collections
+pip install swig
+pip install camb
+pip install pyccl
 ```
 
 ### To Do
