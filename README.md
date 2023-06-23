@@ -60,13 +60,12 @@ pip install ml-collections
 pip install swig
 pip install camb
 pip install pyccl
+pip install torch torchvision torchaudio
 ```
 
 ### To Do
-- GP emulator in JAX,
-- Functions to shift the $n(z)$ distributions,
-- Functions for computing power spectra,
-- Compression of the power spectra via the window function
+- GP emulator
+- Blackjax
 
 ### How to run code
 Example of how the final code will be run.

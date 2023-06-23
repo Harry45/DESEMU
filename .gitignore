@@ -3,6 +3,7 @@
 .vscode
 reference/
 data/
+notebooks/gps/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
