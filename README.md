@@ -61,11 +61,17 @@ pip install swig
 pip install camb
 pip install pyccl
 pip install torch torchvision torchaudio
+pip install arviz
+pip install numpyro
 ```
 
 ### To Do
 - GP emulator
 - Blackjax
+
+### Reference
+- [An astronomer's introduction to NumPyro](https://dfm.io/posts/intro-to-numpyro/)
+- [Markov Chain Monte Carlo (MCMC)](https://num.pyro.ai/en/stable/mcmc.html)
 
 ### How to run code
 Example of how the final code will be run.
