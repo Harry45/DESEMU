@@ -353,8 +353,8 @@ if __name__ == "__main__":
             data, datacov, jax_nz_wl, bandwindow_ells, bandwindow_matrix
         )
 
-    NWARMUP = 20
-    NSAMPLES = 50
+    NWARMUP = 200
+    NSAMPLES = 5000
 
     nuts_kernel = NUTS(
         model,
