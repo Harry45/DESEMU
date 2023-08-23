@@ -1,0 +1,6 @@
+Compilation time 
+----------------
+
+https://forum.pyro.ai/t/how-to-time-just-the-mcmc-sampling-not-including-compile-time/4576
+
+https://github.com/pyro-ppl/numpyro/blob/benchmarks/benchmarks/hmm.py#L97

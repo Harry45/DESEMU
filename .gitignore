@@ -3,7 +3,9 @@
 .vscode
 data/
 notebooks/data/
-reference/
+reference/blackjax/
+reference/xCell-likelihoods/
+reference/papers/
 notebooks/gps/
 
 # Byte-compiled / optimized / DLL files
