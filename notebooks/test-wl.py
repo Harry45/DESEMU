@@ -1,5 +1,6 @@
 import os
-import sys
+
+# import sys
 import warnings
 import pickle
 import jax.numpy as jnp
@@ -12,7 +13,7 @@ from numpyro.infer import MCMC, NUTS, init_to_median
 from numpyro.handlers import seed
 
 # for JAX Cosmo
-sys.path.append("../reference/jax-cosmo/jax_cosmo-master/")
+# sys.path.append("../reference/jax-cosmo/jax_cosmo-master/")
 import jax_cosmo as jc
 import jax_cosmo.power as jcp
 
@@ -342,7 +343,7 @@ def model(data, covariance, jax_nz_wl, bandwindow_ells, bandwindow_matrix):
 
 
 if __name__ == "__main__":
-    saccfile = sacc.Sacc.load_fits("../data/cls_DESY1.fits")
+    saccfile = sacc.Sacc.load_fits("data/cls_DESY1.fits")
     jax_nz_wl = get_nz_wl(saccfile)
     saccfile_cut = scale_cuts(saccfile, lmin_wl=30, lmax_wl=2000)
     bandwindow_ells, bandwindow_matrix = extract_bandwindow(saccfile_cut, ellmax=3000)

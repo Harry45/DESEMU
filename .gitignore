@@ -1,12 +1,9 @@
 # our folders and files
 .ipynb_checkpoints
 .vscode
-data/
 notebooks/data/
-reference/blackjax/
-reference/xCell-likelihoods/
-reference/papers/
 notebooks/gps/
+ignore/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
