@@ -353,8 +353,8 @@ if __name__ == "__main__":
             data, datacov, jax_nz_wl, bandwindow_ells, bandwindow_matrix
         )
 
-    NWARMUP = 20
-    NSAMPLES = 50
+    NWARMUP = 200
+    NSAMPLES = 5000
 
     nuts_kernel = NUTS(
         model,
@@ -382,7 +382,7 @@ if __name__ == "__main__":
         bandwindow_matrix,
     )
 
-    pickle_save(mcmc, "samples", "mcmc_wl_emu_test")
+    pickle_save(mcmc, "samples", "mcmc_wl_emu")
     print("Sampling Complete")
-    testing = pickle_load("samples", "mcmc_wl_emu_test")
-    print(testing.get_samples())
+    # testing = pickle_load("samples", "mcmc_wl_emu")
+    # print(testing.get_samples())
