@@ -17,7 +17,7 @@ from numpyro.handlers import seed
 import jax_cosmo as jc
 import jax_cosmo.power as jcp
 
-jcp.USE_EMU = False
+jcp.USE_EMU = True
 warnings.filterwarnings("ignore")
 jax.config.update("jax_enable_x64", True)
 ZMAX = 2.0
@@ -353,8 +353,8 @@ if __name__ == "__main__":
             data, datacov, jax_nz_wl, bandwindow_ells, bandwindow_matrix
         )
 
-    NWARMUP = 200
-    NSAMPLES = 5000
+    NWARMUP = 20
+    NSAMPLES = 50
 
     nuts_kernel = NUTS(
         model,
@@ -368,8 +368,8 @@ if __name__ == "__main__":
         nuts_kernel,
         num_warmup=NWARMUP,
         num_samples=NSAMPLES,
-        num_chains=2,
-        chain_method="vectorized",
+        num_chains=1,
+        # chain_method="vectorized",
         progress_bar=True,
     )
 
@@ -382,7 +382,7 @@ if __name__ == "__main__":
         bandwindow_matrix,
     )
 
-    pickle_save(mcmc, "samples_test", "test_mcmc_1")
+    # pickle_save(mcmc, "samples_test", "test_mcmc_1")
     print("Sampling Complete")
     # testing = pickle_load("samples_test", "test_mcmc_1")
     # print(testing.get_samples())
