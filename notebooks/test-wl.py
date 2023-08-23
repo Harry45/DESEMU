@@ -382,7 +382,7 @@ if __name__ == "__main__":
         bandwindow_matrix,
     )
 
-    # pickle_save(mcmc, "samples_test", "test_mcmc_1")
+    pickle_save(mcmc, "samples", "mcmc_wl_emu_test")
     print("Sampling Complete")
     testing = pickle_load("samples", "mcmc_wl_emu_test")
     print(testing.get_samples())
