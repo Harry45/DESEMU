@@ -3,6 +3,7 @@
 .vscode
 notebooks/data/
 notebooks/gps/
+notebooks/samples/
 ignore/
 
 # Byte-compiled / optimized / DLL files
