@@ -368,7 +368,8 @@ if __name__ == "__main__":
         nuts_kernel,
         num_warmup=NWARMUP,
         num_samples=NSAMPLES,
-        num_chains=1,
+        num_chains=2,
+        chain_method="vectorized",
         progress_bar=True,
     )
 
