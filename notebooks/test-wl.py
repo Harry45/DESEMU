@@ -383,6 +383,6 @@ if __name__ == "__main__":
     )
 
     pickle_save(mcmc, "samples_test", "test_mcmc_1")
-
-    testing = pickle_load("samples_test", "test_mcmc_1")
-    print(testing.get_samples())
+    print("Sampling Complete")
+    # testing = pickle_load("samples_test", "test_mcmc_1")
+    # print(testing.get_samples())
