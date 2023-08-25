@@ -1,6 +1,4 @@
 import os
-
-# import sys
 import warnings
 import pickle
 import jax.numpy as jnp
@@ -12,33 +10,37 @@ import numpyro.distributions as dist
 from numpyro.infer import MCMC, NUTS, init_to_median
 from numpyro.handlers import seed
 
-# for JAX Cosmo
-# sys.path.append("../reference/jax-cosmo/jax_cosmo-master/")
+# for jax cosmo
 import jax_cosmo as jc
 import jax_cosmo.power as jcp
 
-jcp.USE_EMU = True
+jcp.USE_EMU = False
 warnings.filterwarnings("ignore")
 jax.config.update("jax_enable_x64", True)
 ZMAX = 2.0
 
 
-def get_nz_wl(sfile):
+def get_nz(sfile, tracertype="wl"):
     tracers_names = list(sfile.tracers.keys())
-    nbin_wl = sum(["DESwl__" in tracers_names[i] for i in range(len(tracers_names))])
 
-    nz_wl = list()
-    for i in range(nbin_wl):
-        name = f"DESwl__{i}"
+    if tracertype == "wl":
+        tname = "DESwl__"
+    else:
+        tname = "DESgc__"
+    nbin = sum([tname in tracers_names[i] for i in range(len(tracers_names))])
+
+    nz_distributions = list()
+    for i in range(nbin):
+        name = tname + str(i)
         distribution = sfile.tracers[name]
         jaxred = jc.redshift.custom_nz(
             distribution.z.astype("float64"),
             distribution.nz.astype("float64"),
             zmax=ZMAX,
         )
-        nz_wl.append(jaxred)
+        nz_distributions.append(jaxred)
 
-    return nz_wl
+    return nz_distributions
 
 
 def scale_cuts(sfile, lmin_wl=30, lmax_wl=2000):
@@ -99,7 +101,6 @@ def extract_bandwindow(sfile, ellmax=3000):
             ells, bandwindow = get_ells_bandwindow(
                 sfile, tracer_name_1, tracer_name_2, ellmax
             )
-            # record[key] = {'ells': ells, 'bandwindow': bandwindow}
             record.append(bandwindow)
 
     return ells, record
@@ -311,28 +312,34 @@ def model(data, covariance, jax_nz_wl, bandwindow_ells, bandwindow_matrix):
     a_ia = numpyro.sample("a_ia", dist.Uniform(-1, 1))
     eta = numpyro.sample("eta", dist.Uniform(-5.0, 5.0))
 
-    nz_wl_sys = [
-        jc.redshift.systematic_shift(nzi, dzi, zmax=ZMAX)
-        for nzi, dzi in zip(jax_nz_wl, dz_wl)
-    ]
-    b_ia = jc.bias.des_y1_ia_bias(a_ia, eta, 0.62)
-    probes_wl = [
-        jc.probes.WeakLensing(
-            nz_wl_sys, ia_bias=b_ia, multiplicative_bias=multiplicative
-        )
-    ]
-
-    # calculate the coarse power spectra for weak lensing
-    ells_coarse = jnp.geomspace(2, 3000, 30, dtype=jnp.float32)
-    idx_pairs_wl = get_index_pairs(nbin_wl, auto=False)
-    ps_wl = jc.angular_cl.angular_cl(
-        cosmo, ells_coarse, probes_wl, index_pairs=idx_pairs_wl
+    ia_params = [a_ia, eta]
+    parameters = get_params_vec(cosmo, multiplicative, dz_wl, ia_params)
+    wl_bandpowers = wl_bandpower_calculation(
+        parameters, jax_nz_wl, bandwindow_ells, bandwindow_matrix
     )
 
-    # get the bandpowers
-    wl_bandpowers = get_bandpowers(
-        bandwindow_ells, bandwindow_matrix, ells_coarse, ps_wl, nbin_wl
-    )
+    # nz_wl_sys = [
+    #     jc.redshift.systematic_shift(nzi, dzi, zmax=ZMAX)
+    #     for nzi, dzi in zip(jax_nz_wl, dz_wl)
+    # ]
+    # b_ia = jc.bias.des_y1_ia_bias(a_ia, eta, 0.62)
+    # probes_wl = [
+    #     jc.probes.WeakLensing(
+    #         nz_wl_sys, ia_bias=b_ia, multiplicative_bias=multiplicative
+    #     )
+    # ]
+
+    # # calculate the coarse power spectra for weak lensing
+    # ells_coarse = jnp.geomspace(2, 3000, 30, dtype=jnp.float32)
+    # idx_pairs_wl = get_index_pairs(nbin_wl, auto=False)
+    # ps_wl = jc.angular_cl.angular_cl(
+    #     cosmo, ells_coarse, probes_wl, index_pairs=idx_pairs_wl
+    # )
+
+    # # get the bandpowers
+    # wl_bandpowers = get_bandpowers(
+    #     bandwindow_ells, bandwindow_matrix, ells_coarse, ps_wl, nbin_wl
+    # )
 
     sampling_distribution = dist.MultivariateNormal(
         jnp.concatenate(wl_bandpowers), covariance_matrix=covariance
@@ -344,7 +351,7 @@ def model(data, covariance, jax_nz_wl, bandwindow_ells, bandwindow_matrix):
 
 if __name__ == "__main__":
     saccfile = sacc.Sacc.load_fits("data/cls_DESY1.fits")
-    jax_nz_wl = get_nz_wl(saccfile)
+    jax_nz_wl = get_nz(saccfile, tracertype="wl")
     saccfile_cut = scale_cuts(saccfile, lmin_wl=30, lmax_wl=2000)
     bandwindow_ells, bandwindow_matrix = extract_bandwindow(saccfile_cut, ellmax=3000)
     data, datacov = extract_data_covariance(saccfile_cut)
@@ -353,8 +360,8 @@ if __name__ == "__main__":
             data, datacov, jax_nz_wl, bandwindow_ells, bandwindow_matrix
         )
 
-    NWARMUP = 200
-    NSAMPLES = 5000
+    NWARMUP = 20
+    NSAMPLES = 5
 
     nuts_kernel = NUTS(
         model,
@@ -368,8 +375,8 @@ if __name__ == "__main__":
         nuts_kernel,
         num_warmup=NWARMUP,
         num_samples=NSAMPLES,
-        num_chains=2,
-        chain_method="vectorized",
+        num_chains=1,
+        # chain_method="vectorized",
         progress_bar=True,
     )
 
@@ -382,7 +389,7 @@ if __name__ == "__main__":
         bandwindow_matrix,
     )
 
-    pickle_save(mcmc, "samples", "mcmc_wl_emu")
+    # pickle_save(mcmc, "samples", "mcmc_wl_sim_test")
     print("Sampling Complete")
     # testing = pickle_load("samples", "mcmc_wl_emu")
     # print(testing.get_samples())
