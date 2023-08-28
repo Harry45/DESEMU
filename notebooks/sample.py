@@ -94,19 +94,3 @@ def main(_):
 
 if __name__ == "__main__":
     app.run(main)
-
-
-# ---------------------------------------------------------------------------------------------------------------------------------------------------
-# data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl = load_data(fname = 'cls_DESY1', kmax = 0.15, lmin_wl = 30, lmax_wl = 2000)
-
-# with seed(rng_seed=42):
-#     theory, logp = numpyro_model(data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl)
-
-# # use emulator or not
-# jc.power.USE_EMU = False
-# NWARMUP = 20
-# NSAMPLES = 5
-
-# mcmc_nuts = sampling_nuts(data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl)
-# mcmc_barker = sampling_barker(data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl)
-# mcmc_emcee = sampling_emcee(data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl)
