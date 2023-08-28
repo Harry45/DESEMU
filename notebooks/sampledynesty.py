@@ -74,9 +74,9 @@ def dynesty_prior(unit_cube):
 def dynesty_loglike(parameters):
     theory = jit_theory(parameters, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl)
     diff = data - theory
-    chi2 = diff @ precision @ diff
-    if not jnp.isfinite(chi2):
-        chi2 = 1E32
+    chi2 = diff @ newprec @ diff
+    isnan = jnp.isnan(chi2)
+    chi2 = jnp.where(isnan, 1E32, chi2)
     return -0.5*chi2
 
 parameter = get_test_param()
