@@ -4,3 +4,15 @@ We integrate an emulator of the linear matter power spectrum in JAX-COSMO and we
 2. NUTS
 3. Barker MH
 4. Nested Sampling (dynesty)
+
+For running `dynesty`:
+
+```
+python sampledynesty.py --config_ns=config.py:desyr1 --config_ns.dynesty.nlive=100
+```
+
+For running the other samplers (nuts, barker, emcee):
+
+```
+python sample.py --config=config.py:desyr1 --config.sampler=emcee --config.emcee.nsamples=10 --config.use_emu=True
+```
