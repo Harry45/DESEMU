@@ -84,9 +84,13 @@ def main(_):
 
     # run the sampler
     data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl = load_data(fname = 'cls_DESY1', kmax = 0.15, lmin_wl = 30, lmax_wl = 2000)
-    # mcmc_nuts = sampling_nuts(data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl, cfg)
-    # mcmc_barker = sampling_barker(data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl, cfg)
-    mcmc_emcee = sampling_emcee(data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl, cfg)
+
+    if cfg.sampler == 'nuts':
+        mcmc_nuts = sampling_nuts(data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl, cfg)
+    elif cfg.sampler == 'barker':
+        mcmc_barker = sampling_barker(data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl, cfg)
+    else:
+        mcmc_emcee = sampling_emcee(data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl, cfg)
 
 if __name__ == "__main__":
     app.run(main)
