@@ -89,7 +89,7 @@ def main(_):
         mcmc_nuts = sampling_nuts(data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl, cfg)
     elif cfg.sampler == 'barker':
         mcmc_barker = sampling_barker(data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl, cfg)
-    else:
+    elif cfg.sampler == 'emcee':
         mcmc_emcee = sampling_emcee(data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl, cfg)
 
 if __name__ == "__main__":
