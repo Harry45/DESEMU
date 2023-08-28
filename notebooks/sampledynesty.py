@@ -1,3 +1,7 @@
+from absl import flags, app
+from ml_collections.config_flags import config_flags
+from ml_collections.config_dict import ConfigDict
+
 import jax
 import jax.numpy as jnp
 import jax_cosmo as jc
@@ -7,10 +11,12 @@ from dynesty import NestedSampler
 from cosmology.bandpowers import get_bandpowers_theory, get_params_vec
 from sample import load_data
 
-data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl = load_data(fname = 'cls_DESY1', kmax = 0.15, lmin_wl = 30, lmax_wl = 2000)
-NLIVE = 1500
+FLAGS = flags.FLAGS
+config_flags.DEFINE_config_file("config_ns", None, "Main configuration file.")
 
-# --------------------------------------------------
+data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl = load_data(fname = 'cls_DESY1', kmax = 0.15, lmin_wl = 30, lmax_wl = 2000)
+
+
 @jax.jit
 def jit_theory(parameters, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl):
     return get_bandpowers_theory(parameters, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl)
@@ -79,8 +85,15 @@ def dynesty_loglike(parameters):
     chi2 = jnp.where(isnan, 1E32, chi2)
     return -0.5*chi2
 
-parameter = get_test_param()
-test_theory = jit_theory(parameter, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl)
-des_sampler = NestedSampler(dynesty_loglike, dynesty_prior, ndim=25, nlive=NLIVE)
-des_sampler.run_nested(maxiter = 200) # to remove this - dynesty should run until converged
-# pickle_save(des_sampler, 'samples', 'des_sampler_test')
+def main(_):
+    cfg = FLAGS.config_ns
+    parameter = get_test_param()
+    # python sampledynesty.py --config_ns=config.py:desyr1 --config_ns.dynesty.nlive=100
+    print(cfg.dynesty.nlive, cfg.dynesty.ndim)
+    # test_theory = jit_theory(parameter, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl)
+    # des_sampler = NestedSampler(dynesty_loglike, dynesty_prior, ndim=cfg.dynesty.ndim, nlive=cfg.dynesty.nlive)
+    # des_sampler.run_nested(maxiter = 200) # to remove this - dynesty should run until converged
+    # # pickle_save(des_sampler, 'samples', 'des_sampler_test')
+
+if __name__ == "__main__":
+    app.run(main)
