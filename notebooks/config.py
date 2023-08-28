@@ -5,6 +5,10 @@ def get_config(experiment) -> ConfigDict:
     config = ConfigDict()
     config.logname = "des-analysis"
     config.experiment = experiment
+    config.sampler = 'nuts' # 'nuts', 'barker', 'emcee'
+
+    # use emulator not (when sampling the posterior), otherwise EH is used.
+    config.use_emu = False
 
     # cosmological parameters
     config.cosmo = cosmo = ConfigDict()
@@ -59,5 +63,37 @@ def get_config(experiment) -> ConfigDict:
     emu.lr = 0.01
     emu.nrestart = 5
     emu.niter = 1000
+
+    # nuts settings
+    config.nuts = nuts = ConfigDict()
+    nuts.nwarmup = 20
+    nuts.nsamples = 5
+    nuts.stepsize = 0.1
+    nuts.nchain = 1
+    nuts.dense_mass = True
+    nuts.chainmethod = 'parallel'
+    nuts.rng = 253
+    nuts.max_tree_depth = 5
+
+    # barker settings
+    config.barker = barker = ConfigDict()
+    barker.nwarmup = 20
+    barker.nsamples = 5
+    barker.stepsize = 0.1
+    barker.nchain = 1
+    barker.dense_mass = True
+    barker.chainmethod = 'parallel'
+    barker.rng = 253
+
+    # emcee settings
+    config.emcee = emcee = ConfigDict()
+    emcee.nsamples = 10
+    emcee.rng = 0
+    emcee.eps = 1E-4
+
+    # dynesty settings
+    config.dynesty = dynesty = ConfigDict()
+    dynesty.nlive = 1500
+    dynesty.ndim = 25
 
     return config
