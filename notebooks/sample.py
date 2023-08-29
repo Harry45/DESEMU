@@ -1,7 +1,3 @@
-CUDA_VISIBLE_DEVICES = 1
-
-import os
-import pickle
 import jax
 import emcee
 import sacc
@@ -9,7 +5,6 @@ import jax_cosmo as jc
 import jax.numpy as jnp
 from absl import flags, app
 from ml_collections.config_flags import config_flags
-from ml_collections.config_dict import ConfigDict
 
 # numpyro
 from numpyro.infer import MCMC, NUTS, BarkerMH, init_to_median
@@ -24,6 +19,17 @@ from cosmology.bandpowers import (
     get_params_vec,
 )
 from cosmology.sampleemcee import jit_theory, emcee_logpost
+
+# settings for GPUs (people are always using the first one)
+jax.config.update("jax_default_device", jax.devices()[1])
+
+num_devices = jax.device_count()
+device_type = jax.devices()[0].device_kind
+
+print(f"jax version: {jax.__version__}")
+print(f"jaxlib version: {jaxlib.__version__}")
+print(f"Found {num_devices} JAX devices of type {device_type}.\n")
+
 
 FLAGS = flags.FLAGS
 config_flags.DEFINE_config_file("config", None, "Main configuration file.")
