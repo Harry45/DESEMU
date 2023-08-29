@@ -1,3 +1,5 @@
+CUDA_VISIBLE_DEVICES = 1
+
 import os
 import pickle
 import jax
@@ -10,10 +12,7 @@ from ml_collections.config_flags import config_flags
 from ml_collections.config_dict import ConfigDict
 
 # numpyro
-from numpyro.infer import MCMC, HMC, NUTS, BarkerMH, init_to_median
-from numpyro.handlers import seed
-from numpyro.infer import Predictive, SVI, Trace_ELBO
-import numpyro.infer.autoguide as autoguide
+from numpyro.infer import MCMC, NUTS, BarkerMH, init_to_median
 
 # our script
 from cosmology.samplenumpyro import numpyro_model
