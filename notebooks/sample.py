@@ -34,7 +34,7 @@ print("-" * 50)
 print(f"jax version: {jax.__version__}")
 print(f"jaxlib version: {jaxlib.__version__}")
 print(f"Found {num_devices} JAX devices of type {device_type}.")
-print(f"We are using GPU:{jax.devices()[GPU_NUMBER]}")
+print(f"We are using {jax.devices()[GPU_NUMBER]}")
 print("-" * 50)
 
 FLAGS = flags.FLAGS
@@ -92,6 +92,7 @@ def sampling_nuts(data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl,
         num_chains=cfg.nuts.nchain,
         chain_method=cfg.nuts.chainmethod,
         progress_bar=True,
+        jit_model_args=True,
     )
     mcmc_nuts.run(
         jax.random.PRNGKey(cfg.nuts.rng),
@@ -120,6 +121,7 @@ def sampling_barker(data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_w
         num_chains=cfg.barker.nchain,
         chain_method=cfg.barker.chainmethod,
         progress_bar=True,
+        jit_model_args=True,
     )
     mcmc_barker.run(
         jax.random.PRNGKey(cfg.barker.rng),
