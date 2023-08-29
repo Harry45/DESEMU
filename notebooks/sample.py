@@ -1,4 +1,4 @@
-GPU_NUMBER = 1
+GPU_NUMBER = 0
 
 import jax
 import jaxlib
@@ -33,7 +33,7 @@ from cosmology.sampleemcee import jit_theory, emcee_logpost
 print("-" * 50)
 print(f"jax version: {jax.__version__}")
 print(f"jaxlib version: {jaxlib.__version__}")
-print(f"Found {num_devices} JAX devices of type {device_type}.\n")
+print(f"Found {num_devices} JAX devices of type {device_type}.")
 print(f"We are using GPU:{jax.devices()[GPU_NUMBER]}")
 print("-" * 50)
 
