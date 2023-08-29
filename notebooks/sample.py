@@ -1,4 +1,5 @@
 import jax
+import jaxlib
 import emcee
 import sacc
 import jax_cosmo as jc
