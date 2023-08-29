@@ -1,5 +1,12 @@
 import jax
 import jaxlib
+
+# settings for GPUs (people are always using the first one)
+jax.config.update("jax_default_device", jax.devices()[1])
+num_devices = jax.device_count()
+device_type = jax.devices()[0].device_kind
+
+# other libraries
 import emcee
 import sacc
 import jax_cosmo as jc
@@ -21,11 +28,6 @@ from cosmology.bandpowers import (
 )
 from cosmology.sampleemcee import jit_theory, emcee_logpost
 
-# settings for GPUs (people are always using the first one)
-jax.config.update("jax_default_device", jax.devices()[1])
-
-num_devices = jax.device_count()
-device_type = jax.devices()[0].device_kind
 
 print(f"jax version: {jax.__version__}")
 print(f"jaxlib version: {jaxlib.__version__}")
