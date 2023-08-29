@@ -71,10 +71,9 @@ def load_data(fname="cls_DESY1", kmax=0.15, lmin_wl=30, lmax_wl=2000):
     saccfile_cut = scale_cuts(saccfile, kmax=kmax, lmin_wl=lmin_wl, lmax_wl=lmax_wl)
     bw_gc, bw_gc_wl, bw_wl = extract_bandwindow(saccfile_cut)
     data, covariance = extract_data_covariance(saccfile_cut)
-    precision = jnp.linalg.inv(covariance)
     newcov = covariance + jnp.eye(data.shape[0]) * 1e-18
-    newprec = jnp.linalg.inv(newcov)
-    return data, newprec, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl
+    precision = jnp.linalg.inv(newcov)
+    return data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl
 
 
 def sampling_nuts(data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl, cfg):
@@ -167,15 +166,15 @@ def main(_):
     )
 
     if cfg.sampler == "nuts":
-        mcmc_nuts = sampling_nuts(
+        mcmc = sampling_nuts(
             data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl, cfg
         )
     elif cfg.sampler == "barker":
-        mcmc_barker = sampling_barker(
+        mcmc = sampling_barker(
             data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl, cfg
         )
     elif cfg.sampler == "emcee":
-        mcmc_emcee = sampling_emcee(
+        mcmc = sampling_emcee(
             data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl, cfg
         )
 
