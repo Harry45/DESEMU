@@ -1,6 +1,7 @@
 import jax
 import jaxlib
-jax.config.update("jax_default_device", jax.devices()[1]
+
+jax.config.update("jax_default_device", jax.devices()[1])
 
 num_devices = jax.device_count()
 device_type = jax.devices()[0].device_kind
