@@ -5,7 +5,7 @@ def get_config(experiment) -> ConfigDict:
     config = ConfigDict()
     config.logname = "des-analysis"
     config.experiment = experiment
-    config.sampler = 'nuts' # 'nuts', 'barker', 'emcee'
+    config.sampler = "nuts"  # 'nuts', 'barker', 'emcee'
 
     # use emulator not (when sampling the posterior), otherwise EH is used.
     config.use_emu = False
@@ -71,7 +71,7 @@ def get_config(experiment) -> ConfigDict:
     nuts.stepsize = 0.1
     nuts.nchain = 1
     nuts.dense_mass = True
-    nuts.chainmethod = 'parallel'
+    nuts.chainmethod = "parallel"
     nuts.rng = 253
     nuts.max_tree_depth = 5
 
@@ -82,18 +82,21 @@ def get_config(experiment) -> ConfigDict:
     barker.stepsize = 0.1
     barker.nchain = 1
     barker.dense_mass = True
-    barker.chainmethod = 'parallel'
+    barker.chainmethod = "parallel"
     barker.rng = 253
 
     # emcee settings
     config.emcee = emcee = ConfigDict()
     emcee.nsamples = 10
     emcee.rng = 0
-    emcee.eps = 1E-4
+    emcee.eps = 1e-4
 
     # dynesty settings
     config.dynesty = dynesty = ConfigDict()
     dynesty.nlive = 1500
     dynesty.ndim = 25
+
+    # filename
+    config.samplername = "1"
 
     return config

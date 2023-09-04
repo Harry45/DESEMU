@@ -29,6 +29,7 @@ from cosmology.bandpowers import (
     get_params_vec,
 )
 from cosmology.sampleemcee import jit_theory, emcee_logpost
+from utils.helpers import pickle_save
 
 print("-" * 50)
 print(f"jax version: {jax.__version__}")
@@ -76,6 +77,15 @@ def load_data(fname="cls_DESY1", kmax=0.15, lmin_wl=30, lmax_wl=2000):
     return data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl
 
 
+def save_sampler(sampler, cfg):
+    if cfg.use_emu:
+        fname = f"emulator_{cfg.sampler}_{cfg.samplername}"
+    else:
+        fname = f"jaxcosmo_{cfg.sampler}_{cfg.samplername}"
+    pickle_save(sampler, "samples", fname)
+    pickle_save(cfg, "samples", "config_" + fname)
+
+
 def sampling_nuts(data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl, cfg):
     nuts_kernel = NUTS(
         numpyro_model,
@@ -103,6 +113,7 @@ def sampling_nuts(data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl,
         bw_gc_wl,
         bw_wl,
     )
+    save_sampler(mcmc_nuts, cfg)
     return mcmc_nuts
 
 
@@ -132,6 +143,7 @@ def sampling_barker(data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_w
         bw_gc_wl,
         bw_wl,
     )
+    save_sampler(mcmc_barker, cfg)
     return mcmc_barker
 
 
@@ -150,6 +162,7 @@ def sampling_emcee(data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl
         args=(data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl),
     )
     sampler.run_mcmc(pos, cfg.emcee.nsamples, progress=True)
+    save_sampler(sampler, cfg)
     return sampler
 
 
