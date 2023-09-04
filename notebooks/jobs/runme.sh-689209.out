@@ -1,0 +1,19 @@
+=========================================================
+Job submitted date = Mon Sep 4 14:56:38 BST 2023
+1 nodes ( processes per node )
+1 hosts used: gpu01
+Job output begins
+-----------------
+
+usage: conda [-h] [--no-plugins] [-V] COMMAND ...
+conda: error: argument COMMAND: invalid choice: 'activate' (choose from 'clean', 'compare', 'config', 'create', 'info', 'init', 'install', 'list', 'notices', 'package', 'remove', 'uninstall', 'rename', 'run', 'search', 'update', 'upgrade', 'doctor', 'inspect', 'content-trust', 'token', 'metapackage', 'convert', 'skeleton', 'verify', 'repo', 'render', 'env', 'index', 'server', 'debug', 'build', 'pack', 'develop')
+Traceback (most recent call last):
+  File "/mnt/zfsusers/phys2286/projects/DESEMU/notebooks/sample.py", line 3, in <module>
+    import jax
+ModuleNotFoundError: No module named 'jax'
+---------------
+Job output ends
+=========================================================
+PBS job: finished date = Mon Sep 4 14:56:43 BST 2023
+Total run time : 0 Hours 0 Minutes 1 Seconds
+=========================================================

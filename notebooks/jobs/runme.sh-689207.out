@@ -1,0 +1,21 @@
+=========================================================
+Job submitted date = Mon Sep 4 14:53:49 BST 2023
+1 nodes ( processes per node )
+1 hosts used: gpu01
+Job output begins
+-----------------
+
+usage: conda [-h] [--no-plugins] [-V] COMMAND ...
+conda: error: argument COMMAND: invalid choice: 'activate' (choose from 'clean', 'compare', 'config', 'create', 'info', 'init', 'install', 'list', 'notices', 'package', 'remove', 'uninstall', 'rename', 'run', 'search', 'update', 'upgrade', 'doctor', 'skeleton', 'content-trust', 'repo', 'verify', 'server', 'pack', 'render', 'index', 'token', 'build', 'develop', 'convert', 'inspect', 'debug', 'metapackage', 'env')
+Traceback (most recent call last):
+  File "/mnt/zfsusers/phys2286/projects/DESEMU/notebooks/sample.py", line 3, in <module>
+    import jax
+ModuleNotFoundError: No module named 'jax'
+usage: conda [-h] [--no-plugins] [-V] COMMAND ...
+conda: error: argument COMMAND: invalid choice: 'deactivate' (choose from 'clean', 'compare', 'config', 'create', 'info', 'init', 'install', 'list', 'notices', 'package', 'remove', 'uninstall', 'rename', 'run', 'search', 'update', 'upgrade', 'doctor', 'debug', 'develop', 'repo', 'convert', 'content-trust', 'server', 'index', 'metapackage', 'pack', 'verify', 'env', 'token', 'build', 'skeleton', 'render', 'inspect')
+---------------
+Job output ends
+=========================================================
+PBS job: finished date = Mon Sep 4 14:53:51 BST 2023
+Total run time : 0 Hours 0 Minutes 1 Seconds
+=========================================================
