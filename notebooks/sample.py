@@ -4,16 +4,16 @@ import jax
 import jaxlib
 
 # settings for GPUs (people are always using the first one)
-# jax.config.update("jax_default_device", jax.devices()[GPU_NUMBER])
-# num_devices = jax.device_count()
-# device_type = jax.devices()[0].device_kind
+jax.config.update("jax_default_device", jax.devices()[GPU_NUMBER])
+num_devices = jax.device_count()
+device_type = jax.devices()[0].device_kind
 
-# print("-" * 50)
-# print(f"jax version: {jax.__version__}")
-# print(f"jaxlib version: {jaxlib.__version__}")
-# print(f"Found {num_devices} JAX devices of type {device_type}.")
-# print(f"We are using {jax.devices()[GPU_NUMBER]}")
-# print("-" * 50)
+print("-" * 50)
+print(f"jax version: {jax.__version__}")
+print(f"jaxlib version: {jaxlib.__version__}")
+print(f"Found {num_devices} JAX devices of type {device_type}.")
+print(f"We are using {jax.devices()[GPU_NUMBER]}")
+print("-" * 50)
 
 # other libraries
 import emcee
