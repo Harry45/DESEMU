@@ -31,3 +31,12 @@ def pickle_load(folder: str, fname: str):
     with open(path + ".pkl", "rb") as dummy:
         file = pickle.load(dummy)
     return file
+
+
+def save_sampler(sampler, cfg):
+    if cfg.use_emu:
+        fname = f"emulator_{cfg.sampler}_{cfg.samplername}"
+    else:
+        fname = f"jaxcosmo_{cfg.sampler}_{cfg.samplername}"
+    pickle_save(sampler, "samples", fname)
+    pickle_save(cfg, "samples", "config_" + fname)

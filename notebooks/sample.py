@@ -29,7 +29,7 @@ from cosmology.bandpowers import (
     get_params_vec,
 )
 from cosmology.sampleemcee import jit_theory, emcee_logpost
-from utils.helpers import pickle_save
+from utils.helpers import save_sampler
 
 print("-" * 50)
 print(f"jax version: {jax.__version__}")
@@ -75,15 +75,6 @@ def load_data(fname="cls_DESY1", kmax=0.15, lmin_wl=30, lmax_wl=2000):
     newcov = covariance + jnp.eye(data.shape[0]) * 1e-18
     precision = jnp.linalg.inv(newcov)
     return data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl
-
-
-def save_sampler(sampler, cfg):
-    if cfg.use_emu:
-        fname = f"emulator_{cfg.sampler}_{cfg.samplername}"
-    else:
-        fname = f"jaxcosmo_{cfg.sampler}_{cfg.samplername}"
-    pickle_save(sampler, "samples", fname)
-    pickle_save(cfg, "samples", "config_" + fname)
 
 
 def sampling_nuts(data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl, cfg):
