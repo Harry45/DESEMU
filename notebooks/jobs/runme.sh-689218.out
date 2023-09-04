@@ -1,0 +1,39 @@
+grep: .bashrc: No such file or directory
+ERROR: Unable to locate a modulefile for 'mpich3'
+ERROR: Unable to locate a modulefile for 'pgplot'
+=========================================================
+Job submitted date = Mon Sep 4 15:27:36 BST 2023
+1 nodes ( processes per node )
+1 hosts used: gpu01
+Job output begins
+-----------------
+
+--------------------------------------------------
+jax version: 0.4.14
+jaxlib version: 0.4.14
+Found 1 JAX devices of type NVIDIA GeForce RTX 2080 Ti.
+We are using gpu:0
+--------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/zfsusers/phys2286/projects/DESEMU/notebooks/sample.py", line 21, in <module>
+    import jax_cosmo as jc
+  File "/mnt/zfsusers/phys2286/projects/DESEMU/notebooks/jax_cosmo/__init__.py", line 11, in <module>
+    import jax_cosmo.angular_cl as cl
+  File "/mnt/zfsusers/phys2286/projects/DESEMU/notebooks/jax_cosmo/angular_cl.py", line 11, in <module>
+    import jax_cosmo.power as power
+  File "/mnt/zfsusers/phys2286/projects/DESEMU/notebooks/jax_cosmo/power.py", line 55, in <module>
+    QUANT_PKLIN = [load_pkl(PATH_QUANT, f"pklin_{i}") for i in range(NK)]
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/zfsusers/phys2286/projects/DESEMU/notebooks/jax_cosmo/power.py", line 55, in <listcomp>
+    QUANT_PKLIN = [load_pkl(PATH_QUANT, f"pklin_{i}") for i in range(NK)]
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/zfsusers/phys2286/projects/DESEMU/notebooks/jax_cosmo/utils.py", line 43, in load_pkl
+    with open(folder_name + "/" + file_name + ".pkl", "rb") as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'quantities/pklin_0.pkl'
+---------------
+Job output ends
+=========================================================
+PBS job: finished date = Mon Sep 4 15:27:42 BST 2023
+Total run time : 0 Hours 0 Minutes 2 Seconds
+=========================================================
