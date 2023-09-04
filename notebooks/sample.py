@@ -1,4 +1,4 @@
-GPU_NUMBER = 1
+GPU_NUMBER = 0
 
 import jax
 import jaxlib
