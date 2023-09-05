@@ -120,7 +120,6 @@ def extract_bandwindow(sfile):
     record_gc = []
     for i in range(nbin_gc):
         tracer_name = f"DESgc__{i}"
-        key = f"{tracer_name},{tracer_name}"
         ells_gc, bandwindow = get_ells_bandwindow(
             sfile, tracer_name, tracer_name, ELLMAX_GC
         )
@@ -132,7 +131,6 @@ def extract_bandwindow(sfile):
         for j in range(nbin_wl):
             tracer_name_1 = f"DESgc__{i}"
             tracer_name_2 = f"DESwl__{j}"
-            key = f"{tracer_name_1},{tracer_name_2}"
             ells_gc_wl, bandwindow = get_ells_bandwindow(
                 sfile, tracer_name_1, tracer_name_2, ELLMAX_GC
             )
@@ -144,7 +142,6 @@ def extract_bandwindow(sfile):
         for j in range(i, nbin_wl):
             tracer_name_1 = f"DESwl__{i}"
             tracer_name_2 = f"DESwl__{j}"
-            key = f"{tracer_name_1},{tracer_name_2}"
             ells_wl, bandwindow = get_ells_bandwindow(
                 sfile, tracer_name_1, tracer_name_2, ELLMAX_WL
             )
