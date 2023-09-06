@@ -123,7 +123,7 @@ def sampling_barker(data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_w
         num_chains=cfg.barker.nchain,
         chain_method=cfg.barker.chainmethod,
         progress_bar=True,
-        jit_model_args=True,
+        jit_model_args=False,
     )
     mcmc_barker.run(
         jax.random.PRNGKey(cfg.barker.rng),
