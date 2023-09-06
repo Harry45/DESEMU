@@ -116,6 +116,7 @@ def sampling_barker(data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_w
         step_size=cfg.barker.stepsize,
         init_strategy=init_to_median,
         dense_mass=cfg.barker.dense_mass,
+        target_accept_prob=0.8,
         adapt_step_size=True,
         adapt_mass_matrix=False,
     )
