@@ -24,6 +24,7 @@ from absl import flags, app
 from ml_collections.config_flags import config_flags
 
 # numpyro
+import numpyro
 from numpyro.infer import MCMC, NUTS, BarkerMH, init_to_median
 
 # our script
@@ -38,7 +39,7 @@ from cosmology.bandpowers import (
 from cosmology.sampleemcee import jit_theory, emcee_logpost
 from utils.helpers import save_sampler
 
-
+numpyro.enable_x64()
 FLAGS = flags.FLAGS
 config_flags.DEFINE_config_file("config", None, "Main configuration file.")
 
@@ -115,6 +116,8 @@ def sampling_barker(data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_w
         step_size=cfg.barker.stepsize,
         init_strategy=init_to_median,
         dense_mass=cfg.barker.dense_mass,
+        adapt_step_size=True,
+        adapt_mass_matrix=False,
     )
     mcmc_barker = MCMC(
         barker_kernel,
