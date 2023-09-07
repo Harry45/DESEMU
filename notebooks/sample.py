@@ -1,19 +1,10 @@
-GPU_NUMBER = 0
-
+# jax
 import jax
 import jaxlib
 
-# settings for GPUs (people are always using the first one)
-jax.config.update("jax_default_device", jax.devices()[GPU_NUMBER])
-num_devices = jax.device_count()
-device_type = jax.devices()[0].device_kind
-
-print("-" * 50)
-print(f"jax version: {jax.__version__}")
-print(f"jaxlib version: {jaxlib.__version__}")
-print(f"Found {num_devices} JAX devices of type {device_type}.")
-print(f"We are using {jax.devices()[GPU_NUMBER]}")
-print("-" * 50)
+# numpyro
+import numpyro
+from numpyro.infer import MCMC, NUTS, BarkerMH, init_to_median
 
 # other libraries
 import emcee
@@ -23,12 +14,11 @@ import jax.numpy as jnp
 from absl import flags, app
 from ml_collections.config_flags import config_flags
 
-# numpyro
-import numpyro
-from numpyro.infer import MCMC, NUTS, BarkerMH, init_to_median
-
 # our script
 from cosmology.samplenumpyro import numpyro_model
+from cosmology.sampleemcee import jit_theory, emcee_logpost
+from cosmology.cclbandpowers import ccl_logpost
+from utils.helpers import save_sampler
 from cosmology.bandpowers import (
     get_nz,
     scale_cuts,
@@ -36,12 +26,25 @@ from cosmology.bandpowers import (
     extract_data_covariance,
     get_params_vec,
 )
-from cosmology.sampleemcee import jit_theory, emcee_logpost
-from utils.helpers import save_sampler
+
+
+# settings for GPUs (people are always using the first one)
+GPU_NUMBER = 0
+jax.config.update("jax_default_device", jax.devices()[GPU_NUMBER])
+num_devices = jax.device_count()
+device_type = jax.devices()[0].device_kind
 
 numpyro.enable_x64()
 FLAGS = flags.FLAGS
 config_flags.DEFINE_config_file("config", None, "Main configuration file.")
+
+print("-" * 50)
+print(f"jax version: {jax.__version__}")
+print(f"jaxlib version: {jaxlib.__version__}")
+print(f"numpyro version: {numpyro.__version__}")
+print(f"Found {num_devices} JAX devices of type {device_type}.")
+print(f"We are using {jax.devices()[GPU_NUMBER]}")
+print("-" * 50)
 
 
 def get_test_param():
@@ -162,6 +165,26 @@ def sampling_emcee(data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl
     return sampler
 
 
+def ccl_sampling_emcee(
+    data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl, cfg
+):
+    parameter = get_test_param()
+    nparams = len(parameter)
+    pos = parameter + cfg.ccl.eps * jax.random.normal(
+        jax.random.PRNGKey(cfg.ccl.rng), (2 * nparams, nparams)
+    )
+    nwalkers, ndim = pos.shape
+    sampler = emcee.EnsembleSampler(
+        nwalkers,
+        ndim,
+        ccl_logpost,
+        args=(data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl),
+    )
+    sampler.run_mcmc(pos, cfg.ccl.nsamples, progress=True)
+    save_sampler(sampler, cfg)
+    return sampler
+
+
 def main(_):
     """
     Run the main sampling code and stores the samples.
@@ -184,6 +207,10 @@ def main(_):
         )
     elif cfg.sampler == "emcee":
         mcmc = sampling_emcee(
+            data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl, cfg
+        )
+    elif cfg.sampler == "cclemcee":
+        mcmc = ccl_sampling_emcee(
             data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl, cfg
         )
 

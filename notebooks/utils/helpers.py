@@ -34,9 +34,13 @@ def pickle_load(folder: str, fname: str):
 
 
 def save_sampler(sampler, cfg):
-    if cfg.use_emu:
-        fname = f"emulator_{cfg.sampler}_{cfg.samplername}"
+    if cfg.sampler == "cclemcee":
+        fname = f"{cfg.sampler}_{cfg.samplername}"
     else:
-        fname = f"jaxcosmo_{cfg.sampler}_{cfg.samplername}"
+        if cfg.use_emu:
+            fname = f"emulator_{cfg.sampler}_{cfg.samplername}"
+
+        else:
+            fname = f"jaxcosmo_{cfg.sampler}_{cfg.samplername}"
     pickle_save(sampler, "samples", fname)
     pickle_save(cfg, "samples", "config_" + fname)

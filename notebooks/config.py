@@ -5,7 +5,7 @@ def get_config(experiment) -> ConfigDict:
     config = ConfigDict()
     config.logname = "des-analysis"
     config.experiment = experiment
-    config.sampler = "nuts"  # 'nuts', 'barker', 'emcee'
+    config.sampler = "nuts"  # 'nuts', 'barker', 'emcee', 'cclemcee'
 
     # use emulator not (when sampling the posterior), otherwise EH is used.
     config.use_emu = False
@@ -95,6 +95,12 @@ def get_config(experiment) -> ConfigDict:
     config.dynesty = dynesty = ConfigDict()
     dynesty.nlive = 1500
     dynesty.ndim = 25
+
+    # sampling using EMCEE and CCL
+    config.ccl = ccl = ConfigDict()
+    ccl.eps = 1e-4
+    ccl.nsamples = 10
+    ccl.rng = 0
 
     # filename
     config.samplername = "1"
