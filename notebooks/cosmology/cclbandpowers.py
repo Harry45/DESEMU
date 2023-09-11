@@ -32,7 +32,7 @@ def run_simulator(cosmology):
             h=cosmology.h.item(),
             sigma8=cosmology.sigma8.item(),
             n_s=cosmology.n_s.item(),
-            transfer_function="boltzmann_class",
+            transfer_function="boltzmann_camb",
         )
     except:
         ccl_cosmo = None
