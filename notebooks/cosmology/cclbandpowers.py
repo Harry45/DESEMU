@@ -17,10 +17,27 @@ ELLMIN = 2
 NELL = 30
 ELLMAX_GC = 300
 ELLMAX_WL = 3000
+BAD_PS = 1e32
 
 
 def intrinsic_alignment(redshift, amplitude, eta, redshift_fixed=0.62):
     return amplitude * ((1 + redshift) / (1 + redshift_fixed)) ** eta
+
+
+def run_simulator(cosmology):
+    try:
+        ccl_cosmo = ccl.Cosmology(
+            Omega_c=cosmology.Omega_c.item(),
+            Omega_b=cosmology.Omega_b.item(),
+            h=cosmology.h.item(),
+            sigma8=cosmology.sigma8.item(),
+            n_s=cosmology.n_s.item(),
+            transfer_function="boltzmann_class",
+        )
+    except:
+        ccl_cosmo = None
+
+    return ccl_cosmo
 
 
 class cosmoclass:
@@ -37,15 +54,6 @@ class cosmoclass:
         self.a_ia_param = a_ia_param
         self.eta_param = eta_param
 
-        self.ccl_cosmo = ccl.Cosmology(
-            Omega_c=self.cosmo.Omega_c.item(),
-            Omega_b=self.cosmo.Omega_b.item(),
-            h=self.cosmo.h.item(),
-            sigma8=self.cosmo.sigma8.item(),
-            n_s=self.cosmo.n_s.item(),
-            transfer_function="boltzmann_class",
-        )
-
         self.nz_wl_sys = [
             jc.redshift.systematic_shift(nzi, dzi)
             for nzi, dzi in zip(jax_nz_wl, self.deltaz_wl)
@@ -59,6 +67,8 @@ class cosmoclass:
 
         self.nbin_gc = len(self.deltaz_gc)
         self.nbin_wl = len(self.deltaz_wl)
+
+        self.ccl_cosmo = run_simulator(self.cosmo)
 
 
 def ccl_wl_powerspectra(
@@ -81,17 +91,20 @@ def ccl_wl_powerspectra(
             A_IA_i = intrinsic_alignment(z_i, a_ia_param, eta_param)
             A_IA_j = intrinsic_alignment(z_j, a_ia_param, eta_param)
 
-            t1 = ccl.WeakLensingTracer(
-                ccl_cosmo, dndz=(z_i, nz_i), has_shear=True, ia_bias=(z_i, A_IA_i)
-            )
-            t2 = ccl.WeakLensingTracer(
-                ccl_cosmo, dndz=(z_j, nz_j), has_shear=True, ia_bias=(z_j, A_IA_j)
-            )
-            cl = (
-                ccl.angular_cl(ccl_cosmo, t1, t2, ells_coarse_wl)
-                * (1.0 + m_i)
-                * (1.0 + m_j)
-            )
+            if ccl_cosmo is not None:
+                t1 = ccl.WeakLensingTracer(
+                    ccl_cosmo, dndz=(z_i, nz_i), has_shear=True, ia_bias=(z_i, A_IA_i)
+                )
+                t2 = ccl.WeakLensingTracer(
+                    ccl_cosmo, dndz=(z_j, nz_j), has_shear=True, ia_bias=(z_j, A_IA_j)
+                )
+                cl = (
+                    ccl.angular_cl(ccl_cosmo, t1, t2, ells_coarse_wl)
+                    * (1.0 + m_i)
+                    * (1.0 + m_j)
+                )
+            else:
+                cl = jnp.ones_like(ells_coarse_wl) * BAD_PS
 
             cl_wl_ccl.append(cl)
     return cl_wl_ccl
@@ -104,10 +117,17 @@ def ccl_gc_powerspectra(nz_gc_sys, bias, ccl_cosmo, ells_coarse_gc):
         redshift = nz_gc_sys[i].params[0].params[0]
         z_dist = nz_gc_sys[i].pz_fn(redshift)
         bias_i = bias[i].item() * np.ones_like(redshift)
-        tracer = ccl.tracers.NumberCountsTracer(
-            ccl_cosmo, dndz=(redshift, z_dist), bias=(redshift, bias_i), has_rsd=False
-        )
-        cl = ccl.angular_cl(ccl_cosmo, tracer, tracer, ells_coarse_gc)
+
+        if ccl_cosmo is not None:
+            tracer = ccl.tracers.NumberCountsTracer(
+                ccl_cosmo,
+                dndz=(redshift, z_dist),
+                bias=(redshift, bias_i),
+                has_rsd=False,
+            )
+            cl = ccl.angular_cl(ccl_cosmo, tracer, tracer, ells_coarse_gc)
+        else:
+            cl = jnp.ones_like(ells_coarse_gc) * BAD_PS
 
         cl_gc_ccl.append(cl)
     return cl_gc_ccl
@@ -132,23 +152,25 @@ def ccl_gc_wl_powerspectra(
             # galaxy clustering
             z_i = nz_gc_sys[i].params[0].params[0]
             nz_i = nz_gc_sys[i].pz_fn(z_i)
-
             b_i = bias[i].item() * np.ones_like(z_i)
-            t_i = ccl.tracers.NumberCountsTracer(
-                ccl_cosmo, dndz=(z_i, nz_i), bias=(z_i, b_i), has_rsd=False
-            )
 
             # weak lensing
             z_j = nz_wl_sys[j].params[0].params[0]
             nz_j = nz_wl_sys[j].pz_fn(z_j)
-
             m_j = multiplicative[j].item()
             A_IA_j = intrinsic_alignment(z_j, a_ia_param, eta_param)
-            t_j = ccl.WeakLensingTracer(
-                ccl_cosmo, dndz=(z_j, nz_j), has_shear=True, ia_bias=(z_j, A_IA_j)
-            )
 
-            cl = ccl.angular_cl(ccl_cosmo, t_i, t_j, ells_coarse_gc) * (1.0 + m_j)
+            if ccl_cosmo is not None:
+                t_i = ccl.tracers.NumberCountsTracer(
+                    ccl_cosmo, dndz=(z_i, nz_i), bias=(z_i, b_i), has_rsd=False
+                )
+                t_j = ccl.WeakLensingTracer(
+                    ccl_cosmo, dndz=(z_j, nz_j), has_shear=True, ia_bias=(z_j, A_IA_j)
+                )
+                cl = ccl.angular_cl(ccl_cosmo, t_i, t_j, ells_coarse_gc) * (1.0 + m_j)
+            else:
+                cl = jnp.ones_like(ells_coarse_gc) * BAD_PS
+
             cl_gc_wl_ccl.append(cl)
     return cl_gc_wl_ccl
 
