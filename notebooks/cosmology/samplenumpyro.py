@@ -6,6 +6,7 @@ import jax_cosmo as jc
 # our scripts
 from cosmology.bandpowers import get_params_vec, get_bandpowers_theory
 
+
 def numpyro_model(data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl):
     #  Cosmological params
     sigma8 = numpyro.sample("sigma8", dist.Uniform(0.6, 1.0))
