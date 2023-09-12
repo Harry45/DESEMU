@@ -79,10 +79,10 @@ def get_config(experiment) -> ConfigDict:
     config.barker = barker = ConfigDict()
     barker.nwarmup = 20
     barker.nsamples = 5
-    barker.stepsize = 1.25e-3
+    barker.stepsize = 5e-3
     barker.nchain = 1
     barker.dense_mass = True
-    barker.chainmethod = "parallel"
+    barker.chainmethod = "sequential"
     barker.rng = 250
 
     # emcee settings
