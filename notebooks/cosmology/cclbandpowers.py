@@ -247,12 +247,16 @@ def ccl_get_bandpowers_theory(cosmolib, bw_gc, bw_gc_wl, bw_wl):
 def ccl_likelihood(
     parameters, data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl
 ):
-    cosmolib = cosmoclass(parameters, jax_nz_wl, jax_nz_gc)
-    ccl_theory = ccl_get_bandpowers_theory(cosmolib, bw_gc, bw_gc_wl, bw_wl)
-    difference = data - ccl_theory
-    chi_square = difference @ precision @ difference
-    if not jnp.isfinite(chi_square):
+    logprior = emcee_logprior(parameters)
+    if logprior == -1e32:
         chi_square = 1e32
+    else:
+        cosmolib = cosmoclass(parameters, jax_nz_wl, jax_nz_gc)
+        ccl_theory = ccl_get_bandpowers_theory(cosmolib, bw_gc, bw_gc_wl, bw_wl)
+        difference = data - ccl_theory
+        chi_square = difference @ precision @ difference
+        if not jnp.isfinite(chi_square):
+            chi_square = 1e32
     return -0.5 * chi_square
 
 

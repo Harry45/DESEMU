@@ -100,7 +100,7 @@ def get_config(experiment) -> ConfigDict:
     config.ccl = ccl = ConfigDict()
     ccl.eps = 1e-4
     ccl.nsamples = 10
-    ccl.rng = 0
+    ccl.rng = 10
 
     # filename
     config.samplername = "1"

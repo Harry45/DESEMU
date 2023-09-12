@@ -4,20 +4,26 @@ import jax.numpy as jnp
 # our script
 from cosmology.bandpowers import get_bandpowers_theory
 
+
 @jax.jit
 def jit_theory(parameters, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl):
-    return get_bandpowers_theory(parameters, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl)
+    return get_bandpowers_theory(
+        parameters, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl
+    )
 
-def emcee_loglike(parameters, data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl):
+
+def emcee_loglike(
+    parameters, data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl
+):
     theory = jit_theory(parameters, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl)
     diff = data - theory
     chi2 = diff @ precision @ diff
     if not jnp.isfinite(chi2):
-        chi2 = 1E32
-    return -0.5*chi2
+        chi2 = 1e32
+    return -0.5 * chi2
+
 
 def emcee_logprior(parameters):
-
     # cosmological parameters
     logp_sigma8 = jax.scipy.stats.uniform.logpdf(parameters[0], 0.60, 0.40)
     logp_omegac = jax.scipy.stats.uniform.logpdf(parameters[1], 0.14, 0.21)
@@ -60,13 +66,27 @@ def emcee_logprior(parameters):
     logp_shifts_wl = logp_dz_wl_1 + logp_dz_wl_2 + logp_dz_wl_3 + logp_dz_wl_4
     logp_intrinsic = logp_a_ia + logp_eta
     logp_bias = logp_b1 + logp_b2 + logp_b3 + logp_b4 + logp_b5
-    logp_shifts_gc = logp_dz_gc_1 + logp_dz_gc_2 + logp_dz_gc_3 + logp_dz_gc_4 + logp_dz_gc_5
-    logp = logp_cosmology + logp_multiplicative + logp_shifts_wl + logp_intrinsic + logp_bias + logp_shifts_gc
+    logp_shifts_gc = (
+        logp_dz_gc_1 + logp_dz_gc_2 + logp_dz_gc_3 + logp_dz_gc_4 + logp_dz_gc_5
+    )
+    logp = (
+        logp_cosmology
+        + logp_multiplicative
+        + logp_shifts_wl
+        + logp_intrinsic
+        + logp_bias
+        + logp_shifts_gc
+    )
     if not jnp.isfinite(logp):
-        logp = -1E32
+        logp = -1e32
     return logp
 
-def emcee_logpost(parameters, data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl):
-    loglike = emcee_loglike(parameters, data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl)
+
+def emcee_logpost(
+    parameters, data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl
+):
+    loglike = emcee_loglike(
+        parameters, data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl
+    )
     logprior = emcee_logprior(parameters)
     return loglike + logprior
