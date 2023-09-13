@@ -1,3 +1,4 @@
+import jax
 import jax.numpy as jnp
 import jax_cosmo as jc
 import numpy as np
@@ -11,6 +12,8 @@ from cosmology.bandpowers import (
     get_bandpowers_gc_wl,
     get_bandpowers_wl,
 )
+
+jax.config.update("jax_enable_x64", True)
 
 ZMAX = 2.0
 ELLMIN = 2
