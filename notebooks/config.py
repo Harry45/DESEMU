@@ -5,7 +5,7 @@ def get_config(experiment) -> ConfigDict:
     config = ConfigDict()
     config.logname = "des-analysis"
     config.experiment = experiment
-    config.sampler = "nuts"  # 'nuts', 'barker', 'emcee', 'cclemcee'
+    config.sampler = "nuts"  # 'nuts', 'barker', 'emcee'
 
     # use emulator not (when sampling the posterior), otherwise EH is used.
     config.use_emu = False

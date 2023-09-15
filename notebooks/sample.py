@@ -165,26 +165,6 @@ def sampling_emcee(data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl
     return sampler
 
 
-def ccl_sampling_emcee(
-    data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl, cfg
-):
-    parameter = get_test_param()
-    nparams = len(parameter)
-    pos = parameter + cfg.ccl.eps * jax.random.normal(
-        jax.random.PRNGKey(cfg.ccl.rng), (2 * nparams, nparams)
-    )
-    nwalkers, ndim = pos.shape
-    sampler = emcee.EnsembleSampler(
-        nwalkers,
-        ndim,
-        ccl_logpost,
-        args=(data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl),
-    )
-    sampler.run_mcmc(pos, cfg.ccl.nsamples, progress=True)
-    save_sampler(sampler, cfg)
-    return sampler
-
-
 def main(_):
     """
     Run the main sampling code and stores the samples.
@@ -207,10 +187,6 @@ def main(_):
         )
     elif cfg.sampler == "emcee":
         mcmc = sampling_emcee(
-            data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl, cfg
-        )
-    elif cfg.sampler == "cclemcee":
-        mcmc = ccl_sampling_emcee(
             data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl, cfg
         )
 
