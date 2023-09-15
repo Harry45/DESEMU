@@ -1,3 +1,8 @@
+import jax
+
+jax.config.update("jax_platform_name", "cpu")
+print(f"The default device being used is {jax.default_backend()}")
+
 import emcee
 import numpy as np
 from absl import flags, app
@@ -11,6 +16,7 @@ from cosmology.cclbandpowers import (
     ccl_get_test_param,
     ccl_logpost,
 )
+
 
 FLAGS = flags.FLAGS
 config_flags.DEFINE_config_file("configccl", None, "Main configuration file.")

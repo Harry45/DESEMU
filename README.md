@@ -31,5 +31,5 @@ python sampledynesty.py --config_ns=config.py:desyr1 --config.sampler=ns --confi
 For running the EMCEE sampler with CCL:
 
 ```
-python sampleccl.py --configccl=config.py:desyr1 --configccl.ccl.nsamples=2 --configccl.samplername=test
+python sampleccl.py --configccl=config.py:desyr1 --configccl.sampler=cclemcee --configccl.ccl.nsamples=2 --configccl.samplername=test
 ```
