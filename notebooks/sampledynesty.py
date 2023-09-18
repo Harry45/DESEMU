@@ -15,6 +15,7 @@ from utils.helpers import save_sampler
 FLAGS = flags.FLAGS
 config_flags.DEFINE_config_file("config_ns", None, "Main configuration file.")
 
+
 data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl = load_data(
     fname="cls_DESY1", kmax=0.15, lmin_wl=30, lmax_wl=2000
 )
@@ -107,8 +108,8 @@ def dynesty_loglike(parameters):
 
 def main(_):
     cfg = FLAGS.config_ns
+    jc.power.USE_EMU = cfg.use_emu
     parameter = get_test_param()
-    print(cfg.dynesty.nlive, cfg.dynesty.ndim)
     test_theory = jit_theory(parameter, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl)
     des_sampler = NestedSampler(
         dynesty_loglike, dynesty_prior, ndim=cfg.dynesty.ndim, nlive=cfg.dynesty.nlive
