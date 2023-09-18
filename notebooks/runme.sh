@@ -21,19 +21,19 @@ conda activate /mnt/zfsusers/phys2286/anaconda3/envs/jaxcosmo
 
 ## Dynesty
 SECONDS=0
-python sampledynesty.py --config_ns=config.py:desyr1 --config.sampler=ns --config.use_emu=False --config_ns.dynesty.nlive=1500 --config.samplername=1
+python sampledynesty.py --config_ns=config.py:desyr1 --config_ns.sampler=ns --config_ns.use_emu=False --config_ns.dynesty.nlive=1500 --config_ns.samplername=1
 echo "Elapsed time: $((SECONDS/3600))h $(((SECONDS/60)%60))m $((SECONDS%60))s"
 
 SECONDS=0
-python sampledynesty.py --config_ns=config.py:desyr1 --config.sampler=ns --config.use_emu=False --config_ns.dynesty.nlive=1500 --config.samplername=2
+python sampledynesty.py --config_ns=config.py:desyr1 --config_ns.sampler=ns --config_ns.use_emu=False --config_ns.dynesty.nlive=1500 --config_ns.samplername=2
 echo "Elapsed time: $((SECONDS/3600))h $(((SECONDS/60)%60))m $((SECONDS%60))s"
 
 SECONDS=0
-python sampledynesty.py --config_ns=config.py:desyr1 --config.sampler=ns --config.use_emu=True --config_ns.dynesty.nlive=1500 --config.samplername=1
+python sampledynesty.py --config_ns=config.py:desyr1 --config_ns.sampler=ns --config_ns.use_emu=True --config_ns.dynesty.nlive=1500 --config_ns.samplername=1
 echo "Elapsed time: $((SECONDS/3600))h $(((SECONDS/60)%60))m $((SECONDS%60))s"
 
 SECONDS=0
-python sampledynesty.py --config_ns=config.py:desyr1 --config.sampler=ns --config.use_emu=True --config_ns.dynesty.nlive=1500 --config.samplername=2
+python sampledynesty.py --config_ns=config.py:desyr1 --config_ns.sampler=ns --config_ns.use_emu=True --config_ns.dynesty.nlive=1500 --config_ns.samplername=2
 echo "Elapsed time: $((SECONDS/3600))h $(((SECONDS/60)%60))m $((SECONDS%60))s"
 
 ## CCL and EMCEE
