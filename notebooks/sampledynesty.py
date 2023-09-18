@@ -110,10 +110,12 @@ def main(_):
     cfg = FLAGS.config_ns
     parameter = get_test_param()
     print(cfg.dynesty.nlive, cfg.dynesty.ndim)
-    # test_theory = jit_theory(parameter, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl)
-    # des_sampler = NestedSampler(dynesty_loglike, dynesty_prior, ndim=cfg.dynesty.ndim, nlive=cfg.dynesty.nlive)
-    # des_sampler.run_nested(maxiter = 200) # to remove this - dynesty should run until converged
-    # save_sampler(des_sampler, cfg)
+    test_theory = jit_theory(parameter, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl)
+    des_sampler = NestedSampler(
+        dynesty_loglike, dynesty_prior, ndim=cfg.dynesty.ndim, nlive=cfg.dynesty.nlive
+    )
+    des_sampler.run_nested()
+    save_sampler(des_sampler, cfg)
 
 
 if __name__ == "__main__":
