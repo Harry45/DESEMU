@@ -1,6 +1,5 @@
 from absl import flags, app
 from ml_collections.config_flags import config_flags
-from ml_collections.config_dict import ConfigDict
 
 import jax
 import jax.numpy as jnp
