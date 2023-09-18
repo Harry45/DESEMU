@@ -604,7 +604,7 @@ Cosmology
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.33
+1.49
 \end_layout
 
 \end_inset
@@ -613,7 +613,7 @@ Cosmology
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.56
+1.35
 \end_layout
 
 \end_inset
@@ -622,7 +622,7 @@ Cosmology
 \begin_inset Text
 
 \begin_layout Plain Layout
-9.14
+6.48
 \end_layout
 
 \end_inset
@@ -631,7 +631,7 @@ Cosmology
 \begin_inset Text
 
 \begin_layout Plain Layout
-4.73
+8.87
 \end_layout
 
 \end_inset
@@ -771,7 +771,7 @@ Cosmology
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.73
+1.21
 \end_layout
 
 \end_inset
@@ -780,7 +780,7 @@ Cosmology
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.91
+1.01
 \end_layout
 
 \end_inset
@@ -789,7 +789,7 @@ Cosmology
 \begin_inset Text
 
 \begin_layout Plain Layout
-6.19
+10.78
 \end_layout
 
 \end_inset
@@ -798,7 +798,7 @@ Cosmology
 \begin_inset Text
 
 \begin_layout Plain Layout
-5.88
+41.67
 \end_layout
 
 \end_inset
@@ -956,7 +956,7 @@ Cosmology
 \begin_inset Text
 
 \begin_layout Plain Layout
-17.88
+11.90
 \end_layout
 
 \end_inset
@@ -965,7 +965,7 @@ Cosmology
 \begin_inset Text
 
 \begin_layout Plain Layout
-17.82
+11.34
 \end_layout
 
 \end_inset
@@ -1105,7 +1105,7 @@ Cosmology
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.65
+1.43
 \end_layout
 
 \end_inset
@@ -1114,7 +1114,7 @@ Cosmology
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.99
+1.61
 \end_layout
 
 \end_inset
@@ -1123,7 +1123,7 @@ Cosmology
 \begin_inset Text
 
 \begin_layout Plain Layout
-6.37
+8.10
 \end_layout
 
 \end_inset
@@ -1132,7 +1132,7 @@ Cosmology
 \begin_inset Text
 
 \begin_layout Plain Layout
-3.96
+8.11
 \end_layout
 
 \end_inset
@@ -1272,7 +1272,7 @@ Cosmology
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.11
+1.13
 \end_layout
 
 \end_inset
@@ -1281,7 +1281,7 @@ Cosmology
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.77
+1.05
 \end_layout
 
 \end_inset
@@ -1290,7 +1290,7 @@ Cosmology
 \begin_inset Text
 
 \begin_layout Plain Layout
-10.70
+8.99
 \end_layout
 
 \end_inset
@@ -1299,7 +1299,7 @@ Cosmology
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.90
+13.06
 \end_layout
 
 \end_inset
@@ -1457,7 +1457,7 @@ Multiplicative
 \begin_inset Text
 
 \begin_layout Plain Layout
-218.10
+3463.49
 \end_layout
 
 \end_inset
@@ -1466,7 +1466,7 @@ Multiplicative
 \begin_inset Text
 
 \begin_layout Plain Layout
-396.92
+2100.02
 \end_layout
 
 \end_inset
@@ -1624,7 +1624,7 @@ Multiplicative
 \begin_inset Text
 
 \begin_layout Plain Layout
-279.11
+3188.36
 \end_layout
 
 \end_inset
@@ -1633,7 +1633,7 @@ Multiplicative
 \begin_inset Text
 
 \begin_layout Plain Layout
-494.82
+2086.72
 \end_layout
 
 \end_inset
@@ -1773,7 +1773,7 @@ Multiplicative
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.09
+1.01
 \end_layout
 
 \end_inset
@@ -1782,7 +1782,7 @@ Multiplicative
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.04
+1.00
 \end_layout
 
 \end_inset
@@ -1791,7 +1791,7 @@ Multiplicative
 \begin_inset Text
 
 \begin_layout Plain Layout
-95.34
+2053.72
 \end_layout
 
 \end_inset
@@ -1800,7 +1800,7 @@ Multiplicative
 \begin_inset Text
 
 \begin_layout Plain Layout
-413.85
+1453.72
 \end_layout
 
 \end_inset
@@ -1940,7 +1940,7 @@ Multiplicative
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.03
+1.01
 \end_layout
 
 \end_inset
@@ -1949,7 +1949,7 @@ Multiplicative
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.02
+1.00
 \end_layout
 
 \end_inset
@@ -1958,7 +1958,7 @@ Multiplicative
 \begin_inset Text
 
 \begin_layout Plain Layout
-351.03
+2462.37
 \end_layout
 
 \end_inset
@@ -1967,7 +1967,7 @@ Multiplicative
 \begin_inset Text
 
 \begin_layout Plain Layout
-468.91
+1685.12
 \end_layout
 
 \end_inset
@@ -2107,6 +2107,15 @@ Shifts (WL)
 \begin_inset Text
 
 \begin_layout Plain Layout
+1.02
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 1.01
 \end_layout
 
@@ -2116,7 +2125,7 @@ Shifts (WL)
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.00
+885.64
 \end_layout
 
 \end_inset
@@ -2125,16 +2134,7 @@ Shifts (WL)
 \begin_inset Text
 
 \begin_layout Plain Layout
-759.65
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-1282.42
+807.58
 \end_layout
 
 \end_inset
@@ -2292,7 +2292,7 @@ Shifts (WL)
 \begin_inset Text
 
 \begin_layout Plain Layout
-966.26
+10863.74
 \end_layout
 
 \end_inset
@@ -2301,7 +2301,7 @@ Shifts (WL)
 \begin_inset Text
 
 \begin_layout Plain Layout
-1566.08
+7078.01
 \end_layout
 
 \end_inset
@@ -2450,7 +2450,7 @@ Shifts (WL)
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.01
+1.02
 \end_layout
 
 \end_inset
@@ -2459,7 +2459,7 @@ Shifts (WL)
 \begin_inset Text
 
 \begin_layout Plain Layout
-1260.82
+2439.80
 \end_layout
 
 \end_inset
@@ -2468,7 +2468,7 @@ Shifts (WL)
 \begin_inset Text
 
 \begin_layout Plain Layout
-1638.28
+1182.63
 \end_layout
 
 \end_inset
@@ -2617,7 +2617,7 @@ Shifts (WL)
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.01
+1.02
 \end_layout
 
 \end_inset
@@ -2626,7 +2626,7 @@ Shifts (WL)
 \begin_inset Text
 
 \begin_layout Plain Layout
-412.87
+1491.92
 \end_layout
 
 \end_inset
@@ -2635,7 +2635,7 @@ Shifts (WL)
 \begin_inset Text
 
 \begin_layout Plain Layout
-578.60
+859.00
 \end_layout
 
 \end_inset
@@ -2775,7 +2775,7 @@ Intrinsic Alignment
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.48
+1.24
 \end_layout
 
 \end_inset
@@ -2784,7 +2784,7 @@ Intrinsic Alignment
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.53
+1.25
 \end_layout
 
 \end_inset
@@ -2793,7 +2793,7 @@ Intrinsic Alignment
 \begin_inset Text
 
 \begin_layout Plain Layout
-6.60
+9.02
 \end_layout
 
 \end_inset
@@ -2802,7 +2802,7 @@ Intrinsic Alignment
 \begin_inset Text
 
 \begin_layout Plain Layout
-6.81
+7.64
 \end_layout
 
 \end_inset
@@ -2942,7 +2942,7 @@ Intrinsic Alignment
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.26
+2.45
 \end_layout
 
 \end_inset
@@ -2951,7 +2951,7 @@ Intrinsic Alignment
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.73
+2.15
 \end_layout
 
 \end_inset
@@ -2960,7 +2960,7 @@ Intrinsic Alignment
 \begin_inset Text
 
 \begin_layout Plain Layout
-8.32
+5.24
 \end_layout
 
 \end_inset
@@ -2969,7 +2969,7 @@ Intrinsic Alignment
 \begin_inset Text
 
 \begin_layout Plain Layout
-6.16
+5.36
 \end_layout
 
 \end_inset
@@ -3109,7 +3109,7 @@ Galaxy bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.54
+1.13
 \end_layout
 
 \end_inset
@@ -3118,7 +3118,7 @@ Galaxy bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.34
+1.06
 \end_layout
 
 \end_inset
@@ -3127,7 +3127,7 @@ Galaxy bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-6.38
+32.48
 \end_layout
 
 \end_inset
@@ -3136,7 +3136,7 @@ Galaxy bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-7.37
+39.49
 \end_layout
 
 \end_inset
@@ -3276,7 +3276,7 @@ Galaxy bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.06
+1.32
 \end_layout
 
 \end_inset
@@ -3285,7 +3285,7 @@ Galaxy bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.17
+1.29
 \end_layout
 
 \end_inset
@@ -3294,7 +3294,7 @@ Galaxy bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-24.29
+10.53
 \end_layout
 
 \end_inset
@@ -3303,7 +3303,7 @@ Galaxy bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-10.22
+14.39
 \end_layout
 
 \end_inset
@@ -3443,7 +3443,7 @@ Galaxy bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.16
+1.28
 \end_layout
 
 \end_inset
@@ -3452,7 +3452,7 @@ Galaxy bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.24
+1.21
 \end_layout
 
 \end_inset
@@ -3461,7 +3461,7 @@ Galaxy bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-7.17
+9.77
 \end_layout
 
 \end_inset
@@ -3470,7 +3470,7 @@ Galaxy bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-7.00
+16.99
 \end_layout
 
 \end_inset
@@ -3610,7 +3610,7 @@ Galaxy bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.27
+1.30
 \end_layout
 
 \end_inset
@@ -3619,7 +3619,7 @@ Galaxy bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.67
+1.23
 \end_layout
 
 \end_inset
@@ -3628,7 +3628,7 @@ Galaxy bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-8.70
+10.52
 \end_layout
 
 \end_inset
@@ -3637,7 +3637,7 @@ Galaxy bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-3.52
+10.94
 \end_layout
 
 \end_inset
@@ -3777,7 +3777,7 @@ Galaxy bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.40
+1.30
 \end_layout
 
 \end_inset
@@ -3786,7 +3786,7 @@ Galaxy bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.12
+1.33
 \end_layout
 
 \end_inset
@@ -3795,7 +3795,7 @@ Galaxy bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-5.24
+10.42
 \end_layout
 
 \end_inset
@@ -3804,7 +3804,7 @@ Galaxy bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-10.41
+10.85
 \end_layout
 
 \end_inset
@@ -3944,7 +3944,7 @@ Shifts (GC)
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.13
+1.00
 \end_layout
 
 \end_inset
@@ -3953,7 +3953,7 @@ Shifts (GC)
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.09
+1.00
 \end_layout
 
 \end_inset
@@ -3962,7 +3962,7 @@ Shifts (GC)
 \begin_inset Text
 
 \begin_layout Plain Layout
-18.55
+1578.74
 \end_layout
 
 \end_inset
@@ -3971,7 +3971,7 @@ Shifts (GC)
 \begin_inset Text
 
 \begin_layout Plain Layout
-23.64
+1672.30
 \end_layout
 
 \end_inset
@@ -4111,7 +4111,7 @@ Shifts (GC)
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.01
+1.00
 \end_layout
 
 \end_inset
@@ -4120,7 +4120,7 @@ Shifts (GC)
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.01
+1.00
 \end_layout
 
 \end_inset
@@ -4129,7 +4129,7 @@ Shifts (GC)
 \begin_inset Text
 
 \begin_layout Plain Layout
-400.31
+3100.59
 \end_layout
 
 \end_inset
@@ -4138,7 +4138,7 @@ Shifts (GC)
 \begin_inset Text
 
 \begin_layout Plain Layout
-672.30
+2746.75
 \end_layout
 
 \end_inset
@@ -4296,7 +4296,7 @@ Shifts (GC)
 \begin_inset Text
 
 \begin_layout Plain Layout
-722.67
+6386.17
 \end_layout
 
 \end_inset
@@ -4305,7 +4305,7 @@ Shifts (GC)
 \begin_inset Text
 
 \begin_layout Plain Layout
-2534.72
+3542.15
 \end_layout
 
 \end_inset
@@ -4463,7 +4463,7 @@ Shifts (GC)
 \begin_inset Text
 
 \begin_layout Plain Layout
-419.21
+3877.96
 \end_layout
 
 \end_inset
@@ -4472,7 +4472,7 @@ Shifts (GC)
 \begin_inset Text
 
 \begin_layout Plain Layout
-777.92
+3095.35
 \end_layout
 
 \end_inset
@@ -4612,7 +4612,7 @@ Shifts (GC)
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.03
+1.00
 \end_layout
 
 \end_inset
@@ -4621,7 +4621,7 @@ Shifts (GC)
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.02
+1.00
 \end_layout
 
 \end_inset
@@ -4630,7 +4630,7 @@ Shifts (GC)
 \begin_inset Text
 
 \begin_layout Plain Layout
-72.89
+5039.44
 \end_layout
 
 \end_inset
@@ -4639,7 +4639,7 @@ Shifts (GC)
 \begin_inset Text
 
 \begin_layout Plain Layout
-145.49
+5183.86
 \end_layout
 
 \end_inset
@@ -4714,14 +4714,14 @@ Sampler diagnostics - NUTS (
 \end_inset
 
 , time ~ 4 hours), Barker (
-\begin_inset Formula $N_{\textrm{samples}}=15000$
+\begin_inset Formula $N_{\textrm{samples}}=150000$
 \end_inset
 
-, time ~ 45 minutes)
-\begin_inset Formula $ $
+, 
+\begin_inset Formula $N_{\textrm{walkers}}=1000,$
 \end_inset
 
- 
+time ~ 6 hours 45 minutes) 
 \end_layout
 
 \end_inset
@@ -5257,7 +5257,7 @@ Cosmology
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.791
+0.819
 \end_layout
 
 \end_inset
@@ -5266,7 +5266,7 @@ Cosmology
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.016
+0.030
 \end_layout
 
 \end_inset
@@ -5275,7 +5275,7 @@ Cosmology
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.785
+0.799
 \end_layout
 
 \end_inset
@@ -5284,7 +5284,7 @@ Cosmology
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.018
+0.029
 \end_layout
 
 \end_inset
@@ -5424,7 +5424,7 @@ Cosmology
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.247
+0.238
 \end_layout
 
 \end_inset
@@ -5433,7 +5433,7 @@ Cosmology
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.010
+0.013
 \end_layout
 
 \end_inset
@@ -5442,7 +5442,7 @@ Cosmology
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.249
+0.240
 \end_layout
 
 \end_inset
@@ -5451,7 +5451,7 @@ Cosmology
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.010
+0.011
 \end_layout
 
 \end_inset
@@ -5591,7 +5591,7 @@ Cosmology
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.043
+0.045
 \end_layout
 
 \end_inset
@@ -5600,7 +5600,7 @@ Cosmology
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.001
+0.003
 \end_layout
 
 \end_inset
@@ -5609,7 +5609,7 @@ Cosmology
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.043
+0.047
 \end_layout
 
 \end_inset
@@ -5618,7 +5618,7 @@ Cosmology
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.001
+0.003
 \end_layout
 
 \end_inset
@@ -5758,7 +5758,7 @@ Cosmology
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.713
+0.727
 \end_layout
 
 \end_inset
@@ -5767,7 +5767,7 @@ Cosmology
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.008
+0.018
 \end_layout
 
 \end_inset
@@ -5776,7 +5776,7 @@ Cosmology
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.698
+0.721
 \end_layout
 
 \end_inset
@@ -5785,7 +5785,7 @@ Cosmology
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.014
+0.015
 \end_layout
 
 \end_inset
@@ -5925,7 +5925,7 @@ Cosmology
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.982
+0.950
 \end_layout
 
 \end_inset
@@ -5934,7 +5934,7 @@ Cosmology
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.006
+0.022
 \end_layout
 
 \end_inset
@@ -5943,7 +5943,7 @@ Cosmology
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.984
+0.959
 \end_layout
 
 \end_inset
@@ -5952,7 +5952,7 @@ Cosmology
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.011
+0.016
 \end_layout
 
 \end_inset
@@ -6092,7 +6092,7 @@ Multiplicative
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.015
+0.012
 \end_layout
 
 \end_inset
@@ -6101,7 +6101,7 @@ Multiplicative
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.024
+0.023
 \end_layout
 
 \end_inset
@@ -6119,7 +6119,7 @@ Multiplicative
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.024
+0.023
 \end_layout
 
 \end_inset
@@ -6259,7 +6259,7 @@ Multiplicative
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.010
+0.012
 \end_layout
 
 \end_inset
@@ -6268,7 +6268,7 @@ Multiplicative
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.022
+0.023
 \end_layout
 
 \end_inset
@@ -6426,25 +6426,7 @@ Multiplicative
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.024
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-0.022
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-0.023
+0.019
 \end_layout
 
 \end_inset
@@ -6454,6 +6436,24 @@ Multiplicative
 
 \begin_layout Plain Layout
 0.021
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.020
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.022
 \end_layout
 
 \end_inset
@@ -6593,7 +6593,7 @@ Multiplicative
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.015
+0.009
 \end_layout
 
 \end_inset
@@ -6602,7 +6602,7 @@ Multiplicative
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.022
+0.021
 \end_layout
 
 \end_inset
@@ -6611,7 +6611,7 @@ Multiplicative
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.013
+0.010
 \end_layout
 
 \end_inset
@@ -6760,7 +6760,7 @@ Shifts (WL)
 \begin_inset Text
 
 \begin_layout Plain Layout
--0.004
+-0.001
 \end_layout
 
 \end_inset
@@ -6769,7 +6769,7 @@ Shifts (WL)
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.014
+0.015
 \end_layout
 
 \end_inset
@@ -6778,7 +6778,7 @@ Shifts (WL)
 \begin_inset Text
 
 \begin_layout Plain Layout
--0.003
+-0.002
 \end_layout
 
 \end_inset
@@ -6787,7 +6787,7 @@ Shifts (WL)
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.014
+0.015
 \end_layout
 
 \end_inset
@@ -6927,7 +6927,7 @@ Shifts (WL)
 \begin_inset Text
 
 \begin_layout Plain Layout
--0.030
+-0.028
 \end_layout
 
 \end_inset
@@ -6936,7 +6936,7 @@ Shifts (WL)
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.012
+0.011
 \end_layout
 
 \end_inset
@@ -6945,7 +6945,7 @@ Shifts (WL)
 \begin_inset Text
 
 \begin_layout Plain Layout
--0.030
+-0.027
 \end_layout
 
 \end_inset
@@ -6954,7 +6954,7 @@ Shifts (WL)
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.012
+0.011
 \end_layout
 
 \end_inset
@@ -7112,7 +7112,7 @@ Shifts (WL)
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.008
+0.009
 \end_layout
 
 \end_inset
@@ -7261,7 +7261,7 @@ Shifts (WL)
 \begin_inset Text
 
 \begin_layout Plain Layout
--0.017
+-0.020
 \end_layout
 
 \end_inset
@@ -7279,7 +7279,7 @@ Shifts (WL)
 \begin_inset Text
 
 \begin_layout Plain Layout
--0.016
+-0.019
 \end_layout
 
 \end_inset
@@ -7288,7 +7288,7 @@ Shifts (WL)
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.020
+0.019
 \end_layout
 
 \end_inset
@@ -7428,7 +7428,7 @@ Intrinsic Alignment
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.109
+0.550
 \end_layout
 
 \end_inset
@@ -7437,7 +7437,7 @@ Intrinsic Alignment
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.164
+0.120
 \end_layout
 
 \end_inset
@@ -7446,7 +7446,7 @@ Intrinsic Alignment
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.121
+0.568
 \end_layout
 
 \end_inset
@@ -7455,7 +7455,7 @@ Intrinsic Alignment
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.171
+0.122
 \end_layout
 
 \end_inset
@@ -7595,7 +7595,7 @@ Intrinsic Alignment
 \begin_inset Text
 
 \begin_layout Plain Layout
--0.820
+0.104
 \end_layout
 
 \end_inset
@@ -7604,7 +7604,7 @@ Intrinsic Alignment
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.457
+1.820
 \end_layout
 
 \end_inset
@@ -7613,7 +7613,7 @@ Intrinsic Alignment
 \begin_inset Text
 
 \begin_layout Plain Layout
--1.593
+0.381
 \end_layout
 
 \end_inset
@@ -7622,7 +7622,7 @@ Intrinsic Alignment
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.739
+1.487
 \end_layout
 
 \end_inset
@@ -7762,7 +7762,7 @@ Galaxy bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.540
+1.419
 \end_layout
 
 \end_inset
@@ -7771,7 +7771,7 @@ Galaxy bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.140
+0.084
 \end_layout
 
 \end_inset
@@ -7780,7 +7780,7 @@ Galaxy bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.538
+1.447
 \end_layout
 
 \end_inset
@@ -7789,7 +7789,7 @@ Galaxy bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.135
+0.075
 \end_layout
 
 \end_inset
@@ -7929,7 +7929,7 @@ Galaxy bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.823
+1.742
 \end_layout
 
 \end_inset
@@ -7938,7 +7938,7 @@ Galaxy bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.064
+0.076
 \end_layout
 
 \end_inset
@@ -7947,7 +7947,7 @@ Galaxy bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.810
+1.774
 \end_layout
 
 \end_inset
@@ -7956,7 +7956,7 @@ Galaxy bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.064
+0.070
 \end_layout
 
 \end_inset
@@ -8096,7 +8096,7 @@ Galaxy bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.773
+1.696
 \end_layout
 
 \end_inset
@@ -8105,7 +8105,7 @@ Galaxy bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.059
+0.071
 \end_layout
 
 \end_inset
@@ -8114,7 +8114,7 @@ Galaxy bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.773
+1.728
 \end_layout
 
 \end_inset
@@ -8123,7 +8123,7 @@ Galaxy bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.056
+0.066
 \end_layout
 
 \end_inset
@@ -8263,7 +8263,7 @@ Galaxy bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-2.217
+2.096
 \end_layout
 
 \end_inset
@@ -8272,7 +8272,7 @@ Galaxy bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.058
+0.089
 \end_layout
 
 \end_inset
@@ -8281,7 +8281,7 @@ Galaxy bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-2.218
+2.136
 \end_layout
 
 \end_inset
@@ -8290,7 +8290,7 @@ Galaxy bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.057
+0.091
 \end_layout
 
 \end_inset
@@ -8430,7 +8430,7 @@ Galaxy bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-2.134
+2.138
 \end_layout
 
 \end_inset
@@ -8439,7 +8439,7 @@ Galaxy bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.220
+0.098
 \end_layout
 
 \end_inset
@@ -8448,7 +8448,7 @@ Galaxy bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-2.168
+2.180
 \end_layout
 
 \end_inset
@@ -8457,7 +8457,7 @@ Galaxy bias
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.187
+0.098
 \end_layout
 
 \end_inset
@@ -8597,7 +8597,7 @@ Shifts (GC)
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.002
+0.000
 \end_layout
 
 \end_inset
@@ -8606,7 +8606,7 @@ Shifts (GC)
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.008
+0.007
 \end_layout
 
 \end_inset
@@ -8615,7 +8615,7 @@ Shifts (GC)
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.002
+0.000
 \end_layout
 
 \end_inset
@@ -8624,7 +8624,7 @@ Shifts (GC)
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.008
+0.007
 \end_layout
 
 \end_inset
@@ -8764,7 +8764,7 @@ Shifts (GC)
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.002
+0.001
 \end_layout
 
 \end_inset
@@ -8931,7 +8931,7 @@ Shifts (GC)
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.001
+0.003
 \end_layout
 
 \end_inset
@@ -8949,7 +8949,7 @@ Shifts (GC)
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.001
+0.002
 \end_layout
 
 \end_inset
@@ -9098,7 +9098,7 @@ Shifts (GC)
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.003
+0.002
 \end_layout
 
 \end_inset
@@ -9107,7 +9107,7 @@ Shifts (GC)
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.010
+0.009
 \end_layout
 
 \end_inset
@@ -9116,7 +9116,7 @@ Shifts (GC)
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.004
+0.002
 \end_layout
 
 \end_inset
@@ -9125,7 +9125,7 @@ Shifts (GC)
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.010
+0.009
 \end_layout
 
 \end_inset
@@ -9265,7 +9265,7 @@ Shifts (GC)
 \begin_inset Text
 
 \begin_layout Plain Layout
--0.003
+-0.001
 \end_layout
 
 \end_inset
@@ -9274,7 +9274,7 @@ Shifts (GC)
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.011
+0.010
 \end_layout
 
 \end_inset
@@ -9283,7 +9283,7 @@ Shifts (GC)
 \begin_inset Text
 
 \begin_layout Plain Layout
--0.003
+-0.001
 \end_layout
 
 \end_inset
