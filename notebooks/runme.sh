@@ -1,8 +1,35 @@
-#!/bin/bash
-source /mnt/zfsusers/phys2286/anaconda3/etc/profile.d/conda.sh
-conda activate /mnt/zfsusers/phys2286/anaconda3/envs/jaxcosmo
+# #!/bin/bash
+# source /mnt/zfsusers/phys2286/anaconda3/etc/profile.d/conda.sh
+# conda activate jaxcosmo
+which python
+echo $(for i in $(seq 1 50); do printf "-"; done)
 
-echo Sampling with EMCEE
+echo Sampling with CCL and EMCEE
+echo $(for i in $(seq 1 100); do printf "-"; done)
+date_start=`date +%s`
+python sampleccl.py --configccl=config.py:desyr1 --configccl.sampler=cclemcee --configccl.ccl.nsamples=10000 --configccl.samplername=camb_1
+date_end=`date +%s`
+seconds=$((date_end-date_start))
+minutes=$((seconds/60))
+seconds=$((seconds-60*minutes))
+hours=$((minutes/60))
+minutes=$((minutes-60*hours))
+echo Total run time : $hours Hours $minutes Minutes $seconds Seconds
+echo $(for i in $(seq 1 100); do printf "-"; done)
+
+echo $(for i in $(seq 1 100); do printf "-"; done)
+date_start=`date +%s`
+python sampleccl.py --configccl=config.py:desyr1 --configccl.sampler=cclemcee --configccl.ccl.nsamples=10000 --configccl.samplername=camb_2
+date_end=`date +%s`
+seconds=$((date_end-date_start))
+minutes=$((seconds/60))
+seconds=$((seconds-60*minutes))
+hours=$((minutes/60))
+minutes=$((minutes-60*hours))
+echo Total run time : $hours Hours $minutes Minutes $seconds Seconds
+echo $(for i in $(seq 1 100); do printf "-"; done)
+
+# echo Sampling with EMCEE
 # echo $(for i in $(seq 1 100); do printf "-"; done)
 # date_start=`date +%s`
 # python sample.py --config=config.py:desyr1 --config.sampler=emcee --config.emcee.nsamples=10000 --config.use_emu=False --config.samplername=1
@@ -15,41 +42,41 @@ echo Sampling with EMCEE
 # echo Total run time : $hours Hours $minutes Minutes $seconds Seconds
 # echo $(for i in $(seq 1 100); do printf "-"; done)
 
-echo $(for i in $(seq 1 100); do printf "-"; done)
-date_start=`date +%s`
-python sample.py --config=config.py:desyr1 --config.sampler=emcee --config.emcee.nsamples=10000 --config.use_emu=False --config.samplername=2
-date_end=`date +%s`
-seconds=$((date_end-date_start))
-minutes=$((seconds/60))
-seconds=$((seconds-60*minutes))
-hours=$((minutes/60))
-minutes=$((minutes-60*hours))
-echo Total run time : $hours Hours $minutes Minutes $seconds Seconds
-echo $(for i in $(seq 1 100); do printf "-"; done)
+# echo $(for i in $(seq 1 100); do printf "-"; done)
+# date_start=`date +%s`
+# python sample.py --config=config.py:desyr1 --config.sampler=emcee --config.emcee.nsamples=10000 --config.use_emu=False --config.samplername=2
+# date_end=`date +%s`
+# seconds=$((date_end-date_start))
+# minutes=$((seconds/60))
+# seconds=$((seconds-60*minutes))
+# hours=$((minutes/60))
+# minutes=$((minutes-60*hours))
+# echo Total run time : $hours Hours $minutes Minutes $seconds Seconds
+# echo $(for i in $(seq 1 100); do printf "-"; done)
 
-echo $(for i in $(seq 1 100); do printf "-"; done)
-date_start=`date +%s`
-python sample.py --config=config.py:desyr1 --config.sampler=emcee --config.emcee.nsamples=10000 --config.use_emu=True --config.samplername=1
-date_end=`date +%s`
-seconds=$((date_end-date_start))
-minutes=$((seconds/60))
-seconds=$((seconds-60*minutes))
-hours=$((minutes/60))
-minutes=$((minutes-60*hours))
-echo Total run time : $hours Hours $minutes Minutes $seconds Seconds
-echo $(for i in $(seq 1 100); do printf "-"; done)
+# echo $(for i in $(seq 1 100); do printf "-"; done)
+# date_start=`date +%s`
+# python sample.py --config=config.py:desyr1 --config.sampler=emcee --config.emcee.nsamples=10000 --config.use_emu=True --config.samplername=1
+# date_end=`date +%s`
+# seconds=$((date_end-date_start))
+# minutes=$((seconds/60))
+# seconds=$((seconds-60*minutes))
+# hours=$((minutes/60))
+# minutes=$((minutes-60*hours))
+# echo Total run time : $hours Hours $minutes Minutes $seconds Seconds
+# echo $(for i in $(seq 1 100); do printf "-"; done)
 
-echo $(for i in $(seq 1 100); do printf "-"; done)
-date_start=`date +%s`
-python sample.py --config=config.py:desyr1 --config.sampler=emcee --config.emcee.nsamples=10000 --config.use_emu=True --config.samplername=2
-date_end=`date +%s`
-seconds=$((date_end-date_start))
-minutes=$((seconds/60))
-seconds=$((seconds-60*minutes))
-hours=$((minutes/60))
-minutes=$((minutes-60*hours))
-echo Total run time : $hours Hours $minutes Minutes $seconds Seconds
-echo $(for i in $(seq 1 100); do printf "-"; done)
+# echo $(for i in $(seq 1 100); do printf "-"; done)
+# date_start=`date +%s`
+# python sample.py --config=config.py:desyr1 --config.sampler=emcee --config.emcee.nsamples=10000 --config.use_emu=True --config.samplername=2
+# date_end=`date +%s`
+# seconds=$((date_end-date_start))
+# minutes=$((seconds/60))
+# seconds=$((seconds-60*minutes))
+# hours=$((minutes/60))
+# minutes=$((minutes-60*hours))
+# echo Total run time : $hours Hours $minutes Minutes $seconds Seconds
+# echo $(for i in $(seq 1 100); do printf "-"; done)
 
 ## EMCEE
 # python sample.py --config=config.py:desyr1 --config.sampler=emcee --config.emcee.nsamples=10000 --config.use_emu=False --config.samplername=1

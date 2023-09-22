@@ -17,7 +17,6 @@ from ml_collections.config_flags import config_flags
 # our script
 from cosmology.samplenumpyro import numpyro_model
 from cosmology.sampleemcee import jit_theory, emcee_logpost
-from cosmology.cclbandpowers import ccl_logpost
 from utils.helpers import save_sampler
 from cosmology.bandpowers import (
     get_nz,
