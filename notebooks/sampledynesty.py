@@ -12,7 +12,7 @@ from cosmology.bandpowers import get_bandpowers_theory, get_params_vec
 from sample import load_data
 from utils.helpers import save_sampler
 
-GPU_NUMBER = 1
+GPU_NUMBER = 2
 jax.config.update("jax_default_device", jax.devices()[GPU_NUMBER])
 num_devices = jax.device_count()
 device_type = jax.devices()[0].device_kind
