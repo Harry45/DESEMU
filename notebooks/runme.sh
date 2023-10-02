@@ -1,33 +1,33 @@
-# #!/bin/bash
-# source /mnt/zfsusers/phys2286/anaconda3/etc/profile.d/conda.sh
-# conda activate jaxcosmo
+#!/bin/bash
+source /mnt/zfsusers/phys2286/anaconda3/etc/profile.d/conda.sh
+conda activate jaxcosmo
 which python
 echo $(for i in $(seq 1 50); do printf "-"; done)
 
-echo Sampling with CCL and EMCEE
-echo $(for i in $(seq 1 100); do printf "-"; done)
-date_start=`date +%s`
-python sampleccl.py --configccl=config.py:desyr1 --configccl.sampler=cclemcee --configccl.ccl.nsamples=10000 --configccl.samplername=camb_1
-date_end=`date +%s`
-seconds=$((date_end-date_start))
-minutes=$((seconds/60))
-seconds=$((seconds-60*minutes))
-hours=$((minutes/60))
-minutes=$((minutes-60*hours))
-echo Total run time : $hours Hours $minutes Minutes $seconds Seconds
-echo $(for i in $(seq 1 100); do printf "-"; done)
+# echo Sampling with CCL and EMCEE
+# echo $(for i in $(seq 1 100); do printf "-"; done)
+# date_start=`date +%s`
+# python sampleccl.py --configccl=config.py:desyr1 --configccl.sampler=cclemcee --configccl.ccl.nsamples=10000 --configccl.samplername=camb_1
+# date_end=`date +%s`
+# seconds=$((date_end-date_start))
+# minutes=$((seconds/60))
+# seconds=$((seconds-60*minutes))
+# hours=$((minutes/60))
+# minutes=$((minutes-60*hours))
+# echo Total run time : $hours Hours $minutes Minutes $seconds Seconds
+# echo $(for i in $(seq 1 100); do printf "-"; done)
 
-echo $(for i in $(seq 1 100); do printf "-"; done)
-date_start=`date +%s`
-python sampleccl.py --configccl=config.py:desyr1 --configccl.sampler=cclemcee --configccl.ccl.nsamples=10000 --configccl.samplername=camb_2
-date_end=`date +%s`
-seconds=$((date_end-date_start))
-minutes=$((seconds/60))
-seconds=$((seconds-60*minutes))
-hours=$((minutes/60))
-minutes=$((minutes-60*hours))
-echo Total run time : $hours Hours $minutes Minutes $seconds Seconds
-echo $(for i in $(seq 1 100); do printf "-"; done)
+# echo $(for i in $(seq 1 100); do printf "-"; done)
+# date_start=`date +%s`
+# python sampleccl.py --configccl=config.py:desyr1 --configccl.sampler=cclemcee --configccl.ccl.nsamples=10000 --configccl.samplername=camb_2
+# date_end=`date +%s`
+# seconds=$((date_end-date_start))
+# minutes=$((seconds/60))
+# seconds=$((seconds-60*minutes))
+# hours=$((minutes/60))
+# minutes=$((minutes-60*hours))
+# echo Total run time : $hours Hours $minutes Minutes $seconds Seconds
+# echo $(for i in $(seq 1 100); do printf "-"; done)
 
 # echo Sampling with EMCEE
 # echo $(for i in $(seq 1 100); do printf "-"; done)
@@ -103,3 +103,6 @@ echo $(for i in $(seq 1 100); do printf "-"; done)
 ## NUTS
 # python sample.py --config=config.py:desyr1 --config.sampler=nuts --config.nuts.nwarmup=100 --config.nuts.nsamples=15000 --config.nuts.nchain=2 --config.nuts.chainmethod=vectorized --config.use_emu=True --config.samplername=1
 # python sample.py --config=config.py:desyr1 --config.sampler=nuts --config.nuts.nwarmup=100 --config.nuts.nsamples=15000 --config.nuts.nchain=2 --config.nuts.chainmethod=vectorized --config.use_emu=False --config.samplername=1
+
+## Submitting Job
+# addqueue -q gpulong -n 1x4 -m 5 -s ./runme.sh
