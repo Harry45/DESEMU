@@ -12,8 +12,20 @@ from cosmology.bandpowers import get_bandpowers_theory, get_params_vec
 from sample import load_data
 from utils.helpers import save_sampler
 
+GPU_NUMBER = 1
+jax.config.update("jax_default_device", jax.devices()[GPU_NUMBER])
+num_devices = jax.device_count()
+device_type = jax.devices()[0].device_kind
+
 FLAGS = flags.FLAGS
 config_flags.DEFINE_config_file("config_ns", None, "Main configuration file.")
+
+
+print("-" * 50)
+print(f"jax version: {jax.__version__}")
+print(f"Found {num_devices} JAX devices of type {device_type}.")
+print(f"We are using {jax.devices()[GPU_NUMBER]}")
+print("-" * 50)
 
 
 data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl = load_data(
