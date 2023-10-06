@@ -107,6 +107,7 @@ def sampling_nuts(data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl,
         bw_gc,
         bw_gc_wl,
         bw_wl,
+        extra_fields=("potential_energy", "num_steps"),
     )
     save_sampler(mcmc_nuts, cfg)
     return mcmc_nuts
