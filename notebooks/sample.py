@@ -37,13 +37,13 @@ numpyro.enable_x64()
 FLAGS = flags.FLAGS
 config_flags.DEFINE_config_file("config", None, "Main configuration file.")
 
-print("-" * 50)
+print("-" * 20)
 print(f"jax version: {jax.__version__}")
 print(f"jaxlib version: {jaxlib.__version__}")
 print(f"numpyro version: {numpyro.__version__}")
 print(f"Found {num_devices} JAX devices of type {device_type}.")
 print(f"We are using {jax.devices()[GPU_NUMBER]}")
-print("-" * 50)
+print("-" * 20)
 
 
 def get_test_param():
