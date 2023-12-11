@@ -74,6 +74,7 @@ def load_data(fname="cls_DESY1", kmax=0.15, lmin_wl=30, lmax_wl=2000):
     jax_nz_wl = get_nz(saccfile, tracertype="wl")
     jax_nz_gc = get_nz(saccfile, tracertype="gc")
     saccfile_cut = scale_cuts(saccfile, kmax=kmax, lmin_wl=lmin_wl, lmax_wl=lmax_wl)
+    print("Loaded data")
     bw_gc, bw_gc_wl, bw_wl = extract_bandwindow(saccfile_cut)
     data, covariance = extract_data_covariance(saccfile_cut)
     newcov = covariance + jnp.eye(data.shape[0]) * 1e-18
