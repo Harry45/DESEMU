@@ -68,12 +68,12 @@ def get_config(experiment) -> ConfigDict:
     config.nuts = nuts = ConfigDict()
     nuts.nwarmup = 20
     nuts.nsamples = 5
-    nuts.stepsize = 0.1
+    nuts.stepsize = 0.01  # 0.1
     nuts.nchain = 1
     nuts.dense_mass = True
     nuts.chainmethod = "parallel"
     nuts.rng = 253
-    nuts.max_tree_depth = 5
+    nuts.max_tree_depth = 8  # 5
 
     # barker settings
     config.barker = barker = ConfigDict()
