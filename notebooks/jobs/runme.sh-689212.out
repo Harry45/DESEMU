@@ -1,38 +1,0 @@
-=========================================================
-Job submitted date = Mon Sep 4 15:03:46 BST 2023
-1 nodes ( processes per node )
-1 hosts used: gpu01
-Job output begins
------------------
-
-2023-09-04 15:04:34.617083: W external/xla/xla/service/gpu/nvptx_compiler.cc:698] The NVIDIA driver's CUDA version is 11.7 which is older than the ptxas CUDA version (11.8.89). Because the driver is older than the ptxas version, XLA is disabling parallel compilation, which may slow down compilation. You should update your NVIDIA driver or use the NVIDIA-provided CUDA forward compatibility packages.
---------------------------------------------------
-jax version: 0.4.14
-jaxlib version: 0.4.14
-Found 1 JAX devices of type NVIDIA GeForce RTX 2080 Ti.
-We are using gpu:0
---------------------------------------------------
-Maximum ell is 101
-Maximum ell is 155
-Maximum ell is 206
-Maximum ell is 255
-Maximum ell is 298
-Not using the emulator
-Not using the emulator
-Not using the emulator
-Not using the emulator
-Not using the emulator
-Not using the emulator
-Not using the emulator
-Not using the emulator
-Not using the emulator
-  0%|          | 0/30 [00:00<?, ?it/s]warmup:   3%|▎         | 1/30 [03:05<1:29:35, 185.35s/it, 1 steps of size 2.34e-01. acc. prob=0.00]warmup:   7%|▋         | 2/30 [03:05<35:39, 76.39s/it, 1 steps of size 2.30e-02. acc. prob=0.00]   warmup:  10%|█         | 3/30 [03:05<18:42, 41.56s/it, 1 steps of size 1.67e-03. acc. prob=0.00]warmup:  13%|█▎        | 4/30 [03:08<11:26, 26.41s/it, 31 steps of size 1.18e-03. acc. prob=0.21]warmup:  17%|█▋        | 5/30 [03:11<07:30, 18.03s/it, 31 steps of size 6.33e-04. acc. prob=0.31]warmup:  20%|██        | 6/30 [03:15<05:11, 12.98s/it, 31 steps of size 6.58e-04. acc. prob=0.40]warmup:  23%|██▎       | 7/30 [03:18<03:44,  9.77s/it, 31 steps of size 1.01e-03. acc. prob=0.48]warmup:  27%|██▋       | 8/30 [03:21<02:48,  7.67s/it, 31 steps of size 1.77e-03. acc. prob=0.55]warmup:  30%|███       | 9/30 [03:24<02:11,  6.27s/it, 31 steps of size 1.17e-03. acc. prob=0.56]warmup:  33%|███▎      | 10/30 [03:27<01:46,  5.32s/it, 31 steps of size 1.95e-03. acc. prob=0.60]warmup:  37%|███▋      | 11/30 [03:31<01:28,  4.67s/it, 31 steps of size 2.68e-03. acc. prob=0.63]warmup:  40%|████      | 12/30 [03:34<01:15,  4.21s/it, 31 steps of size 4.90e-03. acc. prob=0.66]warmup:  43%|████▎     | 13/30 [03:37<01:06,  3.90s/it, 31 steps of size 1.70e-03. acc. prob=0.64]warmup:  47%|████▋     | 14/30 [03:40<00:58,  3.69s/it, 31 steps of size 3.21e-03. acc. prob=0.67]warmup:  50%|█████     | 15/30 [03:43<00:53,  3.54s/it, 31 steps of size 4.29e-03. acc. prob=0.68]warmup:  53%|█████▎    | 16/30 [03:46<00:48,  3.43s/it, 31 steps of size 2.59e-03. acc. prob=0.68]warmup:  57%|█████▋    | 17/30 [03:50<00:43,  3.36s/it, 31 steps of size 4.65e-03. acc. prob=0.70]warmup:  60%|██████    | 18/30 [03:53<00:39,  3.31s/it, 31 steps of size 4.96e-03. acc. prob=0.70]warmup:  63%|██████▎   | 19/30 [03:56<00:35,  3.27s/it, 31 steps of size 7.14e-02. acc. prob=0.72]warmup:  67%|██████▋   | 20/30 [03:59<00:32,  3.24s/it, 31 steps of size 9.71e-02. acc. prob=0.73]sample:  70%|███████   | 21/30 [04:02<00:29,  3.23s/it, 31 steps of size 9.71e-02. acc. prob=0.98]sample:  73%|███████▎  | 22/30 [04:06<00:25,  3.22s/it, 31 steps of size 9.71e-02. acc. prob=0.95]sample:  77%|███████▋  | 23/30 [04:09<00:22,  3.21s/it, 31 steps of size 9.71e-02. acc. prob=0.94]sample:  80%|████████  | 24/30 [04:12<00:19,  3.20s/it, 31 steps of size 9.71e-02. acc. prob=0.96]sample:  83%|████████▎ | 25/30 [04:15<00:15,  3.20s/it, 31 steps of size 9.71e-02. acc. prob=0.96]sample:  87%|████████▋ | 26/30 [04:18<00:12,  3.19s/it, 31 steps of size 9.71e-02. acc. prob=0.96]sample:  90%|█████████ | 27/30 [04:22<00:09,  3.19s/it, 31 steps of size 9.71e-02. acc. prob=0.97]sample:  93%|█████████▎| 28/30 [04:25<00:06,  3.19s/it, 31 steps of size 9.71e-02. acc. prob=0.97]sample:  97%|█████████▋| 29/30 [04:28<00:03,  3.19s/it, 31 steps of size 9.71e-02. acc. prob=0.97]sample: 100%|██████████| 30/30 [04:31<00:00,  3.19s/it, 31 steps of size 9.71e-02. acc. prob=0.97]sample: 100%|██████████| 30/30 [04:31<00:00,  9.05s/it, 31 steps of size 9.71e-02. acc. prob=0.97]
-Not using the emulator
-Not using the emulator
-Not using the emulator
----------------
-Job output ends
-=========================================================
-PBS job: finished date = Mon Sep 4 15:13:18 BST 2023
-Total run time : 0 Hours 9 Minutes 29 Seconds
-=========================================================
