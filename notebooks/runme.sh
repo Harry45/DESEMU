@@ -106,4 +106,4 @@ echo $(for i in $(seq 1 50); do printf "-"; done)
 python sample.py --config=config.py:desyr1 --config.sampler=nuts --config.nuts.nwarmup=100 --config.nuts.nsamples=15000 --config.nuts.nchain=2 --config.nuts.chainmethod=vectorized --config.use_emu=False --config.samplername=small_ss_high_td
 
 ## Submitting Job
-# addqueue -q cmbgpu -n 1x4 -m 5 -s ./runme.sh
+# addqueue -s -q gpulong -m 8 --gpus 1 ./runme.sh
