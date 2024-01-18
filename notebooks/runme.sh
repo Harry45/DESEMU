@@ -102,7 +102,7 @@ echo $(for i in $(seq 1 50); do printf "-"; done)
 
 ## NUTS
 # echo Sampling with NUTS with stepsize of 0.01 and tree depth of 8
-python sample.py --config=config.py:desyr1 --config.sampler=nuts --config.nuts.nwarmup=500 --config.nuts.nsamples=15000 --config.nuts.nchain=2 --config.nuts.chainmethod=vectorized --config.use_emu=True --config.samplername=small_ss_high_td
+python sample.py --config=config.py:desyr1 --config.sampler=nuts --config.nuts.nwarmup=5 --config.nuts.nsamples=15 --config.nuts.nchain=2 --config.nuts.chainmethod=vectorized --config.use_emu=True --config.samplername=small_ss_high_td
 # python sample.py --config=config.py:desyr1 --config.sampler=nuts --config.nuts.nwarmup=500 --config.nuts.nsamples=15000 --config.nuts.nchain=2 --config.nuts.chainmethod=vectorized --config.use_emu=False --config.samplername=small_ss_high_td
 
 ## Submitting Job
