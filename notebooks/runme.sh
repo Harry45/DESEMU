@@ -101,8 +101,8 @@ echo $(for i in $(seq 1 50); do printf "-"; done)
 # python sample.py --config=config.py:desyr1 --config.sampler=barker --config.barker.nwarmup=1000 --config.barker.nsamples=150000 --config.use_emu=True --config.samplername=2
 
 ## NUTS
-# echo Sampling with NUTS with stepsize of 0.01 and tree depth of 8
-python sample.py --config=config.py:desyr1 --config.sampler=nuts --config.nuts.nwarmup=500 --config.nuts.nsamples=15000 --config.nuts.nchain=2 --config.nuts.chainmethod=vectorized --config.use_emu=True --config.samplername=small_ss_high_td
+echo Sampling with NUTS with stepsize of 0.01 and tree depth of 8 (nwarmup is 500 and nsamples is 1000)
+python sample.py --config=config.py:desyr1 --config.sampler=nuts --config.nuts.nwarmup=500 --config.nuts.nsamples=1000 --config.nuts.nchain=2 --config.nuts.chainmethod=vectorized --config.use_emu=True --config.samplername=small_ss_high_td
 # python sample.py --config=config.py:desyr1 --config.sampler=nuts --config.nuts.nwarmup=500 --config.nuts.nsamples=15000 --config.nuts.nchain=2 --config.nuts.chainmethod=vectorized --config.use_emu=False --config.samplername=small_ss_high_td
 
 ## Submitting Job
