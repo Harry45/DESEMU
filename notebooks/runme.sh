@@ -106,4 +106,4 @@ python sample.py --config=config.py:desyr1 --config.sampler=nuts --config.nuts.n
 # python sample.py --config=config.py:desyr1 --config.sampler=nuts --config.nuts.nwarmup=500 --config.nuts.nsamples=15000 --config.nuts.nchain=2 --config.nuts.chainmethod=vectorized --config.use_emu=False --config.samplername=small_ss_high_td
 
 ## Submitting Job
-# addqueue -s -q gpulong -m 16 --gpus 1 ./runme.sh
+# addqueue -s -q gpulong -m 20 --gpus 1 ./runme.sh
