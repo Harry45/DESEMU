@@ -112,7 +112,7 @@ def sampling_nuts(data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl,
     )
     save_sampler(mcmc_nuts, cfg)
 
-    print("NUTS Sampling completed")
+    # print("NUTS Sampling completed")
     return mcmc_nuts
 
 

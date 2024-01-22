@@ -2,6 +2,7 @@
 .bashrc
 .ipynb_checkpoints
 .vscode
+.DS_store
 notebooks/data/
 notebooks/gps/
 notebooks/samples/
