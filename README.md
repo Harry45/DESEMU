@@ -2,8 +2,6 @@
 We integrate an emulator of the linear matter power spectrum in JAX-COSMO and we test the performance of difference samplers:
 1. EMCEE
 2. NUTS
-3. Barker MH
-4. Nested Sampling (dynesty)
 
 We also have a baseline where we compute the power spectra using `ccl` and sample the posterior with EMCEE.
 

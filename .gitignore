@@ -3,10 +3,11 @@
 .ipynb_checkpoints
 .vscode
 .DS_store
-notebooks/data/
-notebooks/gps/
-notebooks/samples/
-ignore/
+data/
+gps/
+samples/
+quantities/
+reference/ignore/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
