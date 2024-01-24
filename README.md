@@ -1,11 +1,16 @@
-# Integrated Emulator in JAX-COSMO - a DES analysis
+# Integration of Emulator in JAX-COSMO - a DES analysis
 We integrate an emulator of the linear matter power spectrum in JAX-COSMO and we test the performance of difference samplers:
 1. EMCEE
 2. NUTS
 
 We also have a baseline where we compute the power spectra using `ccl` and sample the posterior with EMCEE.
 
-## Different Samplers
+## Reference Papers
+- [arXiv:2302.05163](https://arxiv.org/abs/2302.05163)
+- [arXiv:2105.12108](https://arxiv.org/abs/2105.12108)
+- [arXiv:2310.08306](https://arxiv.org/abs/2310.08306)
+
+## Running the Samplers
 
 For running the nuts and barker:
 
