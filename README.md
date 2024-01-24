@@ -32,4 +32,4 @@ For running the EMCEE sampler with CCL:
 python sampleccl.py --configccl=config.py:desyr1 --configccl.sampler=cclemcee --configccl.ccl.nsamples=2 --configccl.samplername=test
 ```
 
-To understand results.
+Examples of the different components are in the notebooks.

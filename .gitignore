@@ -7,7 +7,7 @@ data/
 gps/
 samples/
 quantities/
-reference/ignore/
+reference/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
