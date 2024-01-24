@@ -9,6 +9,7 @@ samples/
 quantities/
 reference/
 notes/
+jobs/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

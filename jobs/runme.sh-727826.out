@@ -1,54 +1,0 @@
-=========================================================
-Job submitted date = Thu Jan 18 13:59:17 GMT 2024
-1 nodes ( processes per node )
-1 hosts used: gpu04
-Job output begins
------------------
-
-/mnt/zfsusers/phys2286/anaconda3/envs/jaxcosmo/bin/python
---------------------------------------------------
-2024-01-18 14:07:45.907690: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:65] 
-********************************
-[Compiling module jit_prim_fun] Very slow compile?  If you want to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
-********************************
-2024-01-18 14:11:47.350209: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:133] The operation took 6m1.445106066s
-
-********************************
-[Compiling module jit_prim_fun] Very slow compile?  If you want to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
-********************************
---------------------------------------------------
-jax version: 0.3.25
-jaxlib version: 0.3.25
-numpyro version: 0.10.1
-Found 1 JAX devices of type NVIDIA GeForce RTX 2080 Ti.
-We are using gpu:0
---------------------------------------------------
-Maximum ell is 101
-Maximum ell is 155
-Maximum ell is 206
-Maximum ell is 255
-Maximum ell is 298
-Loaded data
-Using the emulator
-Using the emulator
-Using the emulator
-Using the emulator
-Using the emulator
-Using the emulator
-Using the emulator
-Using the emulator
-Using the emulator
-  0%|          | 0/20 [00:00<?, ?it/s]warmup:   5%|▌         | 1/20 [06:03<1:55:13, 363.85s/it]warmup:  10%|█         | 2/20 [12:05<1:48:44, 362.46s/it]warmup:  15%|█▌        | 3/20 [12:10<56:26, 199.23s/it]  warmup:  20%|██        | 4/20 [12:51<36:27, 136.73s/it]warmup:  25%|██▌       | 5/20 [13:32<25:32, 102.19s/it]sample:  30%|███       | 6/20 [14:13<18:59, 81.40s/it] sample:  35%|███▌      | 7/20 [14:54<14:46, 68.22s/it]sample:  40%|████      | 8/20 [15:35<11:55, 59.61s/it]sample:  45%|████▌     | 9/20 [16:16<09:52, 53.82s/it]sample:  50%|█████     | 10/20 [16:57<08:19, 49.92s/it]sample:  55%|█████▌    | 11/20 [17:38<07:05, 47.26s/it]sample:  60%|██████    | 12/20 [18:20<06:03, 45.43s/it]sample:  65%|██████▌   | 13/20 [19:01<05:09, 44.16s/it]sample:  70%|███████   | 14/20 [19:42<04:19, 43.28s/it]sample:  75%|███████▌  | 15/20 [20:23<03:33, 42.67s/it]sample:  80%|████████  | 16/20 [21:05<02:48, 42.24s/it]sample:  85%|████████▌ | 17/20 [21:46<02:05, 41.94s/it]sample:  90%|█████████ | 18/20 [22:27<01:23, 41.73s/it]sample:  95%|█████████▌| 19/20 [23:08<00:41, 41.58s/it]sample: 100%|██████████| 20/20 [23:50<00:00, 41.49s/it]sample: 100%|██████████| 20/20 [23:50<00:00, 71.51s/it]
-Using the emulator
-Using the emulator
-Using the emulator
-Using the emulator
-Using the emulator
-Using the emulator
-NUTS Sampling completed
----------------
-Job output ends
-=========================================================
-PBS job: finished date = Thu Jan 18 14:35:53 GMT 2024
-Total run time : 0 Hours 36 Minutes 32 Seconds
-=========================================================
