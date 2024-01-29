@@ -18,14 +18,14 @@ import jax_cosmo as jc
 
 # setting up cobaya, jaxcosmo and emulator
 # jax.config.update("jax_default_device", jax.devices("cpu")[0])
-jc.power.USE_EMU = True
+jc.power.USE_EMU = False
 PROPOSAL = 1e-3
 NSAMPLES = 500000
 OUTPUT_FOLDER = "/mnt/zfsusers/phys2286/projects/DESEMU/outputcobaya/"
 if jc.power.USE_EMU:
-    OUTPUT_FOLDER += "emulator/"
+    OUTPUT_FOLDER += "emulator_2/"
 else:
-    OUTPUT_FOLDER += "jaxcosmo/"
+    OUTPUT_FOLDER += "jaxcosmo_2/"
 
 if os.path.exists(OUTPUT_FOLDER) and os.path.isdir(OUTPUT_FOLDER):
     shutil.rmtree(OUTPUT_FOLDER)
