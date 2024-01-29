@@ -18,7 +18,7 @@ import jax_cosmo as jc
 
 # setting up cobaya, jaxcosmo and emulator
 # jax.config.update("jax_default_device", jax.devices("cpu")[0])
-jc.power.USE_EMU = False
+jc.power.USE_EMU = True
 PROPOSAL = 1e-3
 NSAMPLES = 500000
 OUTPUT_FOLDER = "/mnt/zfsusers/phys2286/projects/DESEMU/outputcobaya/"
