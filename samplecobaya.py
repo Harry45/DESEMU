@@ -27,7 +27,7 @@ from cosmology.bandpowers import (
 import jax_cosmo as jc
 
 # setting up cobaya, jaxcosmo and emulator
-jc.power.USE_EMU = True
+jc.power.USE_EMU = False
 PROPOSAL = 1e-3
 NSAMPLES = 10
 OUTPUT_FOLDER = "outputcobaya/"
