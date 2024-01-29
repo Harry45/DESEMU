@@ -20,7 +20,7 @@ import jax_cosmo as jc
 # jax.config.update("jax_default_device", jax.devices("cpu")[0])
 jc.power.USE_EMU = False
 PROPOSAL = 1e-3
-NSAMPLES = 10
+NSAMPLES = 500000
 OUTPUT_FOLDER = "/mnt/zfsusers/phys2286/projects/DESEMU/outputcobaya/"
 if jc.power.USE_EMU:
     OUTPUT_FOLDER += "emulator/"
