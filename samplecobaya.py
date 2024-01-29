@@ -1,19 +1,9 @@
-from mpi4py import MPI
-
-comm = MPI.COMM_WORLD
-rank = comm.Get_rank()
-
 import os
 import shutil
-
-
-from cobaya.log import LoggedError
 from cobaya.run import run
 import jax
 import jax.numpy as jnp
 import sacc
-
-jax.config.update("jax_default_device", jax.devices("cpu")[0])
 
 # our script
 from cosmology.bandpowers import get_bandpowers_theory
@@ -25,7 +15,9 @@ from cosmology.bandpowers import (
 )
 import jax_cosmo as jc
 
+
 # setting up cobaya, jaxcosmo and emulator
+# jax.config.update("jax_default_device", jax.devices("cpu")[0])
 jc.power.USE_EMU = False
 PROPOSAL = 1e-3
 NSAMPLES = 10
@@ -265,23 +257,30 @@ info["params"] = {
 info["sampler"] = {"mcmc": {"max_samples": NSAMPLES, "Rminus1_stop": 0.01}}
 info["output"] = OUTPUT_FOLDER + "output_prefix"
 
-## normal Python run
-# updated_info, sampler = run(info)
+# normal Python run
+updated_info, sampler = run(info)
 
 
-# Run Cobaya
-success = False
-try:
-    updated_info, sampler = run(info)
-    success = True
-except LoggedError as err:
-    pass
+## if using MPI
+# from mpi4py import MPI
+# from cobaya.log import LoggedError
 
-## Did it work? (e.g. did not get stuck)
-success = all(comm.allgather(success))
+# comm = MPI.COMM_WORLD
+# rank = comm.Get_rank()
 
-if not success and rank == 0:
-    print("Sampling failed!")
+# # Run Cobaya
+# success = False
+# try:
+#     updated_info, sampler = run(info)
+#     success = True
+# except LoggedError as err:
+#     pass
+
+# ## Did it work? (e.g. did not get stuck)
+# success = all(comm.allgather(success))
+
+# if not success and rank == 0:
+#     print("Sampling failed!")
 
 
 ## if we want to check the model
