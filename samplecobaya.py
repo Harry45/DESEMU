@@ -4,12 +4,11 @@ comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
 
 import os
-from cobaya.run import run
-from pathlib import Path
 import shutil
 
 
-# from cobaya.log import LoggedError
+from cobaya.log import LoggedError
+from cobaya.run import run
 import jax
 import jax.numpy as jnp
 import sacc
