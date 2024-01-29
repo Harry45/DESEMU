@@ -29,7 +29,7 @@ import jax_cosmo as jc
 jc.power.USE_EMU = False
 PROPOSAL = 1e-3
 NSAMPLES = 10
-OUTPUT_FOLDER = "outputcobaya/"
+OUTPUT_FOLDER = "/mnt/zfsusers/phys2286/projects/DESEMU/outputcobaya/"
 if jc.power.USE_EMU:
     OUTPUT_FOLDER += "emulator/"
 else:
