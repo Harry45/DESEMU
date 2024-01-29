@@ -10,6 +10,7 @@ quantities/
 reference/
 notes/
 jobs/
+outputcobaya/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
