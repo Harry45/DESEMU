@@ -1,3 +1,4 @@
+export COBAYA_USE_FILE_LOCKING=false
 source /mnt/zfsusers/phys2286/anaconda3/etc/profile.d/conda.sh
 conda activate jaxcosmo
 which python
