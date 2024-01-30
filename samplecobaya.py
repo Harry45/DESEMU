@@ -296,6 +296,7 @@ paramnames = model.parameterization.sampled_params()
 samples = np.loadtxt(MAIN_PATH + "outputcobaya/jaxcosmo_2/output_prefix.1.txt")
 samples_infer = samples[:, 2:-4]
 record = []
+print("Now calculating the chi2 and log-posterior")
 for i in range(samples.shape[0]):  #
     point = dict(zip(paramnames, samples_infer[i]))
     logposterior = model.logposterior(point, as_dict=True)
