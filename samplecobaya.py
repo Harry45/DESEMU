@@ -287,17 +287,23 @@ info["output"] = OUTPUT_FOLDER + "output_prefix"
 
 ## if we want to check the model
 
+print("Now calculating the chi2 and log-posterior.")
+
 from cobaya.model import get_model
 import numpy as np
 import pandas as pd
 
 model = get_model(info)
 paramnames = model.parameterization.sampled_params()
+print("Loading MCMC samples")
 samples = np.loadtxt(MAIN_PATH + "outputcobaya/jaxcosmo_2/output_prefix.1.txt")
+print("Loading MCMC samples completed")
 samples_infer = samples[:, 2:-4]
+nmcmc = samples.shape[0]
+print(f"Number of MCMC is {nmcmc}")
 record = []
 print("Now calculating the chi2 and log-posterior")
-for i in range(samples.shape[0]):  #
+for i in range(nmcmc):  #
     point = dict(zip(paramnames, samples_infer[i]))
     logposterior = model.logposterior(point, as_dict=True)
     record.append(
