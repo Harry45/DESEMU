@@ -297,7 +297,7 @@ print("Loading MCMC samples")
 samples = np.loadtxt(MAIN_PATH + "outputcobaya/jaxcosmo_2/output_prefix.1.txt")
 print("Loading MCMC samples completed")
 samples_infer = samples[:, 2:-4]
-nmcmc = 329000  # samples_infer.shape[0]
+nmcmc = samples_infer.shape[0]
 print(f"Number of MCMC is {nmcmc}")
 record = []
 print("Now calculating the chi2 and log-posterior")
