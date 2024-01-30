@@ -296,16 +296,8 @@ paramnames = model.parameterization.sampled_params()
 samples = np.loadtxt(MAIN_PATH + "outputcobaya/jaxcosmo_2/output_prefix.1.txt")
 samples_infer = samples[:, 2:-4]
 record = []
-for i in range(samples.shape[0]):
+for i in range(100):  # samples.shape[0]
     point = dict(zip(paramnames, samples_infer[i]))
-    # point = dict(
-    #     zip(
-    #         paramnames,
-    #         model.prior.sample(ignore_external=True)[0],
-    #     )
-    # )
-    point_ = {k: round(v, 4) for k, v in point.items()}
-    # print(point_)
     logposterior = model.logposterior(point, as_dict=True)
     record.append(
         {
@@ -313,8 +305,9 @@ for i in range(samples.shape[0]):
             "chi2": logposterior["loglikes"]["my_likelihood"] * -2,
         }
     )
-    if (i + 1) % 1000 == 0:
-        print(f"{i+1} samples completed!")
+    # if (i + 1) % 1000 == 0:
+    #     print(f"{i+1} samples completed!")
+    print(i)
     # print("Full log-posterior:")
     # print("   logposterior:", logposterior["logpost"])
     # print("   logpriors:", logposterior["logpriors"])
