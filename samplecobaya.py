@@ -18,10 +18,12 @@ import jax_cosmo as jc
 
 # setting up cobaya, jaxcosmo and emulator
 # jax.config.update("jax_default_device", jax.devices("cpu")[0])
-jc.power.USE_EMU = True
+jc.power.USE_EMU = False
 PROPOSAL = 1e-3
 NSAMPLES = 500000
-OUTPUT_FOLDER = "/mnt/zfsusers/phys2286/projects/DESEMU/outputcobaya/"
+MAIN_PATH = "/mnt/zfsusers/phys2286/projects/DESEMU/"
+OUTPUT_FOLDER = MAIN_PATH + "outputcobaya/testing/"
+# "outputcobaya/testing/"
 if jc.power.USE_EMU:
     OUTPUT_FOLDER += "emulator_2/"
 else:
@@ -258,7 +260,7 @@ info["sampler"] = {"mcmc": {"max_samples": NSAMPLES, "Rminus1_stop": 0.01}}
 info["output"] = OUTPUT_FOLDER + "output_prefix"
 
 # normal Python run
-updated_info, sampler = run(info)
+# updated_info, sampler = run(info)
 
 
 ## if using MPI
@@ -285,23 +287,41 @@ updated_info, sampler = run(info)
 
 ## if we want to check the model
 
-# from cobaya.model import get_model
+from cobaya.model import get_model
+import numpy as np
+import pandas as pd
 
-# model = get_model(info)
+model = get_model(info)
+paramnames = model.parameterization.sampled_params()
+samples = np.loadtxt(MAIN_PATH + "outputcobaya/jaxcosmo_2/output_prefix.1.txt")
+samples_infer = samples[:, 2:-4]
+record = []
+for i in range(samples.shape[0]):
+    point = dict(zip(paramnames, samples_infer[i]))
+    # point = dict(
+    #     zip(
+    #         paramnames,
+    #         model.prior.sample(ignore_external=True)[0],
+    #     )
+    # )
+    point_ = {k: round(v, 4) for k, v in point.items()}
+    # print(point_)
+    logposterior = model.logposterior(point, as_dict=True)
+    record.append(
+        {
+            "logpost": logposterior["logpost"],
+            "chi2": logposterior["loglikes"]["my_likelihood"] * -2,
+        }
+    )
+    if (i + 1) % 1000 == 0:
+        print(f"{i+1} samples completed!")
+    # print("Full log-posterior:")
+    # print("   logposterior:", logposterior["logpost"])
+    # print("   logpriors:", logposterior["logpriors"])
+    # print("   loglikelihoods:", logposterior["loglikes"])
+    # print("   chi2 value:", logposterior["loglikes"]["my_likelihood"] * -2)
+    # print("   derived params:", logposterior["derived"])
+    # print("-" * 100)
 
-# for i in range(10):
-#     point = dict(
-#         zip(
-#             model.parameterization.sampled_params(),
-#             model.prior.sample(ignore_external=True)[0],
-#         )
-#     )
-#     point_ = {k: round(v, 4) for k, v in point.items()}
-#     print(point_)
-#     logposterior = model.logposterior(point, as_dict=True)
-#     print("Full log-posterior:")
-#     print("   logposterior:", logposterior["logpost"])
-#     print("   logpriors:", logposterior["logpriors"])
-#     print("   loglikelihoods:", logposterior["loglikes"])
-#     print("   derived params:", logposterior["derived"])
-#     print("-" * 100)
+testing = pd.DataFrame(record)
+testing.to_csv(OUTPUT_FOLDER + "cobayarun_jc_2.csv")
