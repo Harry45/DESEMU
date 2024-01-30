@@ -1,6 +1,9 @@
 import os
 import shutil
 from cobaya.run import run
+from cobaya.model import get_model
+import numpy as np
+import pandas as pd
 import jax
 import jax.numpy as jnp
 import sacc
@@ -288,18 +291,13 @@ info["output"] = OUTPUT_FOLDER + "output_prefix"
 ## if we want to check the model
 
 print("Now calculating the chi2 and log-posterior.")
-
-from cobaya.model import get_model
-import numpy as np
-import pandas as pd
-
 model = get_model(info)
 paramnames = model.parameterization.sampled_params()
 print("Loading MCMC samples")
 samples = np.loadtxt(MAIN_PATH + "outputcobaya/jaxcosmo_2/output_prefix.1.txt")
 print("Loading MCMC samples completed")
 samples_infer = samples[:, 2:-4]
-nmcmc = samples.shape[0]
+nmcmc = 100  # samples.shape[0]
 print(f"Number of MCMC is {nmcmc}")
 record = []
 print("Now calculating the chi2 and log-posterior")
