@@ -158,7 +158,7 @@ def main(dimension, stepsize, tree_depth, nwarmup, nsamples_nuts):
 
 
 if __name__ == "__main__":
-    dimensions = np.arange(1, 7, 1) * 20  # [160]  #
+    dimensions = np.arange(8, 11, 1) * 20  # [160]  #
     main(dimensions, 0.01, 8, 500, 15000)
 
 # tree_depth = 8
