@@ -28,9 +28,9 @@ MAIN_PATH = "/mnt/zfsusers/phys2286/projects/DESEMU/"
 OUTPUT_FOLDER = MAIN_PATH + "outputcobaya/testing/"
 # "outputcobaya/testing/"
 if jc.power.USE_EMU:
-    OUTPUT_FOLDER += "emulator_2/"
+    OUTPUT_FOLDER += "emulator_1/"
 else:
-    OUTPUT_FOLDER += "jaxcosmo_2/"
+    OUTPUT_FOLDER += "jaxcosmo_1/"
 
 if os.path.exists(OUTPUT_FOLDER) and os.path.isdir(OUTPUT_FOLDER):
     shutil.rmtree(OUTPUT_FOLDER)
@@ -119,8 +119,8 @@ def cobaya_logl(
     theory = jit_theory(parameters)
     diff = DATA - theory
     chi2 = diff @ PRECISION @ diff
-    chi2_out = -0.5 * jnp.nan_to_num(chi2)
-    return chi2_out.item()
+    logl = -0.5 * jnp.nan_to_num(chi2, nan=np.inf, posinf=np.inf, neginf=np.inf)
+    return logl.item()
 
 
 # Set up the input
@@ -263,7 +263,7 @@ info["sampler"] = {"mcmc": {"max_samples": NSAMPLES, "Rminus1_stop": 0.01}}
 info["output"] = OUTPUT_FOLDER + "output_prefix"
 
 # normal Python run
-# updated_info, sampler = run(info)
+updated_info, sampler = run(info)
 
 
 ## if using MPI
@@ -290,36 +290,46 @@ info["output"] = OUTPUT_FOLDER + "output_prefix"
 
 ## if we want to check the model
 
-print("Now calculating the chi2 and log-posterior.")
-model = get_model(info)
-paramnames = model.parameterization.sampled_params()
-print("Loading MCMC samples")
-samples = np.loadtxt(MAIN_PATH + "outputcobaya/jaxcosmo_2/output_prefix.1.txt")
-print("Loading MCMC samples completed")
-samples_infer = samples[:, 2:-4]
-nmcmc = samples_infer.shape[0]
-print(f"Number of MCMC is {nmcmc}")
-record = []
-print("Now calculating the chi2 and log-posterior")
-for i in range(nmcmc):  #
-    point = dict(zip(paramnames, samples_infer[i]))
-    logposterior = model.logposterior(point, as_dict=True)
-    record.append(
-        {
-            "logpost": logposterior["logpost"],
-            "chi2": logposterior["loglikes"]["my_likelihood"] * -2,
-        }
-    )
-    if divmod(i + 1, 1000)[1] == 0:
-        print(f"{i+1} samples completed!")
-    # print(i)
-    # print("Full log-posterior:")
-    # print("   logposterior:", logposterior["logpost"])
-    # print("   logpriors:", logposterior["logpriors"])
-    # print("   loglikelihoods:", logposterior["loglikes"])
-    # print("   chi2 value:", logposterior["loglikes"]["my_likelihood"] * -2)
-    # print("   derived params:", logposterior["derived"])
-    # print("-" * 100)
 
-testing = pd.DataFrame(record)
-testing.to_csv(OUTPUT_FOLDER + "cobayarun_jc_2.csv")
+# def calculate_quantities(point: dict, model) -> float:
+#     record = {}
+#     logposterior = model.logposterior(point, as_dict=True)
+#     record["logpost"] = logposterior["logpost"]
+#     record["chi2"] = logposterior["loglikes"]["my_likelihood"] * -2
+#     record["loglike"] = logposterior["loglikes"]["my_likelihood"]
+#     return record
+
+
+# model = get_model(info)
+# paramnames = model.parameterization.sampled_params()
+# samples = np.loadtxt(MAIN_PATH + "outputcobaya/jaxcosmo_2/output_prefix.1.txt")
+# samples_infer = samples[:, 2:-4]
+# point = dict(zip(paramnames, samples_infer[15640]))
+# print(point)
+# print(calculate_quantities(point, model))
+# print(cobaya_logl(*samples_infer[15640]))
+
+# nmcmc = samples_infer.shape[0]
+# record = []
+# for i in range(nmcmc):
+#     point = dict(zip(paramnames, samples_infer[i]))
+#     logposterior = model.logposterior(point, as_dict=True)
+#     record.append(
+#         {
+#             "logpost": logposterior["logpost"],
+#             "chi2": logposterior["loglikes"]["my_likelihood"] * -2,
+#         }
+#     )
+#     if divmod(i + 1, 1000)[1] == 0:
+#         print(f"{i+1} samples completed!")
+# print(i)
+# print("Full log-posterior:")
+# print("   logposterior:", logposterior["logpost"])
+# print("   logpriors:", logposterior["logpriors"])
+# print("   loglikelihoods:", logposterior["loglikes"])
+# print("   chi2 value:", logposterior["loglikes"]["my_likelihood"] * -2)
+# print("   derived params:", logposterior["derived"])
+# print("-" * 100)
+
+# testing = pd.DataFrame(record)
+# testing.to_csv(OUTPUT_FOLDER + "cobayarun_jc_2.csv")
