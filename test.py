@@ -20,7 +20,7 @@ from numpyro.diagnostics import summary
 from jax import grad, jit, vmap, jacfwd, jacrev
 from utils.helpers import dill_save
 
-jax.config.update("jax_default_device", jax.devices("cpu")[0])
+# jax.config.update("jax_default_device", jax.devices("cpu")[0])
 
 # os.environ["XLA_PYTHON_CLIENT_PREALLOCATE"] = "false"  # add this
 # os.environ["XLA_PYTHON_CLIENT_ALLOCATOR"] = "platform"
