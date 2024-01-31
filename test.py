@@ -117,12 +117,13 @@ def process_nuts_chains(mcmc, ndim):
 
 
 def main(stepsize, tree_depth, nwarmup, nsamples_nuts):
-    testdim = np.arange(1, 11, 1) * 20
+    testdim = np.arange(7, 11, 1) * 20
     stats_nuts = {}
     nlike_nuts_record = {}
     time_nuts = {}
 
     for d in testdim:
+        print(f"Sampling dimensions {d}")
         start_time = time.time()
         mcmc, nlike_nuts = run_nuts(stepsize, tree_depth, nwarmup, nsamples_nuts, d)
         time_nuts[d] = time.time() - start_time
@@ -132,9 +133,9 @@ def main(stepsize, tree_depth, nwarmup, nsamples_nuts):
         nlike_nuts_record[d] = nlike_nuts
         del mcmc
 
-    dill_save(stats_nuts, "rosenbrock", "stats_nuts")
-    dill_save(nlike_nuts_record, "rosenbrock", "nlike_nuts")
-    dill_save(time_nuts, "rosenbrock", "time_nuts")
+        dill_save(stats_nuts, "rosenbrock", f"stats_nuts_{d}")
+        dill_save(nlike_nuts_record, "rosenbrock", f"nlike_nuts_{d}")
+        dill_save(time_nuts, "rosenbrock", f"time_nuts_{d}")
 
 
 if __name__ == "__main__":

@@ -18,6 +18,12 @@ from cosmology.bandpowers import (
 )
 import jax_cosmo as jc
 
+os.environ["XLA_PYTHON_CLIENT_PREALLOCATE"] = "false"  # add this
+os.environ["XLA_PYTHON_CLIENT_ALLOCATOR"] = "platform"
+
+# settings for GPUs (people are always using the first one)
+GPU_NUMBER = 0
+jax.config.update("jax_default_device", jax.devices()[GPU_NUMBER])
 
 # setting up cobaya, jaxcosmo and emulator
 # jax.config.update("jax_default_device", jax.devices("cpu")[0])
