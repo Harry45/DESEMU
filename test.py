@@ -1,4 +1,5 @@
 import os
+import gc
 import time
 import numpy as np
 import matplotlib.pylab as plt
@@ -19,13 +20,14 @@ from numpyro.diagnostics import summary
 from jax import grad, jit, vmap, jacfwd, jacrev
 from utils.helpers import dill_save
 
+jax.config.update("jax_default_device", jax.devices("cpu")[0])
 
 # os.environ["XLA_PYTHON_CLIENT_PREALLOCATE"] = "false"  # add this
 # os.environ["XLA_PYTHON_CLIENT_ALLOCATOR"] = "platform"
 
 # settings for GPUs (people are always using the first one)
-GPU_NUMBER = 0
-jax.config.update("jax_default_device", jax.devices()[GPU_NUMBER])
+# GPU_NUMBER = 0
+# jax.config.update("jax_default_device", jax.devices()[GPU_NUMBER])
 
 normal_prior = ss.norm(0, 1)
 nchain = 2
@@ -89,6 +91,7 @@ def model(ndim):
         y = numpyro.sample(f"x{i}", dist.Normal(0, 1))
         xvalues = xvalues.at[i].set(y)
     numpyro.factor("log_prob", jit_loglike(xvalues))
+    # numpyro.factor("log_prob", loglikelihood(xvalues))
 
 
 def run_nuts(stepsize, tree_depth, nwarmup, nsamples_nuts, ndim, nchain=2):
@@ -106,6 +109,7 @@ def run_nuts(stepsize, tree_depth, nwarmup, nsamples_nuts, ndim, nchain=2):
         num_warmup=nwarmup,
         num_samples=nsamples_nuts,
         chain_method="vectorized",
+        jit_model_args=True,
     )
     mcmc.run(
         jax.random.PRNGKey(0),
@@ -132,6 +136,9 @@ def main(dimension, stepsize, tree_depth, nwarmup, nsamples_nuts):
 
     for d in dimension:
         print(f"Sampling dimensions {d}")
+        os.environ["XLA_PYTHON_CLIENT_PREALLOCATE"] = "false"
+        os.environ["XLA_PYTHON_CLIENT_ALLOCATOR"] = "platform"
+
         start_time = time.time()
         mcmc, nlike_nuts = run_nuts(stepsize, tree_depth, nwarmup, nsamples_nuts, d)
         time_nuts[d] = time.time() - start_time
@@ -144,6 +151,9 @@ def main(dimension, stepsize, tree_depth, nwarmup, nsamples_nuts):
         dill_save(stats_nuts, "rosenbrock", f"stats_nuts_{d}")
         dill_save(nlike_nuts_record, "rosenbrock", f"nlike_nuts_{d}")
         dill_save(time_nuts, "rosenbrock", f"time_nuts_{d}")
+
+        del os.environ["XLA_PYTHON_CLIENT_ALLOCATOR"]
+        gc.collect()
 
 
 if __name__ == "__main__":
