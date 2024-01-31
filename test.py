@@ -109,7 +109,7 @@ def run_nuts(stepsize, tree_depth, nwarmup, nsamples_nuts, ndim, nchain=2):
         num_warmup=nwarmup,
         num_samples=nsamples_nuts,
         chain_method="vectorized",
-        jit_model_args=True,
+        # jit_model_args=True,
     )
     mcmc.run(
         jax.random.PRNGKey(0),
