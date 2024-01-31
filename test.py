@@ -20,8 +20,8 @@ from jax import grad, jit, vmap, jacfwd, jacrev
 from utils.helpers import dill_save
 
 
-os.environ["XLA_PYTHON_CLIENT_PREALLOCATE"] = "false"  # add this
-os.environ["XLA_PYTHON_CLIENT_ALLOCATOR"] = "platform"
+# os.environ["XLA_PYTHON_CLIENT_PREALLOCATE"] = "false"  # add this
+# os.environ["XLA_PYTHON_CLIENT_ALLOCATOR"] = "platform"
 
 # settings for GPUs (people are always using the first one)
 GPU_NUMBER = 0
