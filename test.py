@@ -138,7 +138,7 @@ def main(dimension, stepsize, tree_depth, nwarmup, nsamples_nuts):
         print(f"Sampling dimensions {d}")
         os.environ["XLA_PYTHON_CLIENT_PREALLOCATE"] = "false"
         # os.environ["XLA_PYTHON_CLIENT_ALLOCATOR"] = "platform"
-        os.environ["XLA_PYTHON_CLIENT_MEM_FRACTION"] = 0.75
+        os.environ["XLA_PYTHON_CLIENT_MEM_FRACTION"] = "0.75"
 
         start_time = time.time()
         mcmc, nlike_nuts = run_nuts(stepsize, tree_depth, nwarmup, nsamples_nuts, d)
