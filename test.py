@@ -1,3 +1,4 @@
+import os
 import time
 import numpy as np
 import matplotlib.pylab as plt
@@ -17,6 +18,14 @@ from numpyro.distributions import constraints
 from numpyro.diagnostics import summary
 from jax import grad, jit, vmap, jacfwd, jacrev
 from utils.helpers import dill_save
+
+
+os.environ["XLA_PYTHON_CLIENT_PREALLOCATE"] = "false"  # add this
+os.environ["XLA_PYTHON_CLIENT_ALLOCATOR"] = "platform"
+
+# settings for GPUs (people are always using the first one)
+GPU_NUMBER = 0
+jax.config.update("jax_default_device", jax.devices()[GPU_NUMBER])
 
 normal_prior = ss.norm(0, 1)
 nchain = 2
