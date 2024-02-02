@@ -1,15 +1,5 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[2]:
-
-
-import time
 import numpy as np
-import matplotlib.pylab as plt
 import emcee
-from getdist import plots, MCSamples
-import getdist
 import scipy.stats as ss
 import pandas as pd
 
@@ -17,12 +7,9 @@ import numpyro
 import jax
 import jax.numpy as jnp
 import numpyro.distributions as dist
-from numpyro.infer import MCMC, HMC, NUTS, init_to_value
-from numpyro.handlers import seed
-from numpyro.distributions import constraints
+from numpyro.infer import MCMC, NUTS, init_to_value
 from numpyro.diagnostics import summary
-from jax import grad, jit, vmap, jacfwd, jacrev
-from utils.helpers import dill_save, dill_load
+from utils.helpers import dill_save
 
 ndim = 26
 nsamples_nuts = 15000
@@ -169,6 +156,7 @@ if __name__ == "__main__":
 
     for r in range(nrepeat):
         record = np.zeros_like(factors)
+        print(f"Doing repetition {r+1}")
 
         for i, f in enumerate(factors):
             print(f"Running EMCEE and NUTS for factor = {f}")
