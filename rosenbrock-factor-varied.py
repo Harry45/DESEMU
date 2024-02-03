@@ -10,7 +10,6 @@ import numpyro.distributions as dist
 from numpyro.infer import MCMC, NUTS, init_to_value
 from numpyro.diagnostics import summary
 from utils.helpers import dill_save
-from jax.interpreters import xla
 import gc
 
 ndim = 26
@@ -186,7 +185,8 @@ if __name__ == "__main__":
             gc.collect()
 
         repetition.append(record)
-        xla._xla_callable.cache_clear()
+        dill_save(record, "rosenbrock", f"repetition_{r}")
+        jax.clear_caches()
 
     dill_save(
         {"gamma": repetition, "factors": factors},
