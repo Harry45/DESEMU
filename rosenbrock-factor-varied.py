@@ -10,6 +10,8 @@ import numpyro.distributions as dist
 from numpyro.infer import MCMC, NUTS, init_to_value
 from numpyro.diagnostics import summary
 from utils.helpers import dill_save
+from jax.interpreters import xla
+import gc
 
 ndim = 26
 nsamples_nuts = 15000
@@ -178,7 +180,13 @@ if __name__ == "__main__":
 
             # calculate quantity
             record[i] = stats_nuts["n_eff"].mean() / stats_emcee["n_eff"].mean()
+
+            # delete quantities
+            del mcmc
+            gc.collect()
+
         repetition.append(record)
+        xla._xla_callable.cache_clear()
 
     dill_save(
         {"gamma": repetition, "factors": factors},
