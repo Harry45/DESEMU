@@ -186,7 +186,7 @@ if __name__ == "__main__":
 
         repetition.append(record)
         dill_save(record, "rosenbrock", f"repetition_{r}")
-        jax.clear_caches()
+        jax.clear_backends()
 
     dill_save(
         {"gamma": repetition, "factors": factors},
