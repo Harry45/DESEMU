@@ -151,7 +151,8 @@ def process_nuts_chains(mcmc, ndim=ndim):
 
 
 if __name__ == "__main__":
-    factors = np.geomspace(10, 40, 6, endpoint=True)
+    # factors = np.geomspace(10, 40, 6, endpoint=True)
+    factors = np.geomspace(1e-3, 1, 6, endpoint=True)
     nrepeat = 5
     repetition = []
 
@@ -185,11 +186,11 @@ if __name__ == "__main__":
             gc.collect()
 
         repetition.append(record)
-        dill_save(record, "rosenbrock", f"repetition_{r}")
+        dill_save(record, "rosenbrock", f"repetition_2_{r}")
         jax.clear_backends()
 
     dill_save(
         {"gamma": repetition, "factors": factors},
         "rosenbrock",
-        "d_26_different_factors",
+        "d_26_different_factors_2",
     )
