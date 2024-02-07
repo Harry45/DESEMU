@@ -2,10 +2,7 @@ import os
 import gc
 import time
 import numpy as np
-import matplotlib.pylab as plt
 import emcee
-from getdist import plots, MCSamples
-import getdist
 import scipy.stats as ss
 import pandas as pd
 
@@ -13,30 +10,25 @@ import numpyro
 import jax
 import jax.numpy as jnp
 import numpyro.distributions as dist
-from numpyro.infer import MCMC, HMC, NUTS, init_to_value
-from numpyro.handlers import seed
-from numpyro.distributions import constraints
+from numpyro.infer import MCMC, NUTS, init_to_value
 from numpyro.diagnostics import summary
-from jax import grad, jit, vmap, jacfwd, jacrev
 from utils.helpers import dill_save
 
-# jax.config.update("jax_default_device", jax.devices("cpu")[0])
-
-# os.environ["XLA_PYTHON_CLIENT_PREALLOCATE"] = "false"  # add this
-# os.environ["XLA_PYTHON_CLIENT_ALLOCATOR"] = "platform"
-
-# settings for GPUs (people are always using the first one)
-# GPU_NUMBER = 0
-# jax.config.update("jax_default_device", jax.devices()[GPU_NUMBER])
+NCHAIN = 2
+TREE_DEPTH = 8
+STEPSIZE = 0.01
+NSAMPLES_NUTS = 15000
+NWARMUP = 500
+THIN = 10
+DISCARD = 100
 
 normal_prior = ss.norm(0, 1)
-nchain = 2
 
 
 def rosenbrock(xvalues):
     x_i_plus_one = xvalues[1::2]
     x_i = xvalues[0::2]
-    term_1 = 0.001 * (x_i_plus_one - x_i**2) ** 2
+    term_1 = 9.0 * (x_i_plus_one - x_i**2) ** 2
     term_2 = (x_i - 1) ** 2
     return sum(term_1 + term_2)
 
@@ -55,8 +47,33 @@ def jit_grad_loglike(xvalues):
     return jax.jacfwd(loglikelihood)(xvalues)
 
 
+def single_emcee_run(fiducial, discard, thin, ndim):
+    pos = fiducial + 1e-3 * np.random.randn(2 * ndim, ndim)
+    nwalkers, ndim = pos.shape
+    sampler = emcee.EnsembleSampler(nwalkers, ndim, logposterior)
+    nsamples_emcee = int((NSAMPLES_NUTS * thin) / (2 * ndim) + discard)
+    sampler.run_mcmc(pos, nsamples_emcee, progress=True)
+    return sampler
+
+
+def run_emcee(fiducial, discard, thin, ndim, nchain=2):
+    if nchain > 1:
+        record_samples = []
+        total_samples = 0
+        for chain in range(nchain):
+            sampler = single_emcee_run(fiducial, discard, thin, ndim)
+            emcee_samples = sampler.get_chain(discard=discard, thin=thin, flat=True)
+            record_samples.append(emcee_samples)
+            total_samples += sampler.flatchain.shape[0]
+        return record_samples, total_samples
+
+    sampler = single_emcee_run(fiducial, discard, thin, ndim)
+    total_samples = sampler.flatchain.shape[0]
+    emcee_samples = sampler.get_chain(discard=discard, thin=thin, flat=True)
+    return emcee_samples, total_samples
+
+
 def logposterior(xvalues):
-    # logprior = sum([uniform_prior.logpdf(xvalues[i]) for i in range(ndim)])
     logprior = sum([normal_prior.logpdf(xvalues[i]) for i in range(len(xvalues))])
     if np.isfinite(logprior):
         return logprior + jit_loglike(xvalues)
@@ -87,11 +104,9 @@ def calculate_summary(samples_1, samples_2, nlike, ndecimal=3):
 def model(ndim):
     xvalues = jnp.zeros(ndim)
     for i in range(ndim):
-        # y = numpyro.sample(f"x{i}", dist.Uniform(-delta, delta))
         y = numpyro.sample(f"x{i}", dist.Normal(0, 1))
         xvalues = xvalues.at[i].set(y)
     numpyro.factor("log_prob", jit_loglike(xvalues))
-    # numpyro.factor("log_prob", loglikelihood(xvalues))
 
 
 def run_nuts(stepsize, tree_depth, nwarmup, nsamples_nuts, ndim, nchain=2):
@@ -109,7 +124,6 @@ def run_nuts(stepsize, tree_depth, nwarmup, nsamples_nuts, ndim, nchain=2):
         num_warmup=nwarmup,
         num_samples=nsamples_nuts,
         chain_method="vectorized",
-        # jit_model_args=True,
     )
     mcmc.run(
         jax.random.PRNGKey(0),
@@ -120,7 +134,7 @@ def run_nuts(stepsize, tree_depth, nwarmup, nsamples_nuts, ndim, nchain=2):
     return mcmc, nlike_nuts
 
 
-def process_nuts_chains(mcmc, ndim):
+def process_nuts_chains(mcmc, ndim, nchain):
     chains = mcmc.get_samples(group_by_chain=True)
     record = []
     for c in range(nchain):
@@ -130,12 +144,34 @@ def process_nuts_chains(mcmc, ndim):
 
 
 def main(dimension, stepsize, tree_depth, nwarmup, nsamples_nuts):
-    stats_nuts = {}
-    nlike_nuts_record = {}
-    time_nuts = {}
 
     for d in dimension:
-        print(f"Sampling dimensions {d}")
+        print(f"Sampling dimensions {d} with EMCEE")
+
+        stats_emcee = {}
+        nlike_emcee_record = {}
+        time_emcee = {}
+
+        initial = np.ones(d)
+
+        start_time = time.time()
+        emcee_samples, nlike_emcee = run_emcee(initial, DISCARD, THIN, d, NCHAIN)
+        time_emcee[d] = time.time() - start_time
+
+        stats_emcee[d] = calculate_summary(
+            emcee_samples[0], emcee_samples[1], nlike_emcee
+        )
+        nlike_emcee_record[d] = nlike_emcee
+        dill_save(stats_emcee, "rosenbrock/emcee", f"stats_emcee_{d}")
+        dill_save(nlike_emcee_record, "rosenbrock/emcee", f"nlike_emcee_{d}")
+        dill_save(time_emcee, "rosenbrock/emcee", f"time_emcee_{d}")
+
+        print(f"Sampling dimensions {d} with NUTS")
+
+        stats_nuts = {}
+        nlike_nuts_record = {}
+        time_nuts = {}
+
         os.environ["XLA_PYTHON_CLIENT_PREALLOCATE"] = "false"
         os.environ["XLA_PYTHON_CLIENT_ALLOCATOR"] = "platform"
         os.environ["XLA_PYTHON_CLIENT_MEM_FRACTION"] = "0.75"
@@ -144,24 +180,20 @@ def main(dimension, stepsize, tree_depth, nwarmup, nsamples_nuts):
         mcmc, nlike_nuts = run_nuts(stepsize, tree_depth, nwarmup, nsamples_nuts, d)
         time_nuts[d] = time.time() - start_time
 
-        nuts_grouped = process_nuts_chains(mcmc, d)
+        nuts_grouped = process_nuts_chains(mcmc, d, NCHAIN)
         stats_nuts[d] = calculate_summary(nuts_grouped[0], nuts_grouped[1], nlike_nuts)
         nlike_nuts_record[d] = nlike_nuts
+
+        dill_save(stats_nuts, "rosenbrock/nuts", f"stats_nuts_{d}")
+        dill_save(nlike_nuts_record, "rosenbrock/nuts", f"nlike_nuts_{d}")
+        dill_save(time_nuts, "rosenbrock/nuts", f"time_nuts_{d}")
+
         del mcmc
-
-        dill_save(stats_nuts, "rosenbrock", f"stats_nuts_{d}")
-        dill_save(nlike_nuts_record, "rosenbrock", f"nlike_nuts_{d}")
-        dill_save(time_nuts, "rosenbrock", f"time_nuts_{d}")
-
         del os.environ["XLA_PYTHON_CLIENT_ALLOCATOR"]
         gc.collect()
+        jax.clear_backends()
 
 
 if __name__ == "__main__":
-    dimensions = np.arange(8, 11, 1) * 20  # [160]  #
-    main(dimensions, 0.01, 8, 500, 15000)
-
-# tree_depth = 8
-# stepsize = 0.01
-# nsamples_nuts = 15000
-# nwarmup = 500
+    dimensions = np.arange(4, 50, 4)
+    main(dimensions, STEPSIZE, TREE_DEPTH, NWARMUP, NSAMPLES_NUTS)
