@@ -1,6 +1,7 @@
 import os
 import gc
 import time
+import random 
 import numpy as np
 import emcee
 import scipy.stats as ss
@@ -125,8 +126,10 @@ def run_nuts(stepsize, tree_depth, nwarmup, nsamples_nuts, ndim, nchain=2):
         num_samples=nsamples_nuts,
         chain_method="vectorized",
     )
+    random_integer = random.randint(0, 1000)
+    # random_integer = 0 
     mcmc.run(
-        jax.random.PRNGKey(0),
+        jax.random.PRNGKey(random_integer),
         ndim=ndim,
         extra_fields=("potential_energy", "num_steps", "accept_prob"),
     )
@@ -143,57 +146,58 @@ def process_nuts_chains(mcmc, ndim, nchain):
     return record
 
 
-def main(dimension, stepsize, tree_depth, nwarmup, nsamples_nuts):
+def main(dimension, stepsize, tree_depth, nwarmup, nsamples_nuts, nrepeat = 5):
 
-    for d in dimension:
-        print(f"Sampling dimensions {d} with EMCEE")
+    for r in range(nrepeat):
+        for d in dimension:
+            print(f"Sampling dimensions {d} with EMCEE")
 
-        stats_emcee = {}
-        nlike_emcee_record = {}
-        time_emcee = {}
+            stats_emcee = {}
+            nlike_emcee_record = {}
+            time_emcee = {}
 
-        initial = np.ones(d)
+            initial = np.ones(d)
 
-        start_time = time.time()
-        emcee_samples, nlike_emcee = run_emcee(initial, DISCARD, THIN, d, NCHAIN)
-        time_emcee[d] = time.time() - start_time
+            start_time = time.time()
+            emcee_samples, nlike_emcee = run_emcee(initial, DISCARD, THIN, d, NCHAIN)
+            time_emcee[d] = time.time() - start_time
 
-        stats_emcee[d] = calculate_summary(
-            emcee_samples[0], emcee_samples[1], nlike_emcee
-        )
-        nlike_emcee_record[d] = nlike_emcee
-        dill_save(stats_emcee, "rosenbrock/emcee", f"stats_emcee_{d}")
-        dill_save(nlike_emcee_record, "rosenbrock/emcee", f"nlike_emcee_{d}")
-        dill_save(time_emcee, "rosenbrock/emcee", f"time_emcee_{d}")
+            stats_emcee[d] = calculate_summary(
+                emcee_samples[0], emcee_samples[1], nlike_emcee
+            )
+            nlike_emcee_record[d] = nlike_emcee
+            dill_save(stats_emcee, f"rosenbrock/emcee_{r}", f"stats_emcee_{d}")
+            dill_save(nlike_emcee_record, f"rosenbrock/emcee_{r}", f"nlike_emcee_{d}")
+            dill_save(time_emcee, f"rosenbrock/emcee_{r}", f"time_emcee_{d}")
 
-        print(f"Sampling dimensions {d} with NUTS")
+            print(f"Sampling dimensions {d} with NUTS")
 
-        stats_nuts = {}
-        nlike_nuts_record = {}
-        time_nuts = {}
+            stats_nuts = {}
+            nlike_nuts_record = {}
+            time_nuts = {}
 
-        os.environ["XLA_PYTHON_CLIENT_PREALLOCATE"] = "false"
-        os.environ["XLA_PYTHON_CLIENT_ALLOCATOR"] = "platform"
-        os.environ["XLA_PYTHON_CLIENT_MEM_FRACTION"] = "0.75"
+            os.environ["XLA_PYTHON_CLIENT_PREALLOCATE"] = "false"
+            os.environ["XLA_PYTHON_CLIENT_ALLOCATOR"] = "platform"
+            os.environ["XLA_PYTHON_CLIENT_MEM_FRACTION"] = "0.75"
 
-        start_time = time.time()
-        mcmc, nlike_nuts = run_nuts(stepsize, tree_depth, nwarmup, nsamples_nuts, d)
-        time_nuts[d] = time.time() - start_time
+            start_time = time.time()
+            mcmc, nlike_nuts = run_nuts(stepsize, tree_depth, nwarmup, nsamples_nuts, d)
+            time_nuts[d] = time.time() - start_time
 
-        nuts_grouped = process_nuts_chains(mcmc, d, NCHAIN)
-        stats_nuts[d] = calculate_summary(nuts_grouped[0], nuts_grouped[1], nlike_nuts)
-        nlike_nuts_record[d] = nlike_nuts
+            nuts_grouped = process_nuts_chains(mcmc, d, NCHAIN)
+            stats_nuts[d] = calculate_summary(nuts_grouped[0], nuts_grouped[1], nlike_nuts)
+            nlike_nuts_record[d] = nlike_nuts
 
-        dill_save(stats_nuts, "rosenbrock/nuts", f"stats_nuts_{d}")
-        dill_save(nlike_nuts_record, "rosenbrock/nuts", f"nlike_nuts_{d}")
-        dill_save(time_nuts, "rosenbrock/nuts", f"time_nuts_{d}")
+            dill_save(stats_nuts, f"rosenbrock/nuts_{r}", f"stats_nuts_{d}")
+            dill_save(nlike_nuts_record, f"rosenbrock/nuts_{r}", f"nlike_nuts_{d}")
+            dill_save(time_nuts, f"rosenbrock/nuts_{r}", f"time_nuts_{d}")
 
-        del mcmc
-        del os.environ["XLA_PYTHON_CLIENT_ALLOCATOR"]
-        gc.collect()
-        jax.clear_backends()
+            del mcmc
+            del os.environ["XLA_PYTHON_CLIENT_ALLOCATOR"]
+            gc.collect()
+            jax.clear_backends()
 
 
 if __name__ == "__main__":
-    dimensions = np.arange(4, 50, 4)
-    main(dimensions, STEPSIZE, TREE_DEPTH, NWARMUP, NSAMPLES_NUTS)
+    dimensions = np.arange(1, 11, 1) * 10 # np.arange(4, 50, 4)
+    main(dimensions, STEPSIZE, TREE_DEPTH, NWARMUP, NSAMPLES_NUTS, nrepeat=5)
