@@ -166,9 +166,11 @@ def main(dimension, stepsize, tree_depth, nwarmup, nsamples_nuts, nrepeat=5):
                 emcee_samples[0], emcee_samples[1], nlike_emcee
             )
             nlike_emcee_record[d] = nlike_emcee
-            dill_save(stats_emcee, f"rosenbrock/emcee_2_{r}", f"stats_emcee_{d}")
-            dill_save(nlike_emcee_record, f"rosenbrock/emcee_2_{r}", f"nlike_emcee_{d}")
-            dill_save(time_emcee, f"rosenbrock/emcee_2_{r}", f"time_emcee_{d}")
+            dill_save(stats_emcee, f"rosenbrock/emcee_2_{r+5}", f"stats_emcee_{d}")
+            dill_save(
+                nlike_emcee_record, f"rosenbrock/emcee_2_{r+5}", f"nlike_emcee_{d}"
+            )
+            dill_save(time_emcee, f"rosenbrock/emcee_2_{r+5}", f"time_emcee_{d}")
 
             print(f"Sampling dimensions {d} with NUTS")
 
@@ -190,9 +192,9 @@ def main(dimension, stepsize, tree_depth, nwarmup, nsamples_nuts, nrepeat=5):
             )
             nlike_nuts_record[d] = nlike_nuts
 
-            dill_save(stats_nuts, f"rosenbrock/nuts_2_{r}", f"stats_nuts_{d}")
-            dill_save(nlike_nuts_record, f"rosenbrock/nuts_2_{r}", f"nlike_nuts_{d}")
-            dill_save(time_nuts, f"rosenbrock/nuts_2_{r}", f"time_nuts_{d}")
+            dill_save(stats_nuts, f"rosenbrock/nuts_2_{r+5}", f"stats_nuts_{d}")
+            dill_save(nlike_nuts_record, f"rosenbrock/nuts_2_{r+5}", f"nlike_nuts_{d}")
+            dill_save(time_nuts, f"rosenbrock/nuts_2_{r+5}", f"time_nuts_{d}")
 
             del mcmc
             del os.environ["XLA_PYTHON_CLIENT_ALLOCATOR"]
