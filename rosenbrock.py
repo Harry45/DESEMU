@@ -146,6 +146,34 @@ def process_nuts_chains(mcmc, ndim, nchain):
     return record
 
 
+def sample(
+    dimension: int,
+    stepsize: float,
+    tree_depth: int,
+    nwarmup: int,
+    nsamples_nuts: int,
+    initial=None,
+):
+
+    os.environ["XLA_PYTHON_CLIENT_PREALLOCATE"] = "false"
+    os.environ["XLA_PYTHON_CLIENT_ALLOCATOR"] = "platform"
+    os.environ["XLA_PYTHON_CLIENT_MEM_FRACTION"] = "0.75"
+
+    if initial is None:
+        initial = np.ones(dimension)
+    emcee_samples, nlike_emcee = run_emcee(initial, DISCARD, THIN, dimension, NCHAIN)
+    nuts_samples, nlike_nuts = run_nuts(
+        stepsize, tree_depth, nwarmup, nsamples_nuts, dimension
+    )
+
+    dill_save(emcee_samples, f"rosenbrock/emcee_samples", f"dimension_{dimension}")
+    dill_save(nuts_samples, f"rosenbrock/nuts_samples", f"dimension_{dimension}")
+
+    gc.collect()
+    jax.clear_backends()
+    return emcee_samples, nuts_samples
+
+
 def main(dimension, stepsize, tree_depth, nwarmup, nsamples_nuts, nrepeat=5):
 
     for r in range(nrepeat):
@@ -203,5 +231,10 @@ def main(dimension, stepsize, tree_depth, nwarmup, nsamples_nuts, nrepeat=5):
 
 
 if __name__ == "__main__":
-    dimensions = np.arange(1, 11, 1) * 10  # np.arange(4, 50, 4)
-    main(dimensions, STEPSIZE, TREE_DEPTH, NWARMUP, NSAMPLES_NUTS, nrepeat=5)
+    # dimensions = np.arange(1, 11, 1) * 10  # np.arange(4, 50, 4)
+    # main(dimensions, STEPSIZE, TREE_DEPTH, NWARMUP, NSAMPLES_NUTS, nrepeat=5)
+    dimension = 100
+    initial = np.ones(dimension)
+    emcee_samples, nuts_samples = sample(
+        dimension, STEPSIZE, TREE_DEPTH, NWARMUP, 10, initial
+    )
