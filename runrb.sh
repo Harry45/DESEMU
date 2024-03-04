@@ -1,5 +1,7 @@
 # whereis python | grep 'jaxcosmo'
-/mnt/users/phys2286/anaconda3/envs/jaxcosmo/bin/python3 test.py
+.$CONDA_ROOT/etc/profile.d/conda.sh
+source activate jaxcosmo
+python test.py
 # source /mnt/zfsusers/phys2286/anaconda3/etc/profile.d/conda.sh
 # conda activate jaxcosmo
 # which python
