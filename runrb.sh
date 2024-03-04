@@ -1,4 +1,4 @@
-# whereis python | grep 'jaxcosmo'
+#!/bin/bash
 echo $PWD
 source /mnt/zfsusers/phys2286/anaconda3/etc/profile.d/conda.sh
 source activate jaxcosmo
