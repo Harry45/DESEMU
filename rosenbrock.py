@@ -110,20 +110,20 @@ def model(ndim):
     numpyro.factor("log_prob", jit_loglike(xvalues))
 
 
-def run_nuts(stepsize, tree_depth, nwarmup, nsamples_nuts, ndim, nchain=2):
-    init_strategy = init_to_value(values={f"x{i}": 1.0 for i in range(ndim)})
+def run_nuts(initial, ndim):
+    init_strategy = init_to_value(values={f"x{i}": initial[i] for i in range(ndim)})
     nuts_kernel = NUTS(
         model,
-        step_size=stepsize,
+        step_size=STEPSIZE,
         dense_mass=True,
-        max_tree_depth=tree_depth,
+        max_tree_depth=TREE_DEPTH,
         init_strategy=init_strategy,
     )
     mcmc = MCMC(
         nuts_kernel,
-        num_chains=nchain,
-        num_warmup=nwarmup,
-        num_samples=nsamples_nuts,
+        num_chains=NCHAIN,
+        num_warmup=NWARMUP,
+        num_samples=NSAMPLES_NUTS,
         chain_method="vectorized",
     )
     random_integer = random.randint(0, 1000)
@@ -146,83 +146,81 @@ def process_nuts_chains(mcmc, ndim, nchain):
     return record
 
 
-def sample(
-    dimension: int,
-    stepsize: float,
-    tree_depth: int,
-    nwarmup: int,
-    nsamples_nuts: int,
-    initial=None,
+def main_emcee(
+    initial: np.ndarray,
+    dimension: np.ndarray,
+    nrepeat: int = 1,
+    folder: str = "rosenbrock/emcee_gi",
 ):
+    """Run the EMCEE sampler at an initial position.
 
-    os.environ["XLA_PYTHON_CLIENT_PREALLOCATE"] = "false"
-    os.environ["XLA_PYTHON_CLIENT_ALLOCATOR"] = "platform"
-    os.environ["XLA_PYTHON_CLIENT_MEM_FRACTION"] = "0.75"
-
-    if initial is None:
-        initial = np.ones(dimension)
-    emcee_samples, nlike_emcee = run_emcee(initial, DISCARD, THIN, dimension, NCHAIN)
-    nuts_samples, nlike_nuts = run_nuts(
-        stepsize, tree_depth, nwarmup, nsamples_nuts, dimension
-    )
-
-    dill_save(emcee_samples, f"rosenbrock/emcee_samples", f"dimension_{dimension}")
-    dill_save(nuts_samples, f"rosenbrock/nuts_samples", f"dimension_{dimension}")
-
-    gc.collect()
-    jax.clear_backends()
-    return emcee_samples, nuts_samples
-
-
-def main(dimension, stepsize, tree_depth, nwarmup, nsamples_nuts, nrepeat=5):
-
+    Args:
+        initial (np.ndarray): the initial position of the sampler.
+        dimension (np.ndarray): the dimensionality of the Rosenbrock function.
+        nrepeat (int, optional): the number of times we want to repeat the experiment. Defaults to 1.
+        folder (str, optional): the folder where we want to store the samples. Defaults to "rosenbrock/emcee_good_initial".
+    """
     for r in range(nrepeat):
         for d in dimension:
             print(f"Sampling dimensions {d} with EMCEE")
+            position = np.repeat(initial.reshape(1, -1), d // 2, axis=0).reshape(-1)
+            print(position)
+            stats_record = {}
+            nlike_record = {}
+            time_record = {}
 
-            stats_emcee = {}
-            nlike_emcee_record = {}
-            time_emcee = {}
-
-            initial = np.ones(d)
-
+            # run the EMCEE sampler
             start_time = time.time()
-            emcee_samples, nlike_emcee = run_emcee(initial, DISCARD, THIN, d, NCHAIN)
-            time_emcee[d] = time.time() - start_time
+            samples, nlike = run_emcee(position, DISCARD, THIN, d, NCHAIN)
+            time_record[d] = time.time() - start_time
 
-            stats_emcee[d] = calculate_summary(
-                emcee_samples[0], emcee_samples[1], nlike_emcee
-            )
-            nlike_emcee_record[d] = nlike_emcee
-            dill_save(stats_emcee, f"rosenbrock/emcee_2_{r+5}", f"stats_emcee_{d}")
-            dill_save(
-                nlike_emcee_record, f"rosenbrock/emcee_2_{r+5}", f"nlike_emcee_{d}"
-            )
-            dill_save(time_emcee, f"rosenbrock/emcee_2_{r+5}", f"time_emcee_{d}")
+            # calculate the statistics
+            stats_record[d] = calculate_summary(samples[0], samples[1], nlike)
+            nlike_record[d] = nlike
 
-            print(f"Sampling dimensions {d} with NUTS")
+            emcee_folder = f"{folder}_{r}"
+            dill_save(stats_record, emcee_folder, f"stats_emcee_{d}")
+            dill_save(nlike_record, emcee_folder, f"nlike_emcee_{d}")
+            dill_save(time_record, emcee_folder, f"time_emcee_{d}")
 
-            stats_nuts = {}
-            nlike_nuts_record = {}
-            time_nuts = {}
 
+def main_nuts(
+    initial: np.ndarray,
+    dimension: np.ndarray,
+    nrepeat: int = 1,
+    folder: str = "rosenbrock/nuts_gi",
+):
+    """Run the NUTS sampler at a given position.
+
+    Args:
+        initial (np.ndarray): the initial position of the sampler.
+        dimension (np.ndarray): the dimension of the problem.
+        nrepeat (int, optional): the number of times we want to repeat the experiment. Defaults to 1.
+        folder (str, optional): the folder we want to store the samples. Defaults to "rosenbrock/nuts_gi".
+    """
+    for r in range(nrepeat):
+        for d in dimension:
             os.environ["XLA_PYTHON_CLIENT_PREALLOCATE"] = "false"
             os.environ["XLA_PYTHON_CLIENT_ALLOCATOR"] = "platform"
             os.environ["XLA_PYTHON_CLIENT_MEM_FRACTION"] = "0.75"
+            print(f"Sampling dimensions {d} with NUTS")
+            position = np.repeat(initial.reshape(1, -1), d // 2, axis=0).reshape(-1)
+            stats_record = {}
+            nlike_record = {}
+            time_record = {}
 
             start_time = time.time()
-            mcmc, nlike_nuts = run_nuts(stepsize, tree_depth, nwarmup, nsamples_nuts, d)
-            time_nuts[d] = time.time() - start_time
+            mcmc, nlike = run_nuts(position, d)
+            time_record[d] = time.time() - start_time
 
             nuts_grouped = process_nuts_chains(mcmc, d, NCHAIN)
-            stats_nuts[d] = calculate_summary(
-                nuts_grouped[0], nuts_grouped[1], nlike_nuts
-            )
-            nlike_nuts_record[d] = nlike_nuts
+            stats_record[d] = calculate_summary(nuts_grouped[0], nuts_grouped[1], nlike)
+            nlike_record[d] = nlike
 
-            dill_save(stats_nuts, f"rosenbrock/nuts_2_{r+5}", f"stats_nuts_{d}")
-            dill_save(nlike_nuts_record, f"rosenbrock/nuts_2_{r+5}", f"nlike_nuts_{d}")
-            dill_save(time_nuts, f"rosenbrock/nuts_2_{r+5}", f"time_nuts_{d}")
+            nuts_folder = f"{folder}_{r}"
+            dill_save(stats_record, nuts_folder, f"stats_nuts_{d}")
+            dill_save(nlike_record, nuts_folder, f"nlike_nuts_{d}")
+            dill_save(time_record, nuts_folder, f"time_nuts_{d}")
 
             del mcmc
             del os.environ["XLA_PYTHON_CLIENT_ALLOCATOR"]
@@ -231,10 +229,7 @@ def main(dimension, stepsize, tree_depth, nwarmup, nsamples_nuts, nrepeat=5):
 
 
 if __name__ == "__main__":
-    # dimensions = np.arange(1, 11, 1) * 10  # np.arange(4, 50, 4)
-    # main(dimensions, STEPSIZE, TREE_DEPTH, NWARMUP, NSAMPLES_NUTS, nrepeat=5)
-    dimension = 100
-    initial = np.ones(dimension)
-    emcee_samples, nuts_samples = sample(
-        dimension, STEPSIZE, TREE_DEPTH, NWARMUP, 10, initial
-    )
+    dimensions = np.arange(1, 11, 1) * 10
+    initial = np.array([0.45, 0.39])
+    main_emcee(initial, dimensions, nrepeat=15, folder="rosenbrock/emcee_gi")
+    main_nuts(initial, dimensions, nrepeat=15, folder="rosenbrock/nuts_gi")
