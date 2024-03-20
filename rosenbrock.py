@@ -20,8 +20,6 @@ TREE_DEPTH = 8
 STEPSIZE = 0.01
 NSAMPLES_NUTS = 15000
 NWARMUP = 500
-THIN = 10
-DISCARD = 100
 
 normal_prior = ss.norm(0, 1)
 
@@ -48,29 +46,31 @@ def jit_grad_loglike(xvalues):
     return jax.jacfwd(loglikelihood)(xvalues)
 
 
-def single_emcee_run(fiducial, discard, thin, ndim):
+def single_emcee_run(fiducial, ndim):
     pos = fiducial + 1e-3 * np.random.randn(2 * ndim, ndim)
     nwalkers, ndim = pos.shape
     sampler = emcee.EnsembleSampler(nwalkers, ndim, logposterior)
-    nsamples_emcee = int((NSAMPLES_NUTS * thin) / (2 * ndim) + discard)
+    # nsamples_emcee = int((NSAMPLES_NUTS * thin) / (2 * ndim) + discard)
+    nsamples_emcee = int(NSAMPLES_NUTS / (2 * ndim))
     sampler.run_mcmc(pos, nsamples_emcee, progress=True)
     return sampler
 
 
-def run_emcee(fiducial, discard, thin, ndim, nchain=2):
+def run_emcee(fiducial, ndim, nchain=2):
     if nchain > 1:
         record_samples = []
         total_samples = 0
         for chain in range(nchain):
-            sampler = single_emcee_run(fiducial, discard, thin, ndim)
-            emcee_samples = sampler.get_chain(discard=discard, thin=thin, flat=True)
+            sampler = single_emcee_run(fiducial, ndim)
+            emcee_samples = sampler.flatchain
+            # sampler.get_chain(discard=discard, thin=thin, flat=True)
             record_samples.append(emcee_samples)
             total_samples += sampler.flatchain.shape[0]
         return record_samples, total_samples
 
-    sampler = single_emcee_run(fiducial, discard, thin, ndim)
+    sampler = single_emcee_run(fiducial, ndim)
     total_samples = sampler.flatchain.shape[0]
-    emcee_samples = sampler.get_chain(discard=discard, thin=thin, flat=True)
+    emcee_samples = sampler.flatchain
     return emcee_samples, total_samples
 
 
@@ -164,14 +164,14 @@ def main_emcee(
         for d in dimension:
             print(f"Sampling dimensions {d} with EMCEE")
             position = np.repeat(initial.reshape(1, -1), d // 2, axis=0).reshape(-1)
-            print(position)
             stats_record = {}
             nlike_record = {}
             time_record = {}
 
             # run the EMCEE sampler
             start_time = time.time()
-            samples, nlike = run_emcee(position, DISCARD, THIN, d, NCHAIN)
+            samples, nlike = run_emcee(position, d, NCHAIN)
+            print(samples[0].shape[0])
             time_record[d] = time.time() - start_time
 
             # calculate the statistics
@@ -229,7 +229,7 @@ def main_nuts(
 
 
 if __name__ == "__main__":
-    dimensions = np.arange(1, 11, 1) * 10  # [4]  #
+    dimensions = np.arange(1, 11, 1) * 10
     initial = np.array([0.45, 0.39])
-    # main_emcee(initial, dimensions, nrepeat=15, folder="rosenbrock/emcee_gi")
-    main_nuts(initial, dimensions, nrepeat=15, folder="rosenbrock/nuts_gi")
+    main_emcee(initial, dimensions, nrepeat=15, folder="rosenbrock/emcee_gi_nt")
+    # main_nuts(initial, dimensions, nrepeat=15, folder="rosenbrock/nuts_gi")
