@@ -178,7 +178,7 @@ def main_emcee(
             stats_record[d] = calculate_summary(samples[0], samples[1], nlike)
             nlike_record[d] = nlike
 
-            emcee_folder = f"{folder}_{r}"
+            emcee_folder = f"{folder}_{r+2}"
             dill_save(stats_record, emcee_folder, f"stats_emcee_{d}")
             dill_save(nlike_record, emcee_folder, f"nlike_emcee_{d}")
             dill_save(time_record, emcee_folder, f"time_emcee_{d}")
@@ -232,5 +232,5 @@ if __name__ == "__main__":
     dimensions = np.arange(1, 11, 1) * 10
     initial = np.array([0.45, 0.39])
     # nt means no thinning
-    main_emcee(initial, dimensions, nrepeat=2, folder="rosenbrock/emcee_gi_nt")
+    main_emcee(initial, dimensions, nrepeat=13, folder="rosenbrock/emcee_gi_nt")
     # main_nuts(initial, dimensions, nrepeat=15, folder="rosenbrock/nuts_gi")
