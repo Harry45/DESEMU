@@ -20,6 +20,7 @@ TREE_DEPTH = 8
 STEPSIZE = 0.01
 NSAMPLES_NUTS = 15000
 NWARMUP = 500
+NSAMPLES = 1500
 
 normal_prior = ss.norm(0, 1)
 
@@ -46,22 +47,22 @@ def jit_grad_loglike(xvalues):
     return jax.jacfwd(loglikelihood)(xvalues)
 
 
-def single_emcee_run(fiducial, ndim):
+def single_emcee_run(fiducial, ndim, nsamples):
     pos = fiducial + 1e-3 * np.random.randn(2 * ndim, ndim)
     nwalkers, ndim = pos.shape
     sampler = emcee.EnsembleSampler(nwalkers, ndim, logposterior)
     # nsamples_emcee = int((NSAMPLES_NUTS * thin) / (2 * ndim) + discard)
-    nsamples_emcee = int(NSAMPLES_NUTS / (2 * ndim))
-    sampler.run_mcmc(pos, nsamples_emcee, progress=True)
+    # nsamples_emcee = int(NSAMPLES_NUTS / (2 * ndim))
+    sampler.run_mcmc(pos, nsamples, progress=False)
     return sampler
 
 
-def run_emcee(fiducial, ndim, nchain=2):
+def run_emcee(fiducial, ndim, nsamples, nchain=2):
     if nchain > 1:
         record_samples = []
         total_samples = 0
         for chain in range(nchain):
-            sampler = single_emcee_run(fiducial, ndim)
+            sampler = single_emcee_run(fiducial, ndim, nsamples)
             emcee_samples = sampler.flatchain
             # sampler.get_chain(discard=discard, thin=thin, flat=True)
             record_samples.append(emcee_samples)
@@ -98,7 +99,8 @@ def calculate_summary(samples_1, samples_2, nlike, ndecimal=3):
         )
 
     record_df = pd.concat(record_df, axis=1).T
-    record_df["n_eff"] /= nlike
+    nsamples = samples_1.shape[0] + samples_2.shape[0]
+    record_df["n_eff"] /= nsamples  # nlike
     return record_df
 
 
@@ -170,8 +172,8 @@ def main_emcee(
 
             # run the EMCEE sampler
             start_time = time.time()
-            samples, nlike = run_emcee(position, d, NCHAIN)
-            print(samples[0].shape[0])
+            samples, nlike = run_emcee(position, d, NSAMPLES, NCHAIN)
+            print(samples[0].shape)
             time_record[d] = time.time() - start_time
 
             # calculate the statistics
@@ -232,5 +234,5 @@ if __name__ == "__main__":
     dimensions = np.arange(1, 11, 1) * 10
     initial = np.array([0.45, 0.39])
     # nt means no thinning
-    # main_emcee(initial, dimensions, nrepeat=15, folder="rosenbrock/emcee_gi_nt")
-    # main_nuts(initial, dimensions, nrepeat=15, folder="rosenbrock/nuts_gi")
+    main_emcee(initial, dimensions, nrepeat=15, folder="rosenbrock/emcee_gi_nt")
+    main_nuts(initial, dimensions, nrepeat=15, folder="rosenbrock/nuts_gi")
