@@ -234,5 +234,5 @@ if __name__ == "__main__":
     dimensions = np.arange(1, 11, 1) * 10
     initial = np.array([0.45, 0.39])
     # nt means no thinning
-    main_emcee(initial, dimensions, nrepeat=15, folder="rosenbrock/emcee_gi_nt")
-    main_nuts(initial, dimensions, nrepeat=15, folder="rosenbrock/nuts_gi")
+    main_emcee(initial, dimensions, nrepeat=1, folder="rosenbrock/emcee_gi_nt")
+    main_nuts(initial, dimensions, nrepeat=1, folder="rosenbrock/nuts_gi")
