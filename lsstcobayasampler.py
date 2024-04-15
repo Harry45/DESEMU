@@ -12,7 +12,7 @@ from lsst.functions import load_data, jit_theory
 os.environ["XLA_PYTHON_CLIENT_PREALLOCATE"] = "false"
 os.environ["XLA_PYTHON_CLIENT_ALLOCATOR"] = "platform"
 os.environ["XLA_PYTHON_CLIENT_MEM_FRACTION"] = "0.75"
-jc.power.USE_EMU = True
+jc.power.USE_EMU = False
 ELLMAX_WL = 3000
 
 
