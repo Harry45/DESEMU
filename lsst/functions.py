@@ -36,7 +36,10 @@ def load_data(path="data/lsst_mock_data.fits"):
     data, covariance = extract_data_covariance(saccfile_cut)
     print(data.shape)
     print(covariance.shape)
-    print(min(jnp.linalg.eigh(covariance)[0]))
+    eigvals = jnp.linalg.eigh(covariance).block_until_ready()
+    print(min(eigvals[0]))
+    print("success!")
+
     precision = jnp.linalg.inv(covariance)
     return data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl
 
