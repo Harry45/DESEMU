@@ -7,7 +7,6 @@ import emcee
 import sacc
 import jax_cosmo as jc
 import jax.numpy as jnp
-import numpy as np
 import matplotlib.pylab as plt
 from jax import config
 from numpyro.handlers import seed
@@ -31,10 +30,10 @@ def load_data(path="data/lsst_mock_data.fits"):
     saccfile = sacc.Sacc.load_fits(path)
     jax_nz_wl = get_nz(saccfile, tracertype="wl")
     jax_nz_gc = get_nz(saccfile, tracertype="gc")
+    print("Success")
     saccfile_cut = scale_cuts(saccfile, kmax=0.15, lmin_wl=30, lmax_wl=ELLMAX_WL)
     bw_gc, bw_gc_wl, bw_wl = extract_bandwindow(saccfile_cut)
     data, covariance = extract_data_covariance(saccfile_cut)
-    # eigvals = jnp.linalg.eigh(covariance).block_until_ready()
     precision = jnp.linalg.inv(covariance)
     return data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl
 
@@ -221,7 +220,7 @@ def extract_data_covariance(saccfile):
             )
             indices += list(ind)
 
-    indices = np.array(indices)
+    indices = jnp.array(indices)
     covariance = saccfile.covariance.covmat[indices][:, indices]
     data = saccfile.mean[indices]
     return jnp.array(data), jnp.array(covariance)
