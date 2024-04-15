@@ -31,7 +31,9 @@ def load_data(path="data/lsst_mock_data.fits"):
     jax_nz_wl = get_nz(saccfile, tracertype="wl")
     jax_nz_gc = get_nz(saccfile, tracertype="gc")
     saccfile_cut = scale_cuts(saccfile, kmax=0.15, lmin_wl=30, lmax_wl=ELLMAX_WL)
+    print("Now extracting bandwindow")
     bw_gc, bw_gc_wl, bw_wl = extract_bandwindow(saccfile_cut)
+    print("Now extracting data-covariance")
     data, covariance = extract_data_covariance(saccfile_cut)
     precision = jnp.linalg.inv(covariance)
     return data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl
@@ -145,7 +147,7 @@ def get_ells_bandwindow(sfile, tracer_name_1, tracer_name_2, ellmax):
     fine_ells = window.values
     indices = (fine_ells >= 2) & (fine_ells <= ellmax)
     fine_ells = jnp.asarray(fine_ells[indices], dtype=jnp.float32)
-    bandwindow = jnp.asarray(window.weight[indices])
+    bandwindow = jnp.asarray(window.weight[indices], dtype=jnp.float32)
     return fine_ells, bandwindow
 
 
