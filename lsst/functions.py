@@ -75,7 +75,6 @@ def calculate_lmax_gc(sfile, kmax):
     lmaxs = list()
     for i in range(nbin_gc):
         tracer = sfile.tracers[f"{TNAME_GC}{i}"]
-        print(tracer.z)
         zmid = jnp.average(jnp.asarray(tracer.z), weights=jnp.asarray(tracer.nz))
         chi = jc.background.radial_comoving_distance(vanillacosmo, 1.0 / (1.0 + zmid))
         minmax = jnp.concatenate([10.0 * jnp.ones(1), kmax * chi - 0.5], dtype=int)
@@ -95,6 +94,8 @@ def scale_cuts(sfile, kmax=0.15, lmin_wl=30, lmax_wl=2000):
     nbin_gc = sum([TNAME_GC in tracers_names[i] for i in range(len(tracers_names))])
     nbin_wl = sum([TNAME_WL in tracers_names[i] for i in range(len(tracers_names))])
     lmaxs_gc = calculate_lmax_gc(sfile, kmax)
+
+    print(lmaxs_gc)
 
     for i, lmax in enumerate(lmaxs_gc):
         print(f"Maximum ell is {lmax}")
