@@ -16,6 +16,7 @@ import numpyro.distributions as dist
 from numpyro.infer import MCMC, HMC, NUTS, BarkerMH, init_to_median
 from cobaya.run import run
 
+jax.config.update("jax_enable_x64", True)
 
 ZMAX = 3.5
 TNAME_WL = "LSSTwl__"
@@ -33,6 +34,8 @@ def load_data(path="data/lsst_mock_data.fits"):
     saccfile_cut = scale_cuts(saccfile, kmax=0.15, lmin_wl=30, lmax_wl=ELLMAX_WL)
     bw_gc, bw_gc_wl, bw_wl = extract_bandwindow(saccfile_cut)
     data, covariance = extract_data_covariance(saccfile_cut)
+    print(data.shape)
+    print(covariance.shape)
     precision = jnp.linalg.inv(covariance)
     return data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl
 

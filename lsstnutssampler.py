@@ -171,41 +171,41 @@ if __name__ == "__main__":
         "dz_gc_9": 1e-3,
         "dz_gc_10": 1e-3,
     }
-    nuts_kernel = NUTS(
-        numpyro_model,
-        step_size=STEPSIZE,
-        init_strategy=init_to_value(values=ref_params),  # init_to_median,
-        dense_mass=True,
-        max_tree_depth=TREE_DEPTH,
-    )
+    # nuts_kernel = NUTS(
+    #     numpyro_model,
+    #     step_size=STEPSIZE,
+    #     init_strategy=init_to_value(values=ref_params),  # init_to_median,
+    #     dense_mass=True,
+    #     max_tree_depth=TREE_DEPTH,
+    # )
 
-    mcmc_nuts = MCMC(
-        nuts_kernel,
-        num_warmup=NWARMUP,
-        num_samples=NSAMPLES,
-        num_chains=2,
-        chain_method="vectorized",
-        progress_bar=True,
-    )
+    # mcmc_nuts = MCMC(
+    #     nuts_kernel,
+    #     num_warmup=NWARMUP,
+    #     num_samples=NSAMPLES,
+    #     num_chains=2,
+    #     chain_method="vectorized",
+    #     progress_bar=True,
+    # )
 
-    start_time = datetime.now()
+    # start_time = datetime.now()
 
-    mcmc_nuts.run(
-        jax.random.PRNGKey(random.randint(0, 1000)),
-        data,
-        precision,
-        jax_nz_gc,
-        jax_nz_wl,
-        bw_gc,
-        bw_gc_wl,
-        bw_wl,
-    )
-    end_time = datetime.now()
-    print(f"Time taken for NUTS sampler is : {end_time - start_time}")
+    # mcmc_nuts.run(
+    #     jax.random.PRNGKey(random.randint(0, 1000)),
+    #     data,
+    #     precision,
+    #     jax_nz_gc,
+    #     jax_nz_wl,
+    #     bw_gc,
+    #     bw_gc_wl,
+    #     bw_wl,
+    # )
+    # end_time = datetime.now()
+    # print(f"Time taken for NUTS sampler is : {end_time - start_time}")
 
-    if jc.power.USE_EMU:
-        fname = "nuts_sampler_emulator"
-    else:
-        fname = "nuts_sampler_jaxcosmo"
+    # if jc.power.USE_EMU:
+    #     fname = "nuts_sampler_emulator"
+    # else:
+    #     fname = "nuts_sampler_jaxcosmo"
 
-    pickle_save(mcmc_nuts, "lsst", fname)
+    # pickle_save(mcmc_nuts, "lsst", fname)
