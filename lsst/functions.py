@@ -34,12 +34,7 @@ def load_data(path="data/lsst_mock_data.fits"):
     saccfile_cut = scale_cuts(saccfile, kmax=0.15, lmin_wl=30, lmax_wl=ELLMAX_WL)
     bw_gc, bw_gc_wl, bw_wl = extract_bandwindow(saccfile_cut)
     data, covariance = extract_data_covariance(saccfile_cut)
-    print(data.shape)
-    print(covariance.shape)
-    eigvals = jnp.linalg.eigh(covariance).block_until_ready()
-    print(min(eigvals[0]))
-    print("success!")
-
+    # eigvals = jnp.linalg.eigh(covariance).block_until_ready()
     precision = jnp.linalg.inv(covariance)
     return data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl
 

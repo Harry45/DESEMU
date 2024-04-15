@@ -1,7 +1,7 @@
 # This module computes power spectra
 import jax
 import jax.numpy as jnp
-from jax.config import config
+
 import jax_cosmo.background as bkgrd
 import jax_cosmo.constants as const
 import jax_cosmo.transfer as tklib
@@ -12,7 +12,13 @@ from jax_cosmo.utils import load_pkl, a2z
 from jax_cosmo.emulator import prediction_pklin_jax, prediction_gf_jax
 from jax.experimental import checkify
 
-config.update("jax_enable_x64", True)
+jax.config.update("jax_enable_x64", True)
+
+# if jax.__version__ == "0.3.25":
+#     from jax.config import config
+# else:
+#     from jax import config
+# config.update("jax_enable_x64", True)
 
 __all__ = ["primordial_matter_power", "linear_matter_power", "nonlinear_matter_power"]
 
@@ -313,11 +319,7 @@ def halofit(cosmo, k, a, transfer_fn, prescription="takahashi2012"):
             + 0.1749 * om_de * (1 + w)
         )
         b_n = 10 ** (
-            -0.5642
-            + 0.5864 * n
-            + 0.5716 * n**2
-            - 1.5474 * C
-            + 0.2279 * om_de * (1 + w)
+            -0.5642 + 0.5864 * n + 0.5716 * n**2 - 1.5474 * C + 0.2279 * om_de * (1 + w)
         )
         c_n = 10 ** (0.3698 + 2.0404 * n + 0.8161 * n**2 + 0.5869 * C)
         gamma_n = 0.1971 - 0.0843 * n + 0.8460 * C
