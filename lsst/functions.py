@@ -31,7 +31,6 @@ def load_data(path="data/lsst_mock_data.fits"):
     jax_nz_wl = get_nz(saccfile, tracertype="wl")
     jax_nz_gc = get_nz(saccfile, tracertype="gc")
     saccfile_cut = scale_cuts(saccfile, kmax=0.15, lmin_wl=30, lmax_wl=ELLMAX_WL)
-    print("Success")
     bw_gc, bw_gc_wl, bw_wl = extract_bandwindow(saccfile_cut)
     data, covariance = extract_data_covariance(saccfile_cut)
     precision = jnp.linalg.inv(covariance)
@@ -97,8 +96,6 @@ def scale_cuts(sfile, kmax=0.15, lmin_wl=30, lmax_wl=2000):
     nbin_gc = sum([TNAME_GC in tracers_names[i] for i in range(len(tracers_names))])
     nbin_wl = sum([TNAME_WL in tracers_names[i] for i in range(len(tracers_names))])
     lmaxs_gc = calculate_lmax_gc(sfile, kmax)
-
-    print(lmaxs_gc)
 
     for i, lmax in enumerate(lmaxs_gc):
         print(f"Maximum ell is {lmax}")
@@ -228,7 +225,7 @@ def extract_data_covariance(saccfile):
     indices = jnp.array(indices)
     covariance = saccfile.covariance.covmat[indices][:, indices]
     data = saccfile.mean[indices]
-    return jnp.array(data), jnp.array(covariance)
+    return jnp.array(data, dtype=jnp.float64), jnp.array(covariance, dtype=jnp.float64)
 
 
 def get_index_pairs(nbin1, nbin2=None, auto=False):
