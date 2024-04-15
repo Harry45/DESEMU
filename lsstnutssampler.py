@@ -17,7 +17,7 @@ os.environ["XLA_PYTHON_CLIENT_ALLOCATOR"] = "platform"
 os.environ["XLA_PYTHON_CLIENT_MEM_FRACTION"] = "0.75"
 
 # settings for GPUs
-GPU_NUMBER = 1
+GPU_NUMBER = 0
 jax.config.update("jax_default_device", jax.devices()[GPU_NUMBER])
 num_devices = jax.device_count()
 device_type = jax.devices()[0].device_kind
