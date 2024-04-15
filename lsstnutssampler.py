@@ -10,6 +10,8 @@ from numpyro.infer import MCMC, NUTS, init_to_median, init_to_value
 from lsst.functions import get_params_vec, get_bandpowers_theory, load_data
 from utils.helpers import pickle_save
 
+jax.config.update("jax_enable_x64", True)
+
 os.environ["XLA_PYTHON_CLIENT_PREALLOCATE"] = "false"
 os.environ["XLA_PYTHON_CLIENT_ALLOCATOR"] = "platform"
 os.environ["XLA_PYTHON_CLIENT_MEM_FRACTION"] = "0.75"
