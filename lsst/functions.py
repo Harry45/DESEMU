@@ -75,6 +75,7 @@ def calculate_lmax_gc(sfile, kmax):
     lmaxs = list()
     for i in range(nbin_gc):
         tracer = sfile.tracers[f"{TNAME_GC}{i}"]
+        print(tracer.z)
         zmid = jnp.average(jnp.asarray(tracer.z), weights=jnp.asarray(tracer.nz))
         chi = jc.background.radial_comoving_distance(vanillacosmo, 1.0 / (1.0 + zmid))
         minmax = jnp.concatenate([10.0 * jnp.ones(1), kmax * chi - 0.5], dtype=int)
