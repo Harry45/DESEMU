@@ -23,7 +23,7 @@ num_devices = jax.device_count()
 device_type = jax.devices()[0].device_kind
 numpyro.enable_x64()
 
-jc.power.USE_EMU = False
+jc.power.USE_EMU = True
 ELLMAX_WL = 3000
 
 print("-" * 50)
@@ -125,8 +125,8 @@ def numpyro_model(data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl)
 if __name__ == "__main__":
     STEPSIZE = 0.01
     TREE_DEPTH = 8
-    NWARMUP = 500
-    NSAMPLES = 15000
+    NWARMUP = 5
+    NSAMPLES = 5
 
     data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl = load_data(
         path="data/lsst_mock_data.fits"
@@ -199,6 +199,7 @@ if __name__ == "__main__":
         bw_gc,
         bw_gc_wl,
         bw_wl,
+        extra_fields=("potential_energy", "num_steps"),
     )
     end_time = datetime.now()
     print(f"Time taken for NUTS sampler is : {end_time - start_time}")
