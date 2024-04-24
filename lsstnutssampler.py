@@ -128,6 +128,8 @@ if __name__ == "__main__":
     NWARMUP = 500
     NSAMPLES = 15000
 
+    print(f"Number of samples is {NSAMPLES}")
+
     data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl = load_data(
         path="data/lsst_mock_data.fits"
     )
