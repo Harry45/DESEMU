@@ -125,8 +125,8 @@ def numpyro_model(data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl)
 if __name__ == "__main__":
     STEPSIZE = 0.01
     TREE_DEPTH = 8
-    NWARMUP = 5
-    NSAMPLES = 5
+    NWARMUP = 500
+    NSAMPLES = 15000
 
     data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl = load_data(
         path="data/lsst_mock_data.fits"
