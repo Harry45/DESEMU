@@ -23,7 +23,7 @@ num_devices = jax.device_count()
 device_type = jax.devices()[0].device_kind
 numpyro.enable_x64()
 
-jc.power.USE_EMU = False
+jc.power.USE_EMU = True
 ELLMAX_WL = 3000
 
 print("-" * 50)
