@@ -23,7 +23,7 @@ from utils.helpers import pickle_load
 # jax.config.update("jax_default_device", jax.devices("cpu")[0])
 jc.power.USE_EMU = True
 PROPOSAL = 1e-3
-NSAMPLES = 10000
+NSAMPLES = 500000
 MAIN_PATH = "./"  # "/mnt/zfsusers/phys2286/projects/DESEMU/"
 OUTPUT_FOLDER = MAIN_PATH + "outputcobaya/withcov/"
 if jc.power.USE_EMU:
