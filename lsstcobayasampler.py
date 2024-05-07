@@ -13,7 +13,7 @@ from utils.helpers import pickle_load
 os.environ["XLA_PYTHON_CLIENT_PREALLOCATE"] = "false"
 os.environ["XLA_PYTHON_CLIENT_ALLOCATOR"] = "platform"
 os.environ["XLA_PYTHON_CLIENT_MEM_FRACTION"] = "0.75"
-jc.power.USE_EMU = False
+jc.power.USE_EMU = True
 ELLMAX_WL = 3000
 
 
