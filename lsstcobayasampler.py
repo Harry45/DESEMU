@@ -95,7 +95,7 @@ class CobayaLSST:
 
 if __name__ == "__main__":
 
-    NSAMPLES = 500000
+    NSAMPLES = 1000
 
     data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl = load_data(
         path="data/lsst_mock_data.fits"
@@ -106,7 +106,7 @@ if __name__ == "__main__":
         covmat = pickle_load("CobayaLSST", "cov_jaxcosmo")
 
     lsstlike = CobayaLSST(
-        data, precision, params, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl
+        data, precision, params, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl, covmat
     )
 
     start_time = datetime.now()

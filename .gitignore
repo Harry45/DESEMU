@@ -10,7 +10,10 @@ quantities/
 reference/
 notes/
 jobs/
-outputcobaya/
+outputcobaya/ignore/
+outputcobaya/testing/emulator_*
+outputcobaya/testing/jaxcosmo_*
+outputcobaya/withcov/emulator_*
 rosenbrock/old/
 rosenbrock/nuts_*
 CobayaMVN/

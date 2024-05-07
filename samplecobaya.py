@@ -17,20 +17,19 @@ from cosmology.bandpowers import (
     extract_data_covariance,
 )
 import jax_cosmo as jc
-
+from utils.helpers import pickle_load
 
 # setting up cobaya, jaxcosmo and emulator
 # jax.config.update("jax_default_device", jax.devices("cpu")[0])
 jc.power.USE_EMU = True
 PROPOSAL = 1e-3
-NSAMPLES = 500000
-MAIN_PATH = "/mnt/zfsusers/phys2286/projects/DESEMU/"
-OUTPUT_FOLDER = MAIN_PATH + "outputcobaya/testing/"
-# "outputcobaya/testing/"
+NSAMPLES = 10000
+MAIN_PATH = "./"  # "/mnt/zfsusers/phys2286/projects/DESEMU/"
+OUTPUT_FOLDER = MAIN_PATH + "outputcobaya/withcov/"
 if jc.power.USE_EMU:
-    OUTPUT_FOLDER += "emulator_2/"
+    OUTPUT_FOLDER += "emulator_1/"
 else:
-    OUTPUT_FOLDER += "jaxcosmo_2/"
+    OUTPUT_FOLDER += "jaxcosmo_1/"
 
 if os.path.exists(OUTPUT_FOLDER) and os.path.isdir(OUTPUT_FOLDER):
     shutil.rmtree(OUTPUT_FOLDER)
@@ -259,8 +258,21 @@ info["params"] = {
     },
 }
 
-info["sampler"] = {"mcmc": {"max_samples": NSAMPLES, "Rminus1_stop": 0.01}}
-info["output"] = OUTPUT_FOLDER + "output_prefix"
+pnames = list(info["params"].keys())
+
+if jc.power.USE_EMU:
+    covmat = pickle_load("outputcobaya/testing", "cov_emulator")
+else:
+    covmat = pickle_load("outputcobaya/testing", "cov_jaxcosmo")
+info["sampler"] = {
+    "mcmc": {
+        "max_samples": NSAMPLES,
+        "Rminus1_stop": 0.01,
+        "covmat": covmat,
+        "covmat_params": pnames,
+    }
+}
+info["output"] = OUTPUT_FOLDER + "des"
 
 # normal Python run
 updated_info, sampler = run(info)
