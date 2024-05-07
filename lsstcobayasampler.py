@@ -8,6 +8,7 @@ import sacc
 from cobaya.run import run
 from lsst.parameters import params
 from lsst.functions import load_data, jit_theory
+from utils.helpers import pickle_load
 
 os.environ["XLA_PYTHON_CLIENT_PREALLOCATE"] = "false"
 os.environ["XLA_PYTHON_CLIENT_ALLOCATOR"] = "platform"
@@ -27,12 +28,22 @@ def get_output_folder(iteration, mainfolder="CobayaLSST/"):
 class CobayaLSST:
 
     def __init__(
-        self, data, precision, params, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl
+        self,
+        data,
+        precision,
+        params,
+        jax_nz_gc,
+        jax_nz_wl,
+        bw_gc,
+        bw_gc_wl,
+        bw_wl,
+        covmat,
     ):
         self.data = data
         self.precision = precision
         self.params = params
         self.pnames = list(params.keys())
+        self.covmat = covmat
         self._postinit(jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl)
 
     def _postinit(self, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl):
@@ -65,7 +76,14 @@ class CobayaLSST:
         }
 
         info["params"] = self.params
-        info["sampler"] = {"mcmc": {"max_samples": nsamples, "Rminus1_stop": criterion}}
+        info["sampler"] = {
+            "mcmc": {
+                "max_samples": nsamples,
+                "Rminus1_stop": criterion,
+                "covmat": self.covmat,
+                "covmat_params": self.pnames,
+            }
+        }
 
         path = get_output_folder(iteration)
         if os.path.exists(path) and os.path.isdir(path):
@@ -82,17 +100,21 @@ if __name__ == "__main__":
     data, precision, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl = load_data(
         path="data/lsst_mock_data.fits"
     )
+    if jc.power.USE_EMU:
+        covmat = pickle_load("CobayaLSST", "cov_emulator")
+    else:
+        covmat = pickle_load("CobayaLSST", "cov_jaxcosmo")
 
     lsstlike = CobayaLSST(
         data, precision, params, jax_nz_gc, jax_nz_wl, bw_gc, bw_gc_wl, bw_wl
     )
 
     start_time = datetime.now()
-    sampler_1 = lsstlike.run_sampler(nsamples=NSAMPLES, iteration=1)
+    sampler_1 = lsstlike.run_sampler(nsamples=NSAMPLES, iteration="cov_1")
     end_time = datetime.now()
     print(f"Time taken for sampler 1 is : {end_time - start_time}")
 
     start_time = datetime.now()
-    sampler_2 = lsstlike.run_sampler(nsamples=NSAMPLES, iteration=2)
+    sampler_2 = lsstlike.run_sampler(nsamples=NSAMPLES, iteration="cov_2")
     end_time = datetime.now()
     print(f"Time taken for sampler 1 is : {end_time - start_time}")

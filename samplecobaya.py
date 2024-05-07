@@ -185,8 +185,8 @@ info["params"] = {
         "proposal": PROPOSAL,
     },
     "dz_wl_3": {
-        "prior": {"dist": "norm", "loc": 0.0009, "scale": 0.011},
-        "ref": {"dist": "norm", "loc": 0.0009, "scale": 0.001},
+        "prior": {"dist": "norm", "loc": 0.009, "scale": 0.011},
+        "ref": {"dist": "norm", "loc": 0.009, "scale": 0.001},
         "proposal": PROPOSAL,
     },
     "dz_wl_4": {
