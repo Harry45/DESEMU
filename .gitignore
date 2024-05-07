@@ -15,7 +15,8 @@ rosenbrock/old/
 rosenbrock/nuts_*
 CobayaMVN/
 CobayaROS/
-CobayaLSST/
+CobayaLSST/emulator_*
+CobayaLSST/jaxcosmo_*
 mvn/sampler_*
 lsst/nuts_*
 
