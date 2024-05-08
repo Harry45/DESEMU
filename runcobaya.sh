@@ -1,7 +1,7 @@
 #!/bin/bash
 export COBAYA_USE_FILE_LOCKING=false
 source /mnt/zfsusers/phys2286/anaconda3/etc/profile.d/conda.sh
-conda activate desemu
+conda activate jaxcosmo
 which python
 echo $(for i in $(seq 1 50); do printf "-"; done)
 time python samplecobaya.py
