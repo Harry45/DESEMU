@@ -27,9 +27,9 @@ NSAMPLES = 500000
 MAIN_PATH = "./"  # "/mnt/zfsusers/phys2286/projects/DESEMU/"
 OUTPUT_FOLDER = MAIN_PATH + "outputcobaya/withcov/"
 if jc.power.USE_EMU:
-    OUTPUT_FOLDER += "emulator_gpu_2/"
+    OUTPUT_FOLDER += "emulator_2/"
 else:
-    OUTPUT_FOLDER += "jaxcosmo_gpu_2/"
+    OUTPUT_FOLDER += "jaxcosmo_2/"
 
 if os.path.exists(OUTPUT_FOLDER) and os.path.isdir(OUTPUT_FOLDER):
     shutil.rmtree(OUTPUT_FOLDER)
