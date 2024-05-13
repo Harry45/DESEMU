@@ -14,6 +14,7 @@ outputcobaya/ignore/
 outputcobaya/testing/emulator_*
 outputcobaya/testing/jaxcosmo_*
 outputcobaya/withcov/emulator_*
+outputcobaya/withcov/jaxcosmo_*
 rosenbrock/old/
 rosenbrock/nuts_*
 CobayaMVN/
