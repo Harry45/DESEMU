@@ -10,8 +10,18 @@ We integrate an emulator of the linear matter power spectrum in JAX-COSMO and we
 
 ### Running the Samplers
 
-For running `NUTS`:
+- For running `NUTS`:
 
 ```
 python sample.py --config=config.py:desyr1 --config.sampler=nuts --config.nuts.nwarmup=100 --config.nuts.nsamples=15000 --config.nuts.nchain=2 --config.nuts.chainmethod=vectorized --config.use_emu=False --config.samplername=1
 ```
+
+- For running `Cobaya`:
+
+```
+python samplecobaya.py
+```
+
+but we have to specify the setup (for example, number of samples) in the script first.
+
+- For the Multivariate Normal Distribution and the Rosenbrock function, the notebooks `rosenbrock.ipynb` and `multivariate.ipynb` are used.
