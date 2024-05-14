@@ -25,7 +25,7 @@ jc.power.USE_EMU = True
 PROPOSAL = 1e-3
 NSAMPLES = 500000
 MAIN_PATH = "./"  # "/mnt/zfsusers/phys2286/projects/DESEMU/"
-OUTPUT_FOLDER = MAIN_PATH + "outputcobaya/withcov/"
+OUTPUT_FOLDER = MAIN_PATH + "CobayaDES/withcov/"
 if jc.power.USE_EMU:
     OUTPUT_FOLDER += "emulator_2/"
 else:
@@ -261,9 +261,9 @@ info["params"] = {
 pnames = list(info["params"].keys())
 
 if jc.power.USE_EMU:
-    covmat = pickle_load("outputcobaya/withoutcov", "cov_emulator")
+    covmat = pickle_load("CobayaDES/withoutcov", "cov_emulator")
 else:
-    covmat = pickle_load("outputcobaya/withoutcov", "cov_jaxcosmo")
+    covmat = pickle_load("CobayaDES/withoutcov", "cov_jaxcosmo")
 info["sampler"] = {
     "mcmc": {
         "max_samples": NSAMPLES,
