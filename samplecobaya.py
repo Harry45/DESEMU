@@ -261,9 +261,9 @@ info["params"] = {
 pnames = list(info["params"].keys())
 
 if jc.power.USE_EMU:
-    covmat = pickle_load("outputcobaya/testing", "cov_emulator")
+    covmat = pickle_load("outputcobaya/withoutcov", "cov_emulator")
 else:
-    covmat = pickle_load("outputcobaya/testing", "cov_jaxcosmo")
+    covmat = pickle_load("outputcobaya/withoutcov", "cov_jaxcosmo")
 info["sampler"] = {
     "mcmc": {
         "max_samples": NSAMPLES,

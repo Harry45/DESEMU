@@ -11,18 +11,18 @@ reference/
 notes/
 jobs/
 outputcobaya/ignore/
-outputcobaya/testing/emulator_*
-outputcobaya/testing/jaxcosmo_*
+outputcobaya/withoutcov/emulator_*
+outputcobaya/withoutcov/jaxcosmo_*
 outputcobaya/withcov/emulator_*
 outputcobaya/withcov/jaxcosmo_*
-rosenbrock/old/
-rosenbrock/nuts_*
+rosenbrock/
 CobayaMVN/
 CobayaROS/
 CobayaLSST/emulator_*
 CobayaLSST/jaxcosmo_*
 mvn/sampler_*
 lsst/nuts_*
+paper-latex/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
